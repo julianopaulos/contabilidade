@@ -19,7 +19,8 @@ class Form
         $message["message"] = $login->validateLogin($data);
         if($message["message"] == "Success")
         {
-            $_SESSION["Logado"] = $data["email"];
+            $_SESSION["Logado"] = sha1($data["email"]);
+            $_SESSION["confirm"] = sha1($data["senha"]);
             echo json_encode($message);
         }
         else

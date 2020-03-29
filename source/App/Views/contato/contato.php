@@ -30,4 +30,4 @@
         <div class="ajax_load_box_title">Aguarde, carregando!</div>
     </div>
 </div>
-<script src="assets/js/validacao.js"></script>
+<script src="<?=ASSETS_URL?>/js/contato.js"></script>

@@ -27,3 +27,10 @@
         </nav>
     </div>
 </header>
+<noscript>
+    <h3>
+        Esse site precisa de JavaScript para funcionar corretamente, ative seguindo essas instruções:
+        <a href="https://www.hostnet.com.br/info/ativar-o-javascript-no-navegador/" target="_blank">Aqui!</a>
+    </h3>
+
+</noscript>

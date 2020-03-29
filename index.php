@@ -28,10 +28,13 @@
     #LOGADO
     $router->group("logado");
     $router->get("/","Logged:home");
+    $router->get("/logado","Logged:home");
+    $router->post("/","LoggedForm:addExpense");
+    #PERFIL DE USER
+    $router->get("/profile","Logged:profile");
+    $router->post("/profile","Logged:changeData");
     #DESLOGAR
     $router->get("/sair","Logged:logout");
-
-
     ##CONTATO
     $router->group("contato");
     $router->get("/","Web:contact");

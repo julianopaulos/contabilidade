@@ -10,16 +10,16 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="barraBasica">
-                    <a class="navbar-brand" href="home">Home</a>
+                    <a class="navbar-brand" href="<?=URL_BASE?>/logado">Home</a>
                     <ul class="nav navbar-nav text-right">
                         <li>
-                            <a href="cadastro" class="navbar-brand">Cadastrar</a>
+                            <a href="<?=URL_BASE?>/logado/profile" class="navbar-brand">Perfil</a>
                         </li>
                         <li>
-                            <a href="contato" class="navbar-brand">Contato</a>
+                            <a href="<?=URL_BASE?>/logado" class="navbar-brand">Contato</a>
                         </li>
                         <li>
-                            <a href="logado/sair" class="navbar-brand">Sair</a>
+                            <a href="<?=URL_BASE?>/logado/sair" class="navbar-brand">Sair</a>
                         </li>
                     </ul>
                 </div>
@@ -27,3 +27,6 @@
         </nav>
     </div>
 </header>
+<noscript>Esse site precisa de JavaScript para funcionar corretamente, ative seguindo essas instruções:
+    <a href="https://www.hostnet.com.br/info/ativar-o-javascript-no-navegador/" target="_blank">Aqui</a>
+</noscript>

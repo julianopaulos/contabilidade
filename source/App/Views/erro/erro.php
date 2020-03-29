@@ -1,4 +1,4 @@
-<meta http-equiv="refresh" content="1; URL='http://localhost/administrador_contabil'">
+<meta http-equiv="refresh" content="1; URL='http://localhost/administrador_contabil/logado'">
 <style>
     body {
         margin-bottom: 30px;

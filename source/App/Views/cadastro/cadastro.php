@@ -29,7 +29,7 @@
                 <label for=""><input type="password" placeholder="Crie uma senha" name="senha_cadastro" required></label>
                 <label for=""><input type="submit" value="Cadastrar" class="btn-primary btn-success"></label>
                 <div class="ok">Usuário cadastrado  com  sucesso!</div>
-                <div class="erro">Dados inválidos, digite corretamente</div>
+                <div class="erro">Dados inválidos ou e-mail já cadastrado! Verifique os dados e tente novamente</div>
             </form>
         </div>
     </div>
@@ -40,4 +40,4 @@
         <div class="ajax_load_box_title">Aguarde, carregando!</div>
     </div>
 </div>
-<script src="assets/js/validacao.js"></script>
+<script src="<?=ASSETS_URL?>/js/cadastro.js"></script>
