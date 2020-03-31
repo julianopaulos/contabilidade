@@ -1,6 +1,7 @@
 <?php
 namespace Source\App\Controllers;
 
+use Source\App\Models\FilterByDate;
 use Source\App\Models\Finances;
 use Source\App\Models\FindUser;
 use Source\App\Models\Register;
@@ -64,5 +65,15 @@ class Logged
             $update = new UpdateData();
             echo json_encode($update->updateDataUser($_POST));
         }
+    }
+    public function filter()
+    {
+        $filter = new FilterByDate();
+         echo json_encode($filter->findByDate($_SERVER["REQUEST_URI"]));
+    }
+    public function allFinances()
+    {
+        $all = new FilterByDate();
+        echo json_encode($all->all());
     }
 }

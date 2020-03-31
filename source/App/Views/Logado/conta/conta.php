@@ -8,12 +8,13 @@
     {
         margin-left: 0;
     }
+
     .profile-container .row
     {
         margin-left: auto;
         margin-right: auto;
     }
-    .profile-container .row .col-md-5
+    .profile-container .row .col-md-4,.col-md-5
     {
         background: #fff;
         min-height: 50px;
@@ -53,6 +54,10 @@
         width: 100%;
         height: 100%;
     }
+    .profile-container h3
+    {
+        font-weight: bold;
+    }
     @media screen and (max-width: 425px){
         .profile-container .user_icon img
         {
@@ -65,16 +70,17 @@
     <div class="row">
 
         <div class="col-md-1"></div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <?php
             if(isset($this->data[0]["image"])):
                 ?>
                 <div class="div_img_user">
                         <img
                             src="<?=$this->data[0]["image"]?>"
-                            alt="Imagem"
+                            alt="ProfileImg"
                             class="img-fluid"
                             style="width:100%;height: 100%"
+                            title="Foto de perfil"
                         />
                 </div>
             <?php
@@ -82,7 +88,6 @@
                 ?>
                 <div class="user_icon">
                     <a href="#modalImg" data-toggle="modal">
-
                         <img
                             src="<?=ASSETS_URL?>/imagens/user_icon.png"
                             alt="Imagem"
@@ -93,9 +98,9 @@
                 </div>
             <?php
             endif;
-
+            $data_name = explode(" ",$this->data[0]["name"]);
             ?>
-
+            <h3><?=$data_name[0]?> <?=end($data_name)?></h3>
         </div>
         <div class="col-md-5">
             <div class="container-fluid">

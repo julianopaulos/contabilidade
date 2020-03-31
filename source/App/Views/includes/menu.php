@@ -16,9 +16,6 @@
                             <a href="<?=URL_BASE?>/logado/profile" class="navbar-brand">Perfil</a>
                         </li>
                         <li>
-                            <a href="<?=URL_BASE?>/logado" class="navbar-brand">Contato</a>
-                        </li>
-                        <li>
                             <a href="<?=URL_BASE?>/logado/sair" class="navbar-brand">Sair</a>
                         </li>
                     </ul>

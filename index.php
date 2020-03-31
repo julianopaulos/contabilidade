@@ -29,6 +29,8 @@
     $router->group("logado");
     $router->get("/","Logged:home");
     $router->get("/logado","Logged:home");
+    $router->get("/filter","Logged:filter");
+    $router->get("/all","Logged:allFinances");
     $router->post("/","LoggedForm:addExpense");
     #PERFIL DE USER
     $router->get("/profile","Logged:profile");
