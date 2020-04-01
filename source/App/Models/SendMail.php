@@ -20,8 +20,8 @@ class SendMail
 
         $this->mail->SMTPSecure = "tls";
         $this->mail->Host = "smtp.live.com";
-        $this->mail->Username = "julianopaulo.santos@hotmail.com";
-        $this->mail->Password = "24759383Jl2932";
+        $this->mail->Username = "admin@hotmail.com";
+        $this->mail->Password = "password";
         $this->mail->Port = 587;
         $this->mail->isHTML(true);
     }
