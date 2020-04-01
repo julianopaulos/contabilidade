@@ -24,4 +24,10 @@ class LoggedForm
         }
         echo json_encode($this->data);
     }
+    public function removeExpense()
+    {
+        $id = apache_request_headers();
+        $delete = new Finances();
+        $delete->deleteExpend((int)$id["id_delete"]);
+    }
 }

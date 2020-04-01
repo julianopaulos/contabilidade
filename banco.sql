@@ -30,9 +30,10 @@ create table user_despesas(
 create table user_img(
 	id int not null primary key auto_increment,
     id_user int not null,
-    image mediumblob
+    image varchar(200)
 )engine="InnoDB";
 
+insert into user_img(id_user,image) values(9,'');
 
 select user.*,user_conta_principal.*, user_despesas.* from user
 inner join user_conta_principal on user_conta_principal.id_user = user.id
@@ -42,4 +43,12 @@ where user.email='julianopaulo.santos@hotmail.com' and user.senha='01b307acba4f5
 select user.senha from user;	
 
 
-select * from user_conta_principal where id_user=(select id from user where email='julianopaulo.santos@hotmail.com' and senha='01b307acba4f54f55aafc33bb06bbbf6ca803e9a');
+select * from user_conta_principal where 
+	id_user=(select id from user where email='julianopaulo.santos@hotmail.com' 
+	and senha='01b307acba4f54f55aafc33bb06bbbf6ca803e9a');
+
+select curdate();
+
+
+select * from user_despesas where month(data_despesa)=(month(curdate())-1);
+select month(curdate());

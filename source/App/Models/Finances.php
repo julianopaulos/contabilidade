@@ -74,4 +74,11 @@ class Finances
         }
         return $return;
     }
+    public function deleteExpend($id)
+    {
+        $id_account = (int)$_SESSION["account_id"];
+        $this->select = "delete from user_despesas where id=:id and id_conta=:id_conta";
+        $delete = new StsRead();
+        $delete->fullRead($this->select,"id={$id}&id_conta={$id_account}");
+    }
 }

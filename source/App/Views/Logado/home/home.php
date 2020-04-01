@@ -15,7 +15,6 @@
     {
         background: whitesmoke;
         border-radius: 5px;
-
     }
     .logado_home .col-md-3
     {
@@ -30,19 +29,26 @@
         min-height: 150px;
         margin-top: 40px;
     }
+    .value .col-md-3
+    {
+        margin: 0;
+        padding: 0;
+        min-height: auto;
+    }
     .value
     {
-        margin: 30px auto;
+        margin: 30px 0;
     }
     .title
     {
         font-size: 17px;
         font-weight: 600;
     }
-    .date,.valor,.descricao
+    .date,.valor,.descricao,.action
     {
-        padding-bottom: 25px;
+        margin-bottom: 25px;
     }
+
     .div_img_user
     {
         margin: auto;
@@ -52,7 +58,6 @@
         height: 150px;
         background: black;
     }
-
     .date-filter
     {
         margin-top: 20px;

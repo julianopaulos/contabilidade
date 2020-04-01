@@ -32,6 +32,7 @@
     $router->get("/filter","Logged:filter");
     $router->get("/all","Logged:allFinances");
     $router->post("/","LoggedForm:addExpense");
+    $router->delete("/","LoggedForm:removeExpense");
     #PERFIL DE USER
     $router->get("/profile","Logged:profile");
     $router->post("/profile","Logged:changeData");

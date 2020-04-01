@@ -35,7 +35,9 @@ class FilterByDate
     public function all()
     {
         $id = (int)$_SESSION["account_id"];
-        $this->select = "select * from user_despesas where id_conta={$id} order by id desc";
+        $this->select = "select * from user_despesas ";
+        $this->select .= "where id_conta={$id} and year(data_despesa)=year(curdate()) ";
+        $this->select.="and month(data_despesa)=month(curdate()) order by id desc";
         $find = new StsRead();
         $find->fullRead($this->select);
         if(count($find->getResultado())>0)
@@ -44,7 +46,20 @@ class FilterByDate
         }
         else
         {
-            $this->data = null;
+            $id = (int)$_SESSION["account_id"];
+            $this->select = "select * from user_despesas ";
+            $this->select .= "where id_conta={$id} and year(data_despesa)=year(curdate()) ";
+            $this->select.="and month(data_despesa)=(month(curdate())-1) order by id desc";
+            $find = new StsRead();
+            $find->fullRead($this->select);
+            if(count($find->getResultado())>0)
+            {
+                $this->data=$find->getResultado();
+            }
+            else
+            {
+                $this->data=null;
+            }
         }
         return $this->data;
     }
