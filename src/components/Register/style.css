@@ -1,0 +1,66 @@
+.todo
+{
+    background: url("../assets/images/fundo_cadastro.jpg");
+    background-size: cover;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.register-container
+{
+    display: flex;
+    position: relative;
+    max-width: 400px;
+    align-items: center;
+    background-color: rgba(200, 200, 200, 0.7);
+    border-radius: 10px;
+    margin: 30px auto; 
+    padding: 40px 1px;
+    margin-bottom: 100px;
+}
+.register-container div,form
+{
+    text-align: center;
+    margin: 0 auto;
+    opacity: 1;
+}
+.center
+{
+    justify-content: center;
+}
+.register-container div p
+{
+    font-size: 1.4em;
+    margin: 0 40px;
+}
+
+.message
+{
+    margin: 0 50px;
+}
+.form-register input
+{
+    font-size: 1.2em;
+    font-weight: 600;
+    width: 65%;
+    padding: 10px 5px;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-align: center;
+}
+.form-register button
+{
+    font-size: 1.2em;
+    font-weight: 500;
+    padding: 10px 20px;
+    margin: 15px;
+    border-radius: 7px;
+    background-color: #5cb85c;
+    color: #fff;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.form-register button:hover
+{
+    background-color: #449d44;    
+}

@@ -1,0 +1,50 @@
+body
+{
+    margin-bottom: 50px;
+}
+.control-root
+{
+    max-height: 800px;
+}
+.carousel .carousel-status
+{
+    font-size: 1em;
+}
+.carousel .slide .legend
+{
+    max-height: 100%;
+    opacity: 0.8;
+    left: auto;
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
+    font-size: 1em;
+}
+.carousel .control-dots .dot
+{
+    width: 15px;
+    height: 15px;
+}
+.control-dots:hover
+{
+    background-color: transparent;
+}
+@media screen and (max-width:425px)
+{
+    .carousel .slide .legend
+    {
+        width: 90%;
+    }
+    .carousel .control-dots .dot
+    {
+        width: 10px;
+        height: 10px;
+    }
+}
+@media screen and (max-width:375px)
+{
+    .home-container
+    {
+        margin-top: 30px;
+    }
+}

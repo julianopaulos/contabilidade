@@ -1,0 +1,77 @@
+.todo-contact
+{
+    background: url("../assets/images/fundo_contato.jpg");
+    background-size: cover;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.contact-container
+{
+    display: flex;
+    position: relative;
+    max-width: 400px;
+    align-items: center;
+    background-color: rgba(200, 200, 200, 0.7);
+    border-radius: 10px;
+    margin: 30px auto; 
+    padding: 50px 1px;
+    
+}
+.contact-container div,form
+{
+    text-align: center;
+    margin: 0 auto;
+    opacity: 1;
+}
+.center
+{
+    justify-content: center;
+}
+.contact-container div p
+{
+    font-size: 1.4em;
+    margin: 0 40px;
+}
+
+.contact-form input
+{
+    font-size: 1.2em;
+    width: 65%;
+    padding: 10px 5px;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-align: center;
+}
+.contact-form textarea
+{
+    width: 65%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.5em;
+}
+.contact-form button
+{
+    font-size: 1.2em;
+    font-weight: 500;
+    padding: 10px 20px;
+    margin: 15px;
+    border-radius: 7px;
+    background-color: #5cb85c;
+    color: #fff;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.contact-form button:hover
+{
+    background-color: #449d44;
+}
+@media screen and (max-width:768px)
+{
+    .contact-container
+    {
+        margin-bottom: 80px;
+    }
+}
