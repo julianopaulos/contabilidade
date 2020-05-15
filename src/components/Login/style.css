@@ -1,0 +1,99 @@
+.todo-login
+{
+    background: url("../assets/images/fundo_login.jpg");
+    background-size: cover;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.login-container
+{
+    display: flex;
+    position: relative;
+    max-width: 400px;
+    align-items: center;
+    background-color: rgba(200, 200, 200, 0.7);
+    border-radius: 10px;
+    margin: 30px auto; 
+    padding: 50px 1px;
+}
+.login-container div,form
+{
+    text-align: center;
+    margin: 0 auto;
+    opacity: 1;
+}
+#smile
+{
+    vertical-align: middle;
+    color: #012340;
+}
+.center
+{
+    justify-content: center;
+}
+.login-container div p
+{
+    font-size: 1.4em;
+    margin: 20px 40px;
+}
+.question
+{
+    font-size: 1em;
+    cursor: pointer;
+    color: #ff3333;
+    border: 1px solid #ff3333;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 60%;
+    margin-bottom: 15px;
+    position: relative;
+    transition: .5s;
+}
+.question:hover
+{
+    color:#fff;
+    background: #ff9999;
+    border-color: transparent;
+}
+.message
+{
+    margin: 10px 50px;
+}
+.form-login input
+{
+    font-size: 1.2em;
+    font-weight: 600;
+    width: 65%;
+    padding: 10px 5px;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-align: center;
+}
+.form-login button
+{
+    font-size: 1.2em;
+    font-weight: 500;
+    padding: 10px 20px;
+    margin: 15px;
+    border-radius: 7px;
+    background-color: #5cb85c;
+    color: #fff;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.form-login button:hover
+{
+    background-color: #449d44;
+    
+}
+@media screen and (max-width:768px)
+{
+    .login-container
+    {
+        margin: auto;
+        margin-top: 30px;
+        margin-bottom: 100px;
+    }
+}

@@ -1,0 +1,76 @@
+
+.responsive-menu
+{
+    display: none;
+    background: black;
+}
+.MuiList-root,.MuiList-root:hover
+{
+    background: black;
+}
+.MuiButton-label {
+    color: white;
+
+}
+.header
+{
+    height: 50px;
+    background-color: rgba(0,0,0);
+}
+.nav-link
+{
+    display: flex;   
+    padding: 10px 15px;
+}
+
+.nav-link a,.link-responsive
+{
+    text-decoration: none;
+    color:#9d9d9d;
+    margin: auto 20px;
+    font-size: 1.2em;
+    transition: 0.5s;
+    
+}
+.link-responsive
+{
+    margin: auto;
+}
+
+.nav-link a:first-child
+{
+    margin-right: auto;
+}
+.flex-start
+{
+    justify-content: flex-start;
+}
+.nav-link a:hover,#link
+{
+    font-weight: 500;
+    color: lightblue;
+    padding-bottom: 5px;
+    border-bottom: 3px solid green;
+    font-style: italic;
+}
+
+
+@media screen and (max-width:425px)
+{
+    .nav-link
+    {
+        display: none;
+    }
+    .responsive-menu
+    {
+        padding: 3px 2px;
+        display: flex;
+        
+    }
+    .MuiButton-label
+    {
+        padding: 3px;
+        border: 1px solid white;
+        border-radius: 5px;
+    }
+}
