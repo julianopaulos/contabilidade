@@ -108,6 +108,18 @@ routes.get("/expense",celebrate({
     }).unknown()
 }),ControllerExpense.index);
 
+
+
+routes.get("/filter",celebrate({
+    [Segments.QUERY]: Joi.object({
+        initDate: Joi.string().required(),
+        finalDate: Joi.string().required()
+    }).unknown(),
+    [Segments.HEADERS]:Joi.object({
+        authorization: Joi.string().required()
+    }).unknown()
+}),ControllerExpense.findByDate);
+
 routes.post("/expense",celebrate({
     [Segments.BODY]: Joi.object({
         value: Joi.number().required(),

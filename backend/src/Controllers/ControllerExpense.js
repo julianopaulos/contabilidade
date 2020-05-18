@@ -97,5 +97,44 @@ module.exports={
             let router = "Home";
             return res.status(401).send({e,router});
         }
+    },
+    async findByDate(req,res)
+    {
+        try
+        {
+            const {initDate,finalDate} = req.query;
+            const token = req.headers.authorization;
+            const payload = jwt.verify(token);
+            if(payload.user_id)
+            {
+                const id_account = await connection("user_account")
+                    .select("id")
+                    .where("id_user",payload.user_id)
+                    .first();
+                if(Number.isInteger(id_account.id))
+                {
+                    const data = await connection("user_expenses")
+                        .select("*")
+                        .where("id_user_account",id_account.id) 
+                        .whereBetween("date_expense",
+                            [initDate.replace(/-/g,"/","/"),finalDate.replace(/-/g,"/","/")]
+                        );
+                    if(data.length>0)
+                    {
+                        return res.status(200).send(data);
+                    }
+                    return res.status(400);
+                }
+                return res.status(400); 
+            }
+            return res.status(400);
+             
+            
+            
+        }
+        catch(e)
+        {
+            return res.send(e);
+        }
     }
 }

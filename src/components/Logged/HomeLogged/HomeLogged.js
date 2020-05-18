@@ -4,7 +4,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -32,6 +31,7 @@ export default function HomeLogged() {
     const [account, setAccount] = useState("");
     const [data,setData] = useState([]);
     const [userImg, setUserImg] = useState();
+
     
     
     
@@ -221,6 +221,22 @@ export default function HomeLogged() {
         
     }
 
+    async function filterDate()
+    {
+        let initDate = document.querySelector("#initDate").value;
+        let finalDate = document.querySelector("#finalDate").value;
+        if(initDate.indexOf("-")!==-1 && finalDate.indexOf("-")!==-1)
+        {
+            await api.get(`/filter?initDate=${initDate}&finalDate=${finalDate}`,{
+                headers:{
+                    authorization: sessionStorage.getItem("token")
+                }
+            }).then((res)=>{
+                setData(res.data);
+            }).catch(e=>console.log(e));
+        }
+    }
+
     function getAccount()
     {
         if(account)
@@ -228,7 +244,14 @@ export default function HomeLogged() {
             return(
                 <Card id="todo_card">
                     
-                    <img onClick={()=>redirect()} src={userImg} id="user_icon" style={{borderRadius:'50%'}} alt="profilePicture" />
+                    <img 
+                        onClick={()=>redirect()} 
+                        src={userImg} 
+                        id="user_icon" 
+                        style={{borderRadius:'50%'}} 
+                        alt="profilePicture" 
+
+                    />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             Olá, {nameFormat(name)}
@@ -259,7 +282,13 @@ export default function HomeLogged() {
             return (
                 <Card id="todo_card">
                     
-                    <img onClick={()=>redirect()} src={userImg} id="user_icon" style={{borderRadius:'50%'}} alt="profilePicture" />
+                    <img 
+                        onClick={()=>redirect()} 
+                        src={userImg} id="user_icon" 
+                        style={{borderRadius:'50%'}} 
+                        alt="profilePicture" 
+                        
+                    />
                     
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
@@ -332,6 +361,24 @@ export default function HomeLogged() {
                         </form>
                     </div>
                     <Divider/>
+                    <div className="date-filter">   
+                        <div>Filtre seus gastos por tempo: </div>
+                        <label>de:
+                            <input 
+                                type="date"  
+                                onChange={(e)=>filterDate()}  
+                                id="initDate"
+                            />
+                        </label>
+                        
+                        <label>até:
+                            <input 
+                                type="date"  
+                                onChange={(e)=>filterDate()}  
+                                id="finalDate"
+                            />
+                        </label>
+                    </div>
                     {data.map(d=>{
                     return (
                         <div key={d.id} className="expense">            
