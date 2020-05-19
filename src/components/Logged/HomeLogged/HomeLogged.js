@@ -1,14 +1,17 @@
 import React, {useState,useEffect} from 'react';
-import Divider from '@material-ui/core/Divider';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import Expenses from './Expenses';
+
+
+import {useHistory} from 'react-router-dom';
+
+
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 
 import './style.css';
-import {useHistory} from 'react-router-dom';
+
 import user_icon from './user_icon.png';
 
 import Header from '../Header/Header';
@@ -24,12 +27,10 @@ export default function HomeLogged() {
     document.title = "Home";
     const history = useHistory();
     const [name, setName] = useState("");
-    const [total_income, setTotalIncome] = useState("");
-    const [description, setDescription] = useState("");
-    const [value, setValue] = useState("");
     const [meta, setMeta] = useState("");
+    const [total_income, setTotalIncome] = useState("");
     const [account, setAccount] = useState("");
-    const [data,setData] = useState([]);
+    
     const [userImg, setUserImg] = useState();
 
     
@@ -75,53 +76,10 @@ export default function HomeLogged() {
             .catch(e=>console.log(e))
         })
         .catch(e=>console.log(e));
-
-
-        api.get("/expense",{
-            headers:{
-                authorization: sessionStorage.getItem("token")
-            }
-        })
-        .then((req)=>{
-            
-            if(req.data)
-            {
-                setData(req.data);
-            }
-        })
-        .catch(e=>console.log(e));
     },[history]);
 
 
-
-
-    async function handleDelete(id)
-    {
-        if(window.confirm("Tem certeza que deseja fazer isso?"))
-        {
-            await api.delete("/expense",{
-                headers:{
-                    authorization: sessionStorage.getItem("token"),
-                    id_expense: id
-                }
-            })
-            .then((req)=>{
-                if(req.data.router)
-                {
-                    history.push(`/${req.data.router}`);
-                }
-                if(data)
-                {
-                    setData(data.filter((data)=>data.id!==id));
-                }
-            })
-            .catch(e=>{
-                console.log(e);
-            });
-        }
-    }
-
-
+    
     function nameFormat(name)
     {
         if(name && (name.indexOf(" ")!==-1))
@@ -135,66 +93,13 @@ export default function HomeLogged() {
         }
     }
 
-    function dateFormat(date){
-        var split = date.split('/');
-        const format_date = split[2] + "/" + split[1] + "/" + split[0];
-        return format_date;
-    }
 
 
     async function redirect()
     {
         await history.push("/Profile");
     }
-    async function handleCreateExpense(e)
-    {
-        e.preventDefault();
-        if(!description || !value || value<0)
-        {
-            alert("Digite os dados Corretamente!");
-        }
-        else
-        {
-            let d = new Date();
-            let day = d.getDate();
-            let month = ((d.getMonth()+1)<10)?"0"+(d.getMonth()+1): d.getMonth()+1;
-            let year = d.getFullYear();
-            if(value.indexOf(",")!==-1)
-            {
-                alert("Os números devem ser separados por ponto");
-            }
-            
-            let data = {
-                value:value,
-                description: description,
-                date_expense: `${year}/${month}/${day}`
-            };
-            
-            await api.post("/expense",data,{
-                headers:{
-                    authorization: sessionStorage.getItem("token")
-                }
-            })
-            .then((req)=>{
-                api.get("/expense",{
-                    headers:{
-                        authorization: sessionStorage.getItem("token")
-                    }
-                })
-                .then((req)=>{
-                    
-                    if(req.data)
-                    {
-                        setData(req.data);
-                    }
-                })
-                .catch(e=>console.log(e));
-                setValue("");
-                setDescription("");
-            })
-            .catch(e=>console.log(e))
-        }
-    }
+   
     async function handleCreateAccount(e)
     {
         e.preventDefault();
@@ -219,22 +124,6 @@ export default function HomeLogged() {
             .catch(e=>console.log(e));
         }
         
-    }
-
-    async function filterDate()
-    {
-        let initDate = document.querySelector("#initDate").value;
-        let finalDate = document.querySelector("#finalDate").value;
-        if(initDate.indexOf("-")!==-1 && finalDate.indexOf("-")!==-1)
-        {
-            await api.get(`/filter?initDate=${initDate}&finalDate=${finalDate}`,{
-                headers:{
-                    authorization: sessionStorage.getItem("token")
-                }
-            }).then((res)=>{
-                setData(res.data);
-            }).catch(e=>console.log(e));
-        }
     }
 
     function getAccount()
@@ -327,131 +216,20 @@ export default function HomeLogged() {
 
     
     
-
-    function getExpenses()
-    {
-        if(account && Array.isArray(data))
-        {    
-            return (
-                <div>
-                    <div className="form-expense">
-                        <h2>
-                            Adicione suas dívidas aqui!
-                        </h2>
-                        <form onSubmit={(e)=>{handleCreateExpense(e)}}>
-                                <label>Descrição da dívida<br/>
-                                <input 
-                                    type="text" 
-                                    placeholder="Descrição"  
-                                    required
-                                    value={description}
-                                    onChange={e=>setDescription(e.target.value)}
-                                />
-                                </label><br/>
-                                <label>Valor da Dívida:<br/>
-                                <input 
-                                    type="text" 
-                                    placeholder="Valor" 
-                                    required
-                                    value={value}
-                                    onChange={e=>setValue(e.target.value)}
-                                />
-                            </label><br/>
-                            <button type="submit">Cadastrar</button>
-                        </form>
-                    </div>
-                    <Divider/>
-                    <div className="date-filter">   
-                        <div>Filtre seus gastos por tempo: </div>
-                        <label>de:
-                            <input 
-                                type="date"  
-                                onChange={(e)=>filterDate()}  
-                                id="initDate"
-                            />
-                        </label>
-                        
-                        <label>até:
-                            <input 
-                                type="date"  
-                                onChange={(e)=>filterDate()}  
-                                id="finalDate"
-                            />
-                        </label>
-                    </div>
-                    {data.map(d=>{
-                    return (
-                        <div key={d.id} className="expense">            
-                            <div><h4>Data</h4><div>{dateFormat(d.date_expense)}</div></div>
-                            <div><h4>Descrição</h4><div>{d.description}</div></div>
-                            <div>
-                                <h4>Valor</h4>
-                                    {"R$"+Number(d.value).toLocaleString("pt",{minimumFractionDigits: 2, 
-                                        maximumFractionDigits: 2})}
-                            </div>
-                            <div>
-                                <h4>Ações</h4>
-                                <div>
-                                    <span>
-                                        <EditIcon/>
-                                    </span> 
-                                    <span>
-                                        <DeleteIcon onClick={()=>handleDelete(d.id)} />
-                                    </span>
-                                </div>
-                            </div>
-                            <Divider/>
-                        </div>
-                    );
-                })}
-                </div>
-            );
-        }  
-        else if(account)
-        {
-            return (
-                <div className="form-expense">
-                    <h2>
-                        Adicione suas dívidas aqui!
-                    </h2>
-                    <form onSubmit={e=>handleCreateExpense(e)}>
-                        <label>Descrição da dívida<br/>
-                            <input 
-                                type="text" 
-                                placeholder="Descrição"  
-                                required
-                                value={description}
-                                onChange={e=>setDescription(e.target.value)}
-                            />
-                        </label><br/>
-                        <label>Valor da Dívida:<br/>
-                            <input 
-                                type="text" 
-                                placeholder="Valor" 
-                                required
-                                value={value}
-                                onChange={e=>setValue(e.target.value)}
-                            />
-                        </label><br/>
-                        <button type="submit">Cadastrar</button>
-                    </form>
-                </div>
-            );
-        }
-        else
-        {
-            return (<div><h2>Primeiro Adicione sua renda e sua meta mensal!</h2></div>);
-        }  
-    }
-    
     return (
         <div className="todo-logged">
             <Header/>
             <div className="logged-container">
-                <div className="user_details"><div></div>{getAccount()}</div>
-                <div className="account_details">{getExpenses()}</div>
+                <div className="user_details">
+                        {getAccount()}
+                </div>
+                <div className="account_details">
+
+                    <Expenses
+                        account={account}
+                    />
+                </div>
             </div>
-            
             <Footer/>
         </div>
     )
