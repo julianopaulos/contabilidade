@@ -23,7 +23,7 @@ module.exports={
                     data.map(d=>{
                         return d.id_user_account = undefined;
                     });
-                    res.json(data);
+                    res.json(data); 
                 }
                 else
                 {
@@ -73,6 +73,52 @@ module.exports={
         }
     },
 
+    async update(req,res)
+    {
+        try
+        {
+            const {value, description,date_expense} = req.body;
+            
+            const id_expense = req.headers.id_expense;
+            
+            const token = req.headers.authorization;
+
+            const payload = jwt.verify(token);
+
+            if(payload.user_id)
+            {
+                const id_account = await connection("user_account")
+                    .select("id")
+                    .where("id_user",payload.user_id)
+                    .first();
+                if(id_account.id)
+                {
+                    const data = await connection("user_expenses")
+                        .select("*")
+                        .where("id",id_expense)
+                        .where("id_user_account",id_account.id).first();
+                    
+                    if(data.id)
+                    {
+                        await connection("user_expenses")
+                        .update({"value":Number(value),"description":description,"date_expense":date_expense.replace(/-/g,"/","/")})
+                        .where("id",id_expense);
+                        return res.json({message:"Dados alterados com sucesso!"});
+                    }
+                    return res.status(401);
+                }
+                
+            }
+
+
+            return res.status(200).json(id_expense);
+        }
+        catch(e)
+        {
+            return res.status(401).send(e);
+        }
+    },
+
     async delete(req,res)
     {
         try
@@ -97,44 +143,6 @@ module.exports={
             let router = "Home";
             return res.status(401).send({e,router});
         }
-    },
-    async findByDate(req,res)
-    {
-        try
-        {
-            const {initDate,finalDate} = req.query;
-            const token = req.headers.authorization;
-            const payload = jwt.verify(token);
-            if(payload.user_id)
-            {
-                const id_account = await connection("user_account")
-                    .select("id")
-                    .where("id_user",payload.user_id)
-                    .first();
-                if(Number.isInteger(id_account.id))
-                {
-                    const data = await connection("user_expenses")
-                        .select("*")
-                        .where("id_user_account",id_account.id) 
-                        .whereBetween("date_expense",
-                            [initDate.replace(/-/g,"/","/"),finalDate.replace(/-/g,"/","/")]
-                        );
-                    if(data.length>0)
-                    {
-                        return res.status(200).send(data);
-                    }
-                    return res.status(400);
-                }
-                return res.status(400); 
-            }
-            return res.status(400);
-             
-            
-            
-        }
-        catch(e)
-        {
-            return res.send(e);
-        }
     }
+    
 }

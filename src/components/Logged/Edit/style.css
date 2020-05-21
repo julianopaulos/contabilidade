@@ -1,0 +1,61 @@
+.todo-edit
+{
+    background: #00CCCC;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.update_expense
+{
+    display: flex;
+    align-content: center;
+    max-width: 50%;
+    border-radius: 8px;
+    padding: 3em 10px;
+    margin: 5em auto;
+    background: #afeeee;
+    min-height: 100%;    
+}
+.update_expense label
+{
+    min-width: 100%;
+    margin: 20px auto;
+}
+.update_expense input
+{
+    margin: 10px auto;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.update_expense input[type=submit],.update_expense input[type=button]
+{
+    padding: 5px 15px;
+    margin: 5px 10px;
+    transition: .5s;
+    cursor: pointer;
+}
+.update_expense input[type=submit]:hover,.update_expense input[type=button]:hover
+{
+    opacity: 0.8;
+    font-weight: 600;
+}
+.update_expense input[type=submit]
+{
+    background: #F3CB85;
+}
+.update_expense input[type=button]
+{
+    background: #F3F085;
+}
+
+
+
+
+@media screen and (max-width:768px)
+{
+    .update_expense
+    {
+        max-width: 80%;
+    }
+}

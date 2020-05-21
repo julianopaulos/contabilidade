@@ -18,7 +18,7 @@ export default function Header(props)
         {route:'Logged',label: 'Home'},
         {route:'Profile',label: 'Perfil'},
        // {route:'Login',label: 'Login'},
-        {route:'Logout',label: 'Sair', func: 'handleLogout'},
+        {route:'Logout',label: 'Sair', func: 'handleLogout'}
     ];
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

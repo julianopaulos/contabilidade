@@ -71,7 +71,6 @@ export default function HomeLogged() {
                 {
                     setUserImg(user_icon);
                 }
-                
             })
             .catch(e=>console.log(e))
         })
@@ -224,7 +223,6 @@ export default function HomeLogged() {
                         {getAccount()}
                 </div>
                 <div className="account_details">
-
                     <Expenses
                         account={account}
                     />

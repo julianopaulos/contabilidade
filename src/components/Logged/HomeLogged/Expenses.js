@@ -14,8 +14,7 @@ export default function Expenses(props)
     const [description, setDescription] = useState("");
     const [value, setValue] = useState("");
     const [expense,setExpense] = useState([]);
-
-
+    
     useEffect(()=>{
         api.get("/user",{
             headers:{
@@ -98,6 +97,11 @@ export default function Expenses(props)
         }
     }
 
+    async function handleEdit(id)
+    {
+        
+        history.push(`/Edit?id=${id}`);
+    }
 
     async function handleDelete(id)
     {
@@ -213,7 +217,7 @@ export default function Expenses(props)
                                 <h4>Ações</h4>
                                 <div>
                                     <span>
-                                        <EditIcon/>
+                                        <EditIcon onClick={()=>handleEdit(d.id)}/>
                                     </span> 
                                     <span>
                                         <DeleteIcon onClick={()=>handleDelete(d.id)} />

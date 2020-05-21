@@ -1,6 +1,10 @@
 import React,{useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 
+import Form from './Form';
+
+
+
 import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent';
@@ -8,7 +12,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 
-import InputMask from 'react-input-mask';
 
 import user_icon from './user_icon.png';
 
@@ -34,12 +37,6 @@ export default function Profile()
     const [userImg, setUserImg] = useState();
     const [img,setImg] = useState();
     const [data,setData] = useState([]);
-    const [name,setName] = useState("");
-    const [email,setEmail] = useState("");
-    const [phone,setPhone] = useState("");
-    const [pass,setPass] = useState("");
-
-    const [message,setMessage] = useState("");
     useEffect(()=>{
         try
         {
@@ -56,9 +53,7 @@ export default function Profile()
                 else
                 {
                     setData(req.data);
-                    setName(req.data.name);
-                    setEmail(req.data.email);
-                    setPhone(req.data.phone);
+                    
                     api.get("/img",{
                         headers:{
                             Authorization: sessionStorage.getItem("token")
@@ -83,47 +78,7 @@ export default function Profile()
     },[history]);
 
 
-    async function handleUpdate(e)
-    {
-        e.preventDefault();
-        if(name && email && phone)
-        {
-            let data = [];
-            if(pass)
-            {
-                data={
-                    "name":name,
-                    "email": email,
-                    "phone":phone,
-                    "password":pass
-                }
-            }
-            data={
-                "name":name,
-                "email": email,
-                "phone":phone
-            }
-            
-            api.put("/update",data,{
-                headers:{
-                    authorization: sessionStorage.getItem("token")
-                }
-            })
-            .then((res)=>{
-                setMessage(res.data);
-                setTimeout(()=>{
-                    setMessage("");
-                },2000);
-            })
-            .catch(e=>console.log(e))
-        }
-        else
-        {
-            alert("Insira os campos do formulário");
-        }
-        
-    }
-
+    
 
     async function handleImg(e)
     {
@@ -268,68 +223,13 @@ export default function Profile()
         
     }
 
-    function formContainer()
-    {
-        return (
-            <div className="container-data">
-                <h3>Atualize seus dados caso sinta a necessidade</h3>
-                <form className="form-profile" onSubmit={(e)=>handleUpdate(e)}>
-                        <label>
-                            <input 
-                                type="text" 
-                                name="name" 
-                                placeholder="Seu nome"
-                                value={name}
-                                onChange={(e)=>setName(e.target.value)}
-                                required
-                            />
-                        </label>
-
-                        <label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                placeholder="Seu E-mail"
-                                autoComplete="username"
-                                value={email}
-                                onChange={(e)=>setEmail(e.target.value)}
-                                required
-                            />
-                        </label>
-                        <label>
-                            <InputMask 
-                                mask="(99) 9 9999-9999" 
-                                placeholder="Seu celular" 
-                                name="phone"  
-                                value={phone}
-                                onChange={(e)=>setPhone(e.target.value)}
-                                required
-                            />
-                        </label>
-                        <label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                placeholder="Insira Sua Nova Senha"
-                                autoComplete="current-password"
-                                onChange={(e)=>setPass(e.target.value)}
-                            />
-                        </label>
-                        <button type="submit">Atualizar</button>
-                        <h3>{message}</h3>
-                </form>
-            </div>
-        );
-    }
-
    return(
     <div className="todo-profile">
         <Header/>
             {modalContainer()}
             <div className="profile-container">
-                
                 {containerImg()}
-                {formContainer()}
+                <Form/>
             </div>           
         <Footer/>
     </div>

@@ -8,6 +8,7 @@ import Contact from './components/Contact/Contact';
 
 import HomeLogged from './components/Logged/HomeLogged/HomeLogged';
 import Profile from './components/Logged/Profile/Profile';
+import Edit from './components/Logged/Edit/Edit';
 import Logout from './components/Logged/Logout/Logout';
 export default function Routes()
 {
@@ -23,6 +24,7 @@ export default function Routes()
                 
                 <Route path='/Logged' exact component={HomeLogged}/>
                 <Route path='/Profile' component={Profile}/>
+                <Route path='/Edit' component={Edit}/>
                 <Route path="/Logout" component={Logout}/>
                 
             </Switch>

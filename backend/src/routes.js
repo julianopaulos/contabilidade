@@ -10,6 +10,8 @@ const ControllerUser = require('./Controllers/ControllerUser');
 const ControllerImg = require("./Controllers/ControllerImg");
 const ControllerAccount = require("./Controllers/ControllerAccount");
 const ControllerExpense = require("./Controllers/ControllerExpense");
+const ControllerUserExpense = require("./Controllers/ControllerUserExpense");
+
 const { celebrate, Joi, Segments } = require("celebrate");
 const routes = express.Router();
 
@@ -108,7 +110,14 @@ routes.get("/expense",celebrate({
     }).unknown()
 }),ControllerExpense.index);
 
-
+routes.get("/edit",celebrate({
+    [Segments.HEADERS]:Joi.object({
+        authorization: Joi.string().required()
+    }).unknown(),
+    [Segments.QUERY]:Joi.object({
+        id:Joi.number().required()
+    })
+}),ControllerUserExpense.index);
 
 routes.get("/filter",celebrate({
     [Segments.QUERY]: Joi.object({
@@ -118,7 +127,7 @@ routes.get("/filter",celebrate({
     [Segments.HEADERS]:Joi.object({
         authorization: Joi.string().required()
     }).unknown()
-}),ControllerExpense.findByDate);
+}),ControllerUserExpense.findByDate);
 
 routes.post("/expense",celebrate({
     [Segments.BODY]: Joi.object({
@@ -132,13 +141,25 @@ routes.post("/expense",celebrate({
 }),ControllerExpense.create);
 
 
+routes.put("/expense",celebrate({
+    [Segments.HEADERS]:Joi.object({
+        authorization: Joi.string().required(),
+        id_expense: Joi.number().required()
+    }).unknown(),
+    [Segments.BODY]:Joi.object({
+        description: Joi.string().required(),
+        value: Joi.number().required(),
+        date_expense: Joi.string().required()
+    })
+}),ControllerExpense.update);
+
 
 routes.delete("/expense",celebrate({
     [Segments.HEADERS]:Joi.object({
         authorization: Joi.string().required(),
         id_expense: Joi.number().required()
     }).unknown()
-}),ControllerExpense.delete)
+}),ControllerExpense.delete);
 
 
 /*routes.put("/update",celebrate({
