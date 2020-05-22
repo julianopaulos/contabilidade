@@ -11,9 +11,21 @@ const ControllerImg = require("./Controllers/ControllerImg");
 const ControllerAccount = require("./Controllers/ControllerAccount");
 const ControllerExpense = require("./Controllers/ControllerExpense");
 const ControllerUserExpense = require("./Controllers/ControllerUserExpense");
+const ControllerEmail = require("./Controllers/ControllerEmail");
 
 const { celebrate, Joi, Segments } = require("celebrate");
 const routes = express.Router();
+
+
+
+//##CONTROLLER DE E-MAILS DE CONTATO
+routes.post("/email",celebrate({
+    [Segments.BODY]:Joi.object({
+        name: Joi.string().required(),
+        email: Joi.string().required(),
+        message: Joi.string().required()
+    })
+}),ControllerEmail.main);
 
 
 
