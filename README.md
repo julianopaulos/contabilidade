@@ -1,4 +1,4 @@
-O arquivo js no backend não está adicionado por conta de segurança, mas foi utilizado o nodemailer
+O arquivo js de configuração de e-mail no backend não está adicionado por conta de segurança, mas foi utilizado o nodemailer
 e o serviço de SMTP do Outlook.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
