@@ -49,9 +49,10 @@ export default function Contact() {
                 }
                 else
                 {
-                    setUserMessage("Ops, Algo deu errado! Tente novamente!");
+                    setUserMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
                     setTimeout(()=>{
                         setUserMessage("");
+                        setDisable("");
                     },2500);
                 }
             })
@@ -62,6 +63,7 @@ export default function Contact() {
             setUserMessage("Digite todos os dados corretamente!");
             setTimeout(()=>{
                 setUserMessage("");
+                setDisable("");
             },1500);
         }
     }
