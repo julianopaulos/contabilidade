@@ -52,6 +52,10 @@ export default function Contact() {
                     setUserMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
                     setTimeout(()=>{
                         setUserMessage("");
+                        setDisplay({
+                            display: ''
+                        });
+                        setUserMessage("");
                         setDisable("");
                     },2500);
                 }
