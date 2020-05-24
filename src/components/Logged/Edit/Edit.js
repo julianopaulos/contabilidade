@@ -114,7 +114,12 @@ export default function Edit()
             <div className="update_expense">            
                 <form onSubmit={(e)=>handleSubmit(e)}>
                     <label><h4>Data</h4>
-                        <input type="date" defaultValue={dateExpense}/>                       
+                        <input 
+                            type="date" 
+                            defaultValue={dateExpense} 
+                            onKeyUp={(e)=>setDateExpense(e.target.value)} 
+
+                        />                       
                     </label><br/>
                     <label><h4>Descrição</h4>
                         <input 

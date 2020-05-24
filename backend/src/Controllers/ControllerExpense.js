@@ -101,7 +101,7 @@ module.exports={
                     if(data.id)
                     {
                         await connection("user_expenses")
-                        .update({"value":Number(value),"description":description,"date_expense":date_expense.replace(/-/g,"/","/")})
+                        .update({"value":Number(value),"description":description,"date_expense":`${date_expense.replace(/-/g,"/","/")}`})
                         .where("id",id_expense);
                         return res.json({message:"Dados alterados com sucesso!"});
                     }
