@@ -37,6 +37,10 @@ export default function Profile()
     const [userImg, setUserImg] = useState();
     const [img,setImg] = useState();
     const [data,setData] = useState([]);
+
+    const [message, setMessage] = useState("");
+   
+
     useEffect(()=>{
         try
         {
@@ -106,7 +110,13 @@ export default function Profile()
                     handleModal();
                 }
             })
-            .catch(e=>console.log(e))
+            .catch((e)=>{
+                console.log(e);
+                setMessage("Ops! Algo deu errado!")
+                setTimeout(()=>{
+                    setMessage("");
+                },1000);
+            })
         })
         .catch(e=>console.log(e))
     }

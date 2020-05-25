@@ -15,6 +15,11 @@ export default function Form()
     const [pass,setPass] = useState("");
     const [message,setMessage] = useState("");
 
+
+    const [display,setDisplay] = useState({
+        display:''
+    });
+
     useEffect(()=>{
         try
         {
@@ -46,6 +51,10 @@ export default function Form()
 
     async function handleUpdate(e)
     {
+        setDisplay({
+            display:'none'
+        });
+        setMessage("Processando...");
         e.preventDefault();
         if(name && email && phone)
         {
@@ -71,12 +80,34 @@ export default function Form()
                 }
             })
             .then((res)=>{
-                setMessage(res.data);
-                setTimeout(()=>{
-                    setMessage("");
-                },2000);
+                if(res.data)
+                {
+                    setDisplay({
+                        display:''
+                    });
+                    setMessage(res.data);
+                    setTimeout(()=>{
+                        setMessage("");
+                    },2000);
+                }
+                else
+                {
+                    setDisplay({
+                        display:''
+                    });
+                    setMessage("Ops! Algo deu errado!");
+                }
             })
-            .catch(e=>console.log(e))
+            .catch((e)=>{
+                console.log(e);
+                setMessage("Ops! Algo deu errado!");
+                setTimeout(()=>{
+                    setDisplay({
+                        display:''
+                    });
+                    setMessage("");
+                },1000);
+            })
         }
         else
         {
@@ -132,7 +163,7 @@ export default function Form()
                             onChange={(e)=>setPass(e.target.value)}
                         />
                     </label>
-                    <button type="submit">Atualizar</button>
+                    <button type="submit" style={display}>Atualizar</button>
                     <h3>{message}</h3>
             </form>
         </div>

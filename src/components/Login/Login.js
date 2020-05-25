@@ -15,7 +15,9 @@ export default function Login() {
     const[message,setMessage] = useState("");
     const[email, setEmail] = useState("");
     const [pass,setPass] = useState("");
-    
+    const [display, setDisplay] = useState({
+        display:''
+    });
     
     async function redirect()
     {
@@ -33,19 +35,39 @@ export default function Login() {
         else
         {
             e.preventDefault();
-
+            setDisplay({
+                display:'none'
+            });
+            setMessage("Aguarde...");
             await api.get('login',
             {
                 auth: {username:email, password: pass}
             })
             .then((request)=>{
                 setMessage(request.data.message); 
-                setTimeout(()=>{
-                    sessionStorage.setItem("token",request.data.token);
-                    history.push(`/${request.data.router}`);
-                },300);
+                if(request.data.router)
+                {
+                    setDisplay({
+                        display:''
+                    });
+                    setTimeout(()=>{
+                        sessionStorage.setItem("token",request.data.token);
+                        history.push(`/${request.data.router}`);
+                    },300);
+                }
+                
             })
-            .catch((e)=>{console.log(e); setMessage("Erro")});
+            .catch((e)=>
+            {
+                console.log(e);
+                setDisplay({
+                    display:''
+                }); 
+                setMessage("Ops! Algo deu errado!");
+                setTimeout(()=>{
+                    setMessage("");
+                },1000);
+            });
         }
     }
 
@@ -76,7 +98,7 @@ export default function Login() {
                                 required
                             />
                         </label>
-                        <button type="submit">Entrar</button>
+                        <button type="submit" style={display}>Entrar</button>
                     </form>
                     
                     <div className="question" onClick={()=>redirect()}> 

@@ -14,6 +14,11 @@ export default function Expenses(props)
     const [description, setDescription] = useState("");
     const [value, setValue] = useState("");
     const [expense,setExpense] = useState([]);
+
+    const [message, setMessage] = useState("");
+    const [display,setDisplay] = useState({
+        display:''
+    });
     
     useEffect(()=>{
         api.get("/user",{
@@ -58,6 +63,11 @@ export default function Expenses(props)
         }
         else
         {
+            setDisplay({
+                display:'none'
+            });
+            setMessage("Processando...");
+
             let d = new Date();
             let day = d.getDate();
             let month = ((d.getMonth()+1)<10)?"0"+(d.getMonth()+1): d.getMonth()+1;
@@ -85,13 +95,25 @@ export default function Expenses(props)
                     }
                 })
                 .then((req)=>{
-                    
+                    setDisplay({
+                        display:''
+                    });
+                    setMessage("");
                     if(req.data)
                     {
                         setExpense(req.data);
                     }
                 })
-                .catch(e=>console.log(e));
+                .catch((e)=>{
+                    console.log(e);
+                    setMessage("Ops! Algo deu errado!");
+                    setTimeout(()=>{
+                        setDisplay({
+                            display:''
+                        });
+                        setMessage("");
+                    },1000);
+                });
             })
             .catch(e=>console.log(e))
         }
@@ -181,7 +203,8 @@ export default function Expenses(props)
                                     onChange={e=>setValue(e.target.value)}
                                 />
                             </label><br/>
-                            <button type="submit">Cadastrar</button>
+                            <button type="submit" style={display}>Cadastrar</button>
+                            {message}
                         </form>
                     </div>
                     <Divider/>
@@ -257,7 +280,8 @@ export default function Expenses(props)
                                 onChange={e=>setValue(e.target.value)}
                             />
                         </label><br/>
-                        <button type="submit">Cadastrar</button>
+                        <button type="submit" style={display}>Cadastrar</button>
+                        {message}
                     </form>
                 </div>
             );

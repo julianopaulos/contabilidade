@@ -33,6 +33,12 @@ export default function HomeLogged() {
     
     const [userImg, setUserImg] = useState();
 
+
+    const [message, setMessage] = useState("");
+    const [display,setDisplay] = useState({
+        display:''
+    });
+
     
     
     
@@ -108,6 +114,10 @@ export default function HomeLogged() {
         }
         else
         {
+            setDisplay({
+                display:'none'
+            });
+            setMessage("Processando...");
             let data = {
                 total_income: total_income,
                 meta: meta
@@ -118,9 +128,22 @@ export default function HomeLogged() {
                 }
             })
             .then((req)=>{
+                setDisplay({
+                    display:''
+                });
+                setMessage("");
                 setAccount(req.data);
             })
-            .catch(e=>console.log(e));
+            .catch((e)=>{
+                console.log(e);
+                setMessage("Ops! Algo deu errado!");
+                setTimeout(()=>{
+                    setDisplay({
+                        display:''
+                    });
+                    setMessage("");
+                },1000);
+            });
         }
         
     }
@@ -203,7 +226,8 @@ export default function HomeLogged() {
                                             onChange={(e)=>setMeta(e.target.value)}
                                         />
                                     </label>
-                                    <input type="submit" value="Cadastrar"/>
+                                    <input style={display} type="submit" value="Cadastrar"/>
+                                    {message}
                                 </form>
                             </div>    
                     </CardContent>

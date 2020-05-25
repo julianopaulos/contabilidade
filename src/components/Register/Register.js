@@ -19,6 +19,10 @@ export default function Register() {
     const [phone,setPhone] = useState("");
     const [pass,setPass] = useState("");
 
+    const [display, setDisplay] = useState({
+        display:''
+    });
+
     async function redirect()
     {
         await history.push("/Login");
@@ -33,6 +37,9 @@ export default function Register() {
         }
         else
         {
+            setDisplay({
+                display:'none'
+            });
             e.preventDefault();
             const data = {
                 name: name,
@@ -40,21 +47,44 @@ export default function Register() {
                 phone: phone,
                 password: pass
             }
-            /*const data = new FormData();
-            data.append("name",name);
-            data.append("email",email);
-            data.append("phone",phone);
-            data.append("pass",pass);*/
+
             
             await api.post("register",data)
             .then((response)=>{
+                setDisplay({
+                    display:''
+                });
                 setMessage(response.data.message);
-                history.push(`/${response.data.router}`);
+                if(response.data.router!==undefined)
+                {
+                    history.push(`/${response.data.router}`);
+                }
+                else
+                {
+                    setMessage("Ops! Algo deu errado!");
+                    setTimeout(()=>{
+                        setMessage("");
+                    },1000);
+                }
+                
             })
             .catch((error)=>{
+                setDisplay({
+                    display:''
+                });
                 console.log(error);
-                setMessage(error.message);
-                history.push(`/${error.router}`);
+                if(error.router)
+                {
+                    setMessage(error.message);
+                    history.push(`/${error.router}`);
+                }
+                else
+                {
+                    setMessage("Ops! Algo deu errado!");
+                    setTimeout(()=>{
+                        setMessage("");
+                    },1000);
+                }
             });
         }
     }
@@ -104,7 +134,7 @@ export default function Register() {
                                 autoComplete="current-password"
                             />
                         </label>
-                        <button type="submit">Cadastrar</button>
+                        <button type="submit" style={display}>Cadastrar</button>
                     </form>
                     <div className="question" onClick={()=>redirect()}> 
                         Já tem uma conta?

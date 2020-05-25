@@ -60,7 +60,19 @@ export default function Contact() {
                     },2500);
                 }
             })
-            .catch(e=>console.log(e));
+            .catch((e)=>
+            {
+                console.log(e);
+                setUserMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
+                setTimeout(()=>{
+                    setUserMessage("");
+                    setDisplay({
+                        display: ''
+                    });
+                    setUserMessage("");
+                    setDisable("");
+                },2500);
+            });
         }
         else
         {
