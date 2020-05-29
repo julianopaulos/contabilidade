@@ -32,7 +32,7 @@ export default function HomeLogged() {
     const [account, setAccount] = useState("");
     
     const [userImg, setUserImg] = useState();
-
+    const [imgTitle, setImgTitle] = useState("");
 
     const [message, setMessage] = useState("");
     const [display,setDisplay] = useState({
@@ -72,10 +72,12 @@ export default function HomeLogged() {
                 if(res.data.url)
                 {
                     setUserImg(res.data.url);
+                    setImgTitle("Imagem de perfil");
                 }
                 else
                 {
                     setUserImg(user_icon);
+                    setImgTitle("Adicione uma foto de perfil");
                 }
             })
             .catch(e=>console.log(e))
@@ -161,6 +163,7 @@ export default function HomeLogged() {
                         id="user_icon" 
                         style={{borderRadius:'50%'}} 
                         alt="profilePicture" 
+                        title={imgTitle}
 
                     />
                     <CardContent>
@@ -198,7 +201,7 @@ export default function HomeLogged() {
                         src={userImg} id="user_icon" 
                         style={{borderRadius:'50%'}} 
                         alt="profilePicture" 
-                        
+                        title={imgTitle}
                     />
                     
                     <CardContent>
