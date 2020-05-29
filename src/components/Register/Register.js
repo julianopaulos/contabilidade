@@ -40,6 +40,7 @@ export default function Register() {
             setDisplay({
                 display:'none'
             });
+            setMessage("Aguarde...");
             e.preventDefault();
             const data = {
                 name: name,

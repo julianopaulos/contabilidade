@@ -87,7 +87,7 @@ export default function Edit()
             let url_string = window.location.href; 
             let url = new URL(url_string);
             let id = Number(url.searchParams.get("id"));
-            
+            setMessage("Aguarde...");
             api.put("/expense",data,{
                 headers:{
                     authorization: sessionStorage.getItem("token"),
@@ -104,7 +104,13 @@ export default function Edit()
                     
                 }
             })
-            .catch(e=>console.log(e))
+            .catch(e=>{
+                console.log(e);
+                setMessage("Ops, algo deu errado! Recarregue e tente novamente.");
+                setTimeout(()=>{
+                    setMessage("");
+                },1000);
+            });
         }
     }
     

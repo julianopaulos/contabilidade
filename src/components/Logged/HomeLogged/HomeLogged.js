@@ -169,7 +169,7 @@ export default function HomeLogged() {
                         </Typography>
                             
                             <div className="title">
-                                Renda Total:
+                                Renda mensal:
                             </div>
                             <div className="val">
                             {"R$"+Number(account.total_income).toLocaleString("pt",{minimumFractionDigits: 2, 
@@ -226,7 +226,13 @@ export default function HomeLogged() {
                                             onChange={(e)=>setMeta(e.target.value)}
                                         />
                                     </label>
-                                    <input style={display} type="submit" value="Cadastrar"/>
+                                    <input 
+                                        style={display} 
+                                        type="submit" 
+                                        title="Cadastrar renda e meta mensais de gasto" 
+                                        value="Cadastrar"
+
+                                    />
                                     {message}
                                 </form>
                             </div>    

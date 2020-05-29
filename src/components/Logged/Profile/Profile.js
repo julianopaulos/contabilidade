@@ -66,6 +66,7 @@ export default function Profile()
                     .then((res)=>{
                         if(res.data.url)
                         {
+                            console.log(res.data.url);
                             setUserImg(res.data.url);
                         }
                         
@@ -90,7 +91,7 @@ export default function Profile()
         e.preventDefault();
         const formData = new FormData();
         formData.append("img",img);
-
+        setMessage("Aguarde...")
         await api.post("/img",formData, {
             headers: {
                 authorization: sessionStorage.getItem("token"),
@@ -106,6 +107,10 @@ export default function Profile()
             .then((res)=>{
                 if(res.data.url)
                 {
+                    setMessage("Foto cadastrada!");
+                    setTimeout(()=>{
+                        setMessage("");
+                    },2500);
                     setUserImg(res.data.url);
                     handleModal();
                 }
@@ -115,10 +120,15 @@ export default function Profile()
                 setMessage("Ops! Algo deu errado!")
                 setTimeout(()=>{
                     setMessage("");
-                },1000);
+                },2000);
             })
         })
-        .catch(e=>console.log(e))
+        .catch(e=>{
+            console.log(e);setMessage("Ops! Algo deu errado!")
+            setTimeout(()=>{
+                setMessage("");
+            },2500);
+        })
     }
     
     
@@ -154,6 +164,7 @@ export default function Profile()
                 <div className="modal-content" style={style}>
                 
                     <div className="form-modal">
+                        
                         <div onClick={(e)=>handleModal(e)} id="close">x</div>
                         <Divider/>
                         <form onSubmit={(e)=>handleImg(e)} encType="multipart/form-data">
@@ -162,6 +173,7 @@ export default function Profile()
                             <Divider/>
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
+                            <br/>{message}
                         </form>
                     </div>
                 </div>
@@ -172,7 +184,7 @@ export default function Profile()
             
             return(
                 <div className="modal-content" style={style}>    
-                    <div className="form-modal">
+                    <div className="form-modal">    
                         <div onClick={(e)=>handleModal(e)} id="close">x</div>
                         <Divider/>
                         <form onSubmit={(e)=>handleImg(e)} encType="multipart/form-data">
@@ -181,6 +193,7 @@ export default function Profile()
                             <Divider/>
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
+                            <br/>{message}
                         </form>
                     </div>
                 </div>

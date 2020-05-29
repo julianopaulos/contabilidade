@@ -182,10 +182,10 @@ export default function Expenses(props)
                 <div>
                     <div className="form-expense">
                         <h2>
-                            Adicione suas dívidas aqui!
+                            Adicione suas Despesas aqui!
                         </h2>
                         <form onSubmit={(e)=>{handleCreateExpense(e)}}>
-                                <label>Descrição da dívida<br/>
+                                <label>Descrição da Despesa<br/>
                                 <input 
                                     type="text" 
                                     placeholder="Descrição"  
@@ -194,7 +194,7 @@ export default function Expenses(props)
                                     onChange={e=>setDescription(e.target.value)}
                                 />
                                 </label><br/>
-                                <label>Valor da Dívida:<br/>
+                                <label>Valor da Despesa:<br/>
                                 <input 
                                     type="text" 
                                     placeholder="Valor" 
@@ -203,7 +203,13 @@ export default function Expenses(props)
                                     onChange={e=>setValue(e.target.value)}
                                 />
                             </label><br/>
-                            <button type="submit" style={display}>Cadastrar</button>
+                            <button 
+                                type="submit" 
+                                title="Cadastrar despesa" 
+                                style={display}
+                            >
+                                Cadastrar
+                            </button>
                             {message}
                         </form>
                     </div>
@@ -239,11 +245,11 @@ export default function Expenses(props)
                             <div>
                                 <h4>Ações</h4>
                                 <div>
-                                    <span>
+                                    <span title="Editar despesa">
                                         <EditIcon onClick={()=>handleEdit(d.id)}/>
                                     </span> 
-                                    <span>
-                                        <DeleteIcon onClick={()=>handleDelete(d.id)} />
+                                    <span title="Deletar despesa">
+                                        <DeleteIcon  onClick={()=>handleDelete(d.id)} />
                                     </span>
                                 </div>
                             </div>
@@ -259,10 +265,10 @@ export default function Expenses(props)
             return (
                 <div className="form-expense">
                     <h2>
-                        Adicione suas dívidas aqui!
+                        Adicione suas Despesas aqui!
                     </h2>
                     <form onSubmit={e=>handleCreateExpense(e)}>
-                        <label>Descrição da dívida<br/>
+                        <label>Descrição da Despesa<br/>
                             <input 
                                 type="text" 
                                 placeholder="Descrição"  
@@ -271,7 +277,7 @@ export default function Expenses(props)
                                 onChange={e=>setDescription(e.target.value)}
                             />
                         </label><br/>
-                        <label>Valor da Dívida:<br/>
+                        <label>Valor da Despesa:<br/>
                             <input 
                                 type="text" 
                                 placeholder="Valor" 
@@ -280,7 +286,14 @@ export default function Expenses(props)
                                 onChange={e=>setValue(e.target.value)}
                             />
                         </label><br/>
-                        <button type="submit" style={display}>Cadastrar</button>
+                        
+                        <button 
+                                type="submit" 
+                                title="Cadastrar despesa" 
+                                style={display}
+                        >
+                            Cadastrar
+                        </button>
                         {message}
                     </form>
                 </div>
