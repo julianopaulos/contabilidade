@@ -5,6 +5,9 @@ import Divider from '@material-ui/core/Divider';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
+
+import InfiniteLoadingList from 'react-simple-infinite-loading'
+
 import api from '../../../services/api';
 
 export default function Expenses(props)
@@ -232,31 +235,40 @@ export default function Expenses(props)
                             />
                         </label>
                     </div>
-                    {expense.map(d=>{
-                    return (
-                        <div key={d.id} className="expense">            
-                            <div><h4>Data</h4><div>{dateFormat(d.date_expense)}</div></div>
-                            <div><h4>Descrição</h4><div>{d.description}</div></div>
-                            <div>
-                                <h4>Valor</h4>
-                                    {"R$"+Number(d.value).toLocaleString("pt",{minimumFractionDigits: 2, 
-                                        maximumFractionDigits: 2})}
-                            </div>
-                            <div>
-                                <h4>Ações</h4>
-                                <div>
-                                    <span title="Editar despesa">
-                                        <EditIcon onClick={()=>handleEdit(d.id)}/>
-                                    </span> 
-                                    <span title="Deletar despesa">
-                                        <DeleteIcon  onClick={()=>handleDelete(d.id)} />
-                                    </span>
-                                </div>
-                            </div>
-                            <Divider/>
-                        </div>
-                    );
-                })}
+                    <div style={{height: 600 }}>
+                        <InfiniteLoadingList
+                            items={expense}
+                            itemHeight={400}
+                            loadMoreItems={Expenses}
+                        >
+                            {expense.map(d=>{
+                                return (
+                                    <div key={d.id} className="expense">            
+                                        <div><h4>Data</h4><div>{dateFormat(d.date_expense)}</div></div>
+                                        <div><h4>Descrição</h4><div>{d.description}</div></div>
+                                        <div>
+                                            <h4>Valor</h4>
+                                                {"R$"+Number(d.value).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                                    maximumFractionDigits: 2})}
+                                        </div>
+                                        <div>
+                                            <h4>Ações</h4>
+                                            <div>
+                                                <span title="Editar despesa">
+                                                    <EditIcon onClick={()=>handleEdit(d.id)}/>
+                                                </span> 
+                                                <span title="Deletar despesa">
+                                                    <DeleteIcon  onClick={()=>handleDelete(d.id)} />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <Divider/>
+                                    </div>
+                                );
+                        })}
+                        </InfiniteLoadingList>
+                    </div>
+                    
                 </div>
             );
         }  
