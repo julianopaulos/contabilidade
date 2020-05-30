@@ -211,7 +211,13 @@ export default function Profile()
             return (
                 <Card className="container-img">
                     <div>
-                        <img src={userImg} style={{borderRadius:'50%'}} id="user_icon" alt="userProfile"/>
+                        <img 
+                            src={userImg} 
+                            style={{borderRadius:'50%'}} 
+                            id="user_icon" 
+                            alt="userProfile"
+                            title="Foto de perfil"
+                        />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2" >
                                 Olá, {data.name}
