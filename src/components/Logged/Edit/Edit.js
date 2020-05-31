@@ -124,7 +124,7 @@ export default function Edit()
                             type="date" 
                             defaultValue={dateExpense} 
                             onKeyUp={(e)=>setDateExpense(e.target.value)} 
-
+                            onChange={(e)=>{setDateExpense(e.target.value)}}
                         />                       
                     </label><br/>
                     <label><h4>Descrição</h4>
