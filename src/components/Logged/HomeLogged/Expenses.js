@@ -62,7 +62,7 @@ export default function Expenses(props)
         e.preventDefault();
         if(!description || !value || value<0)
         {
-            alert("Digite os dados Corretamente!");
+            alert("Digite os dados corretamente!");
         }
         else
         {
@@ -109,7 +109,7 @@ export default function Expenses(props)
                 })
                 .catch((e)=>{
                     console.log(e);
-                    setMessage("Ops! Algo deu errado!");
+                    setMessage("Ops, algo deu errado! Tente novamente mais tarde.");
                     setTimeout(()=>{
                         setDisplay({
                             display:''
@@ -185,10 +185,10 @@ export default function Expenses(props)
                 <div>
                     <div className="form-expense">
                         <h2>
-                            Adicione suas Despesas aqui!
+                            Adicione suas despesas aqui!
                         </h2>
                         <form onSubmit={(e)=>{handleCreateExpense(e)}}>
-                                <label>Descrição da Despesa<br/>
+                                <label>Descrição da despesa<br/>
                                 <input 
                                     type="text" 
                                     placeholder="Descrição"  
@@ -197,7 +197,7 @@ export default function Expenses(props)
                                     onChange={e=>setDescription(e.target.value)}
                                 />
                                 </label><br/>
-                                <label>Valor da Despesa:<br/>
+                                <label>Valor da despesa:<br/>
                                 <input 
                                     type="text" 
                                     placeholder="Valor" 
@@ -218,7 +218,7 @@ export default function Expenses(props)
                     </div>
                     <Divider/>
                     <div className="date-filter">   
-                        <div>Filtre seus gastos por tempo: </div>
+                        <div>Filtre seus gastos por período: </div>
                         <label>de:
                             <input 
                                 type="date"  
@@ -235,7 +235,7 @@ export default function Expenses(props)
                             />
                         </label>
                     </div>
-                    <div style={{height: 600 }}>
+                    <div style={(expense.length>1)?{height: 600 }:{height:400}}>    
                         <InfiniteLoadingList
                             items={expense}
                             itemHeight={400}
@@ -277,10 +277,10 @@ export default function Expenses(props)
             return (
                 <div className="form-expense">
                     <h2>
-                        Adicione suas Despesas aqui!
+                        Adicione suas despesas aqui!
                     </h2>
                     <form onSubmit={e=>handleCreateExpense(e)}>
-                        <label>Descrição da Despesa<br/>
+                        <label>Descrição da despesa<br/>
                             <input 
                                 type="text" 
                                 placeholder="Descrição"  
@@ -289,7 +289,7 @@ export default function Expenses(props)
                                 onChange={e=>setDescription(e.target.value)}
                             />
                         </label><br/>
-                        <label>Valor da Despesa:<br/>
+                        <label>Valor da despesa:<br/>
                             <input 
                                 type="text" 
                                 placeholder="Valor" 
@@ -313,6 +313,6 @@ export default function Expenses(props)
         }
         else
         {
-            return (<div><h2>Primeiro Adicione sua renda e sua meta mensal!</h2></div>);
+            return (<div><h2>Primeiro adicione sua renda e também sua meta mensal de gastos!</h2></div>);
         }  
 }

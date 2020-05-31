@@ -89,46 +89,57 @@ export default function Profile()
     {
         
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("img",img);
-        setMessage("Aguarde...")
-        await api.post("/img",formData, {
-            headers: {
-                authorization: sessionStorage.getItem("token"),
-                "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
-            }
-        })
-        .then(()=>{
-            api.get("/img",{
-                headers:{
-                    Authorization: sessionStorage.getItem("token")
+        if(img.size<2097152)
+        {
+            const formData = new FormData();
+            formData.append("img",img);
+            setMessage("Aguarde...")
+            await api.post("/img",formData, {
+                headers: {
+                    authorization: sessionStorage.getItem("token"),
+                    "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
                 }
             })
-            .then((res)=>{
-                if(res.data.url)
-                {
-                    setMessage("Foto cadastrada!");
+            .then(()=>{
+                api.get("/img",{
+                    headers:{
+                        Authorization: sessionStorage.getItem("token")
+                    }
+                })
+                .then((res)=>{
+                    if(res.data.url)
+                    {
+                        setMessage("Foto cadastrada!");
+                        setTimeout(()=>{
+                            setMessage("");
+                        },2500);
+                        setUserImg(res.data.url);
+                        handleModal();
+                    }
+                })
+                .catch((e)=>{
+                    console.log(e);
+                    setMessage("Ops! Algo deu errado!")
                     setTimeout(()=>{
                         setMessage("");
-                    },2500);
-                    setUserImg(res.data.url);
-                    handleModal();
-                }
+                    },2000);
+                })
             })
-            .catch((e)=>{
-                console.log(e);
-                setMessage("Ops! Algo deu errado!")
+            .catch(e=>{
+                console.log(e);setMessage("Ops! Algo deu errado!")
                 setTimeout(()=>{
                     setMessage("");
-                },2000);
-            })
-        })
-        .catch(e=>{
-            console.log(e);setMessage("Ops! Algo deu errado!")
+                },2500);
+            });
+        }
+        else
+        {
+            setMessage("A Imagem excedeu o tamanho máximo, que é de 2MB!");
             setTimeout(()=>{
                 setMessage("");
             },2500);
-        })
+        }
+        
     }
     
     
@@ -173,7 +184,7 @@ export default function Profile()
                             <Divider/>
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
-                            <br/>{message}
+                            <br/><h3>{message}</h3>
                         </form>
                     </div>
                 </div>
@@ -193,7 +204,7 @@ export default function Profile()
                             <Divider/>
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
-                            <br/>{message}
+                            <br/><h3>{message}</h3>
                         </form>
                     </div>
                 </div>

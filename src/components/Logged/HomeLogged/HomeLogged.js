@@ -72,7 +72,7 @@ export default function HomeLogged() {
                 if(res.data.url)
                 {
                     setUserImg(res.data.url);
-                    setImgTitle("Imagem de perfil");
+                    setImgTitle("Foto de perfil");
                 }
                 else
                 {
@@ -138,7 +138,7 @@ export default function HomeLogged() {
             })
             .catch((e)=>{
                 console.log(e);
-                setMessage("Ops! Algo deu errado!");
+                setMessage("Ops, algo deu errado! Tente novamente mais tarde.");
                 setTimeout(()=>{
                     setDisplay({
                         display:''
@@ -209,7 +209,7 @@ export default function HomeLogged() {
                             Olá, {nameFormat(name)}
                         </Typography>
                             <div className="create_account">
-                                <h2>Crie sua conta primeiro</h2>
+                                <h2>Cadastre seus dados financeiros abaixo para começar!</h2>
                                 <form onSubmit={handleCreateAccount}>
                                     <label>Sua renda total do mês:
                                         <input 
