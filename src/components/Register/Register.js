@@ -14,7 +14,7 @@ export default function Register() {
     document.title="Cadastrar";
     const history = useHistory();
     const [message,setMessage] = useState("");
-    const [name,setName] = useState();
+    const [name,setName] = useState("");
     const [email,setEmail] = useState("");
     const [phone,setPhone] = useState("");
     const [pass,setPass] = useState("");
@@ -30,10 +30,15 @@ export default function Register() {
 
     async function register(e)
     {
-        if(!name || !email || !phone || !pass)
+        if(name.search(/[A-Za-z]/)===-1 || 
+            email.search(/^[a-z0-9.]+@[a-z0-9]/)===-1 ||
+            phone.search(/[0-9]/)===-1 || 
+            pass.length<=3 ||
+            phone.split(/[0-9]/).length<=11
+        )
         {
             e.preventDefault();
-            setMessage("Digite todos os campos do formulário!");
+            setMessage("Digite todos os campos do formulário corretamente!");
         }
         else
         {
