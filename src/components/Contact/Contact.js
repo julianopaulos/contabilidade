@@ -11,7 +11,7 @@ import api from '../../services/api.js';
 export default function Contact() {
     document.title = "Contato";
     const [display, setDisplay] = useState({
-        display:''
+        display:''  
     });
     const [disable, setDisable] = useState("");
     const [name, setName] = useState("");
