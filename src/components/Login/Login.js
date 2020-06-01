@@ -66,7 +66,7 @@ export default function Login() {
                 setMessage("Ops! Algo deu errado!");
                 setTimeout(()=>{
                     setMessage("");
-                },1000);
+                },2000);
             });
         }
     }

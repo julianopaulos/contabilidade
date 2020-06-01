@@ -51,15 +51,22 @@ export default function Form()
 
     async function handleUpdate(e)
     {
-        setDisplay({
-            display:'none'
-        });
-        setMessage("Processando...");
         e.preventDefault();
-        if(name && email && phone)
+        
+        if(
+            name.search(/[A-Za-z]/)===0 || 
+            email.search(/^[a-z0-9.]+@[a-z0-9]/)===0 ||
+            email.length>=17 ||
+            phone.search(/[0-9]/)===0 || 
+            phone.split(/[0-9]/).length>11
+        )
         {
+            setDisplay({
+                display:'none'
+            });
+            setMessage("Processando...");
             let data = [];
-            if(pass)
+            if(pass && pass.length<=3)
             {
                 data={
                     "name":name,
@@ -68,10 +75,13 @@ export default function Form()
                     "password":pass
                 }
             }
-            data={
-                "name":name,
-                "email": email,
-                "phone":phone
+            else
+            {
+                data={
+                    "name":name,
+                    "email": email,
+                    "phone":phone
+                }
             }
             
             api.put("/update",data,{
@@ -88,7 +98,7 @@ export default function Form()
                     setMessage(res.data);
                     setTimeout(()=>{
                         setMessage("");
-                    },2000);
+                    },3000);
                 }
                 else
                 {
@@ -96,6 +106,9 @@ export default function Form()
                         display:''
                     });
                     setMessage("Ops! Algo deu errado!");
+                    setTimeout(()=>{
+                        setMessage("");
+                    },2000);
                 }
             })
             .catch((e)=>{
@@ -106,12 +119,15 @@ export default function Form()
                         display:''
                     });
                     setMessage("");
-                },1000);
+                },2000);
             })
         }
         else
         {
-            alert("Insira os campos do formulário");
+            setMessage("Insira os campos do formulário corretamente!");
+            setTimeout(()=>{
+                setMessage("");
+            },3000);
         }
         
     }

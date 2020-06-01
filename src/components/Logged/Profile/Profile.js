@@ -129,7 +129,7 @@ export default function Profile()
                 console.log(e);setMessage("Ops! Algo deu errado!")
                 setTimeout(()=>{
                     setMessage("");
-                },2500);
+                },2000);
             });
         }
         else
@@ -137,7 +137,7 @@ export default function Profile()
             setMessage("A Imagem excedeu o tamanho máximo, que é de 2MB!");
             setTimeout(()=>{
                 setMessage("");
-            },2500);
+            },3500);
         }
         
     }

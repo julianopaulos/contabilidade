@@ -30,8 +30,10 @@ export default function Register() {
 
     async function register(e)
     {
-        if(name.search(/[A-Za-z]/)===-1 || 
+        if(
+            name.search(/[A-Za-z]/)===-1 || 
             email.search(/^[a-z0-9.]+@[a-z0-9]/)===-1 ||
+            email.length<17 ||
             phone.search(/[0-9]/)===-1 || 
             pass.length<=3 ||
             phone.split(/[0-9]/).length<=11
@@ -70,7 +72,7 @@ export default function Register() {
                     setMessage("Ops! Algo deu errado!");
                     setTimeout(()=>{
                         setMessage("");
-                    },1000);
+                    },2000);
                 }
                 
             })
@@ -89,7 +91,7 @@ export default function Register() {
                     setMessage("Ops! Algo deu errado!");
                     setTimeout(()=>{
                         setMessage("");
-                    },1000);
+                    },2000);
                 }
             });
         }

@@ -144,7 +144,7 @@ export default function HomeLogged() {
                         display:''
                     });
                     setMessage("");
-                },1000);
+                },2000);
             });
         }
         

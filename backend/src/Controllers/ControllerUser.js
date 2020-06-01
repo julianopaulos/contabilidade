@@ -124,26 +124,25 @@ module.exports={
             const {name,email,phone,password} = req.body;
             const token = req.headers.authorization;  
             const payload = jwt.verify(token);    
-            const data = await connection("user").select("*")
-            .where({"email":email,"name":name,"phone":phone});
             if(payload.user_id)
             {
-                if(data.length>0 && password)
-                {
+                const id = await connection("user").select("id").where("email",email).first();
+                if(((id && id.id===payload.user_id) || !id.id) && password)
+                {        
                     let pass = cryptographe.cript(password);
                     await connection("user").update({'name':name,'email':email,phone:phone,'pass':pass})
                     .where("id",payload.user_id);
                     return res.json("Dados alterados com sucesso!");
                 }
-                else if(data.length>0)
-                {
-                    res.json("Dados inválidos!");
-                }
-                else
+                if(((id && id.id===payload.user_id) || !id.id) && !password)
                 {
                     await connection("user").update({'name':name,'email':email,'phone':phone})
                     .where("id",payload.user_id);
-                    return res.json("Dados alterados com sucesso!");
+                    return res.json("Dados alterados com sucesso!"); 
+                }
+                else
+                {
+                    res.json("E-mail já utilizado!");
                 }
             }
         }

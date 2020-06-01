@@ -109,7 +109,7 @@ export default function Edit()
                 setMessage("Ops, algo deu errado! Recarregue e tente novamente.");
                 setTimeout(()=>{
                     setMessage("");
-                },1000);
+                },2000);
             });
         }
     }

@@ -115,7 +115,7 @@ export default function Expenses(props)
                             display:''
                         });
                         setMessage("");
-                    },1000);
+                    },2000);
                 });
             })
             .catch(e=>console.log(e))
