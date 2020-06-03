@@ -22,7 +22,21 @@ export default function Contact() {
     async function handleSubmit(e)
     {
         e.preventDefault();
-        if(name !== "" && email!=="" && message!=="")
+        if(
+            name.search(/[A-Za-z]/)===-1 || 
+            email.search(/^[a-z0-9.]+@[a-z0-9]/)===-1 ||
+            email.length<17 ||
+            message.length<4 ||
+            name.length<3
+        )
+        {
+            setUserMessage("Digite todos os dados corretamente!");
+            setTimeout(()=>{
+                setUserMessage("");
+                setDisable("");
+            },1500);
+        }
+        else
         {
             setDisplay({
                 display: 'none'
@@ -73,14 +87,6 @@ export default function Contact() {
                     setDisable("");
                 },2500);
             });
-        }
-        else
-        {
-            setUserMessage("Digite todos os dados corretamente!");
-            setTimeout(()=>{
-                setUserMessage("");
-                setDisable("");
-            },1500);
         }
     }
 

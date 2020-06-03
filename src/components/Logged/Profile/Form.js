@@ -54,19 +54,26 @@ export default function Form()
         e.preventDefault();
         
         if(
-            name.search(/[A-Za-z]/)===0 || 
-            email.search(/^[a-z0-9.]+@[a-z0-9]/)===0 ||
-            email.length>=17 ||
-            phone.search(/[0-9]/)===0 || 
-            phone.split(/[0-9]/).length>11
+            name.search(/[A-Za-z]/)===-1 || 
+            email.search(/^[a-z0-9.]+@[a-z0-9]/)===-1 ||
+            email.length<17 ||
+            phone.search(/[0-9]/)===-1 || 
+            phone.split(/[0-9]/).length<=11
         )
+        {
+            setMessage("Insira os campos do formulário corretamente!");
+            setTimeout(()=>{
+                setMessage("");
+            },3000);
+        }
+        else
         {
             setDisplay({
                 display:'none'
             });
             setMessage("Processando...");
             let data = [];
-            if(pass && pass.length<=3)
+            if(pass && pass.length>=3)
             {
                 data={
                     "name":name,
@@ -121,13 +128,6 @@ export default function Form()
                     setMessage("");
                 },2000);
             })
-        }
-        else
-        {
-            setMessage("Insira os campos do formulário corretamente!");
-            setTimeout(()=>{
-                setMessage("");
-            },3000);
         }
         
     }
