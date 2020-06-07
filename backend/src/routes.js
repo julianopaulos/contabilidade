@@ -22,7 +22,7 @@ const routes = express.Router();
 routes.post("/email",celebrate({
     [Segments.BODY]:Joi.object({
         name: Joi.string().required().min(3).max(50),
-        email: Joi.string().required().min(17).max(50),
+        email: Joi.string().email().required().min(17).max(50),
         message: Joi.string().required().min(3).max(300)
     })
 }),ControllerEmail.main);
@@ -54,7 +54,7 @@ routes.get("/login",celebrate({
 routes.post("/register",celebrate({
     [Segments.BODY]:Joi.object({
         name: Joi.string().required().min(3).max(50),
-        email: Joi.string().required().min(17).max(50),
+        email: Joi.string().email().required().min(17).max(50),
         phone: Joi.string().required().min(10).max(20),
         password: Joi.string().required().min(4).max(25)
     }).unknown()
@@ -67,7 +67,7 @@ routes.put("/update",celebrate({
     }).unknown(),
     [Segments.BODY]:Joi.object({
         name: Joi.string().required().min(3).max(50),
-        email: Joi.string().required().min(13).max(50),
+        email: Joi.string().email().required().min(13).max(50),
         phone: Joi.string().required().min(10).max(20),
         password: Joi.string().min(4).max(25)
     }).unknown()

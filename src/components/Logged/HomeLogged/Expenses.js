@@ -17,7 +17,7 @@ export default function Expenses(props)
     const [description, setDescription] = useState("");
     const [value, setValue] = useState("");
     const [expense,setExpense] = useState([]);
-
+    const [totalExpense, setTotalExpense] = useState(0);
     const [message, setMessage] = useState("");
     const [display,setDisplay] = useState({
         display:''
@@ -46,15 +46,13 @@ export default function Expenses(props)
                 if(req.data)
                 {
                     setExpense(req.data);
+                    getTotalExpense(req.data);
                 }
             })
             .catch(e=>console.log(e));
         })
         .catch(e=>console.log(e))
     },[history]);
-
-
-
 
 
     async function handleCreateExpense(e)
@@ -72,7 +70,7 @@ export default function Expenses(props)
             setMessage("Processando...");
 
             let d = new Date();
-            let day = d.getDate();
+            let day = (d.getDate()<10)?"0"+d.getDate():d.getDate();
             let month = ((d.getMonth()+1)<10)?"0"+(d.getMonth()+1): d.getMonth()+1;
             let year = d.getFullYear();
             if(value.indexOf(",")!==-1)
@@ -85,7 +83,6 @@ export default function Expenses(props)
                 description: description,
                 date_expense: `${year}/${month}/${day}`
             };
-            
             await api.post("/expense",data,{
                 headers:{
                     authorization: sessionStorage.getItem("token")
@@ -105,6 +102,7 @@ export default function Expenses(props)
                     if(req.data)
                     {
                         setExpense(req.data);
+                        getTotalExpense(req.data);
                     }
                 })
                 .catch((e)=>{
@@ -146,6 +144,7 @@ export default function Expenses(props)
                 if(expense)
                 {
                     setExpense(expense.filter((expense)=>expense.id!==id));
+                    getTotalExpense(req.data);
                 }       
             })
             .catch(e=>{
@@ -166,6 +165,7 @@ export default function Expenses(props)
                 }
             }).then((res)=>{
                 setExpense(res.data);
+                getTotalExpense(res.data);
             }).catch(e=>console.log(e));
         }
     }
@@ -175,6 +175,17 @@ export default function Expenses(props)
         var split = date.split('/');
         const format_date = split[2] + "/" + split[1] + "/" + split[0];
         return format_date;
+    }
+
+    function getTotalExpense(expenses)
+    {
+        let expenseValues = expenses.map(expense=>{return expense.value});
+        let totalValue = 0;
+        for(let i =0; i<expenseValues.length;i++)
+        {
+            totalValue+=expenseValues[i];
+        }
+        setTotalExpense(totalValue);
     }
 
 
@@ -234,6 +245,16 @@ export default function Expenses(props)
                                 id="finalDate"
                             />
                         </label>
+                        <div className="total-value">
+                            {(totalExpense>0 && (<div>
+                                Valor Total das Despesas: 
+                                <div id="value">
+                                    {" R$"+Number(totalExpense).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                                    maximumFractionDigits: 2})}
+                                </div>
+                            </div>))}
+                        </div>
+                        <Divider id="before-expenses"/>
                     </div>
                     <div style={(expense.length>1)?{height: 600 }:{height:400}}>    
                         <InfiniteLoadingList
