@@ -144,7 +144,7 @@ export default function Expenses(props)
                 if(expense)
                 {
                     setExpense(expense.filter((expense)=>expense.id!==id));
-                    getTotalExpense(req.data);
+                    getTotalExpense(expense.filter((expense)=>expense.id!==id));
                 }       
             })
             .catch(e=>{

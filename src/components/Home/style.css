@@ -29,6 +29,10 @@ body
 {
     background-color: transparent;
 }
+.carousel.carousel-slider .control-arrow
+{
+    background: rgba(0,0,0,0.6);
+}
 @media screen and (max-width:425px)
 {
     .carousel .slide .legend

@@ -160,7 +160,7 @@
     font-size: 18px;
     margin: 10px auto;
 }
-.create_account input[type=text],.form-expense input
+.form-expense input
 {
     min-width: 60%;
     width: 150px;
@@ -168,15 +168,27 @@
     border-radius: 4px;
     text-align: center;
 }
-.form-expense input
+.form-expense button
 {
-    min-width: 30%;
+    margin: 10px auto;
+    padding: 8px 20px;
+    border-radius: 5px;
+    background-color: rgba(100, 230, 110, 1);
+    transition: 0.7s;
+    cursor: pointer;
 }
-.create_account input[type=submit],.form-expense button
+.create_account input
+{
+    margin: 5px auto;
+    width: 150px;
+    padding: 5px;
+    border-radius: 4px;
+    text-align: center;
+}
+.create_account input[type=submit]
 {
     padding: 10px 20px;
-    border-radius: 4px;
-    min-width: 30%;
+    border-radius: 5px;
     margin: 10px auto;
     background-color: rgba(100, 230, 110, 1);
     transition: 0.7s;

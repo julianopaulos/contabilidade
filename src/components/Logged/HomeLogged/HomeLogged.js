@@ -211,7 +211,7 @@ export default function HomeLogged() {
                             <div className="create_account">
                                 <h2>Cadastre seus dados financeiros abaixo para começar!</h2>
                                 <form onSubmit={handleCreateAccount}>
-                                    <label>Sua renda total do mês:
+                                    <label>Sua renda total do mês:<br/>
                                         <input 
                                             type="text"
                                             placeholder="Sua renda" 
@@ -220,7 +220,7 @@ export default function HomeLogged() {
                                             onChange={(e)=>{setTotalIncome(e.target.value)}}
                                         />
                                     </label>
-                                    <label>Sua meta mensal de gastos:
+                                    <label>Sua meta mensal de gastos:<br/>
                                         <input 
                                             type="text"
                                             placeholder="Sua meta" 
