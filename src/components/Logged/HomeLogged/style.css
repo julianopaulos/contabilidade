@@ -168,6 +168,10 @@
     border-radius: 4px;
     text-align: center;
 }
+.form-expense input
+{
+    min-width: 30%;
+}
 .form-expense button
 {
     margin: 10px auto;

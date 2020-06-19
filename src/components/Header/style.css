@@ -1,4 +1,3 @@
-
 .responsive-menu
 {
     display: none;
@@ -15,7 +14,9 @@
 .header
 {
     height: 50px;
-    background-color: rgba(0,0,0);
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: sans-serif;
 }
 .nav-link
 {
@@ -46,9 +47,8 @@
 .nav-link a:hover,#link
 {
     font-weight: 500;
-    color: lightblue;
-    padding-bottom: 5px;
-    border-bottom: 3px solid green;
+    padding-bottom: 3px;
+    border-bottom: 2px solid rgba(100, 250, 100, 1);
     font-style: italic;
 }
 
@@ -58,6 +58,7 @@
     .header
     {
         margin-bottom: 0;
+        height: 60px;
     }
     .nav-link
     {

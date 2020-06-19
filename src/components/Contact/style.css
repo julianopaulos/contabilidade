@@ -1,77 +1,150 @@
 .todo-contact
 {
     background: url("../assets/images/fundo_contato.jpg");
-    background-size: cover;
+    background-attachment: fixed;
     min-height: 100%;
     width: 100%;
-    position: absolute;
+    position: absolute;   
+    max-width: 1440px;
 }
 .contact-container
 {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0.8;
+    border-radius: 5px;
+    margin:auto;
+    background:rgba(246, 232, 232, 0.8);
+    width: 360px;
+    min-height: 450px;
     display: flex;
-    position: relative;
-    max-width: 400px;
+    margin-top: 200px;
+    flex-direction: column;
+    align-content: center;
+}
+.contact-header
+{
+    display: flex;
     align-items: center;
-    background-color: rgba(200, 200, 200, 0.7);
-    border-radius: 10px;
-    margin: 30px auto; 
-    padding: 50px 1px;
-    
-}
-.contact-container div,form
-{
-    text-align: center;
-    margin: 0 auto;
-    opacity: 1;
-}
-.center
-{
     justify-content: center;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 1.5em;
+    line-height: 24px;
+    color: #F5F3F3;
+    height: 78px;
+    background-color: #04018F;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 11px 80px;
 }
-.contact-container div p
+.contact-form
 {
-    font-size: 1.4em;
-    margin: 0 40px;
+    display: flex;
+    flex-direction: column;
+    margin: 35px auto;
+    margin-bottom: 0;
 }
-
-.contact-form input
+label
 {
-    font-size: 1.2em;
-    width: 65%;
-    padding: 10px 5px;
-    margin: 10px auto;
+    margin: 0 auto;
+}
+.contact-form input, .contact-form textarea
+{
+    width: 220px;
+    height: 34px;
+    margin-bottom: 30px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     text-align: center;
 }
 .contact-form textarea
 {
-    width: 65%;
-    padding: 10px;
-    margin: 10px auto;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 1.5em;
+    height: auto;
 }
 .contact-form button
 {
-    font-size: 1.2em;
+    width: 120px;
+    height: 40px;
+    background: #779539;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin: 0 auto;
     font-weight: 500;
-    padding: 10px 20px;
-    margin: 15px;
-    border-radius: 7px;
-    background-color: #5cb85c;
-    color: #fff;
-    transition: 0.5s;
+    font-size: 1em;
+    line-height: 14px;
+    color: #ffffff;
+    transition: 0.3s;
+    border: none;
     cursor: pointer;
+    opacity: 1;
 }
 .contact-form button:hover
 {
-    background-color: #449d44;
+    opacity: 0.6;
+}
+.contact-form span
+{
+    margin: 20px auto;
+    font-size: 1em;
+}
+.contact-form span u
+{
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+    border-bottom: 1px solid #000000;
+}
+.contact-form span u:hover
+{
+    color: rgba(100, 100, 100, 0.5);
+}
+h3
+{
+    text-align: center;
+}
+@media screen and (max-width:1366px)
+{
+    .todo-contact
+    {
+        background-size: cover;
+    }
+    .contact-container
+    {
+        margin:40px auto;
+    }
+    .contact-header
+    {
+        font-size: 1.4em;
+    }
+}
+@media screen and (max-width:1024px)
+{
+    .contact-container
+    {
+        margin: 80px auto;
+    }
 }
 @media screen and (max-width:768px)
 {
     .contact-container
     {
-        margin-bottom: 80px;
+        margin: 50px auto;
+        margin-bottom: 100px;
+    }
+}
+@media screen and (max-width:425px)
+{
+    .contact-container
+    {
+        width: 300px;
+    }
+    .contact-header
+    {
+        padding: 11px 30px;
+        font-size: 1.2em;
     }
 }

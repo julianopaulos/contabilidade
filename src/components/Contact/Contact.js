@@ -4,6 +4,8 @@ import Footer from '../Footer/Footer';
 
 import './style.css';
 
+import userIcon from '../assets/icons/user.png';
+import mailIcon from '../assets/icons/mail.png';
 
 import api from '../../services/api.js';
 
@@ -95,9 +97,9 @@ export default function Contact() {
             <Header/>
             <div className="contact-container">
                 <div>
-                    <p>
+                    <div className="contact-header">
                         Entre em contato para esclarecer suas dúvidas!
-                    </p>
+                    </div>
                     <form className="contact-form" onSubmit={(e)=>handleSubmit(e)}>
                         <label>
                             <input 
@@ -105,6 +107,10 @@ export default function Contact() {
                                 name="name" 
                                 placeholder="Seu nome"
                                 onKeyUp={(e)=>setName(e.target.value)} 
+                                style={{
+                                    background: `url(${userIcon})no-repeat 10px 8px`,
+                                    backgroundColor: '#ffffff'
+                                }}
                             />
                         </label>
                         <label>
@@ -113,6 +119,10 @@ export default function Contact() {
                                 name="email" 
                                 placeholder="Seu E-mail"
                                 onKeyUp={(e)=>setEmail(e.target.value)} 
+                                style={{
+                                    background: `url(${mailIcon})no-repeat 10px 8px`,
+                                    backgroundColor: '#ffffff'
+                                }}
                             />
                         </label>
                         
@@ -125,8 +135,9 @@ export default function Contact() {
                             />
                         </label>
                         <button type="submit" disabled={disable} style={display}>Enviar E-mail</button>
-                        <br/><h3>{userMessage}</h3>
+                        
                     </form>
+                    <br/><h3 className="message">{userMessage}</h3>
                 </div>
             </div>
         <Footer/>

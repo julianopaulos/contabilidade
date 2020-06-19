@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom';
 
+import mailIcon from '../assets/icons/mail.png';
+import passwordIcon from '../assets/icons/password.png';
+
 import api from '../../services/api';
 
 import Header from '../Header/Header';
@@ -70,13 +73,14 @@ export default function Login() {
             });
         }
     }
-
     return (
         <div className="todo-login">
             <Header/>
-            <div className="login-container center">
+            <div className="login-container">
                 <div>
-                    <p>Bem-vindo de volta! <EmojiEmotionsIcon id="smile"/></p>
+                    <div className="login-header">
+                        Bem-vindo de volta!
+                    </div>
                     <form className="form-login" onSubmit={(e)=>handleSubmit(e)} method="post" datatype="text/plain">
                         <label>
                             <input 
@@ -86,6 +90,10 @@ export default function Login() {
                                 autoComplete="username"
                                 onChange={(e)=>setEmail(e.target.value)}
                                 required
+                                style={{
+                                    background: `url(${mailIcon})no-repeat 10px 8px`,
+                                    backgroundColor: '#ffffff'
+                                }}
                             />
                         </label>
                         <label>
@@ -96,17 +104,16 @@ export default function Login() {
                                 autoComplete="current-password"
                                 onChange={(e)=>setPass(e.target.value)}
                                 required
+                                style={{
+                                    background: `url(${passwordIcon})no-repeat 10px 8px`,
+                                    backgroundColor: '#ffffff'
+                                }}
                             />
                         </label>
                         <button type="submit" style={display}>Entrar</button>
+                        <span>Ainda não tem uma conta? <u onClick={()=>redirect()}>Cadastre-se</u></span>
                     </form>
-                    
-                    <div className="question" onClick={()=>redirect()}> 
-                            Ainda não tem uma conta?
-                    </div>
-                    
-                    <h2 className="message">{message}</h2>
-                    
+                    <h3 className="message">{message}</h3>
                 </div>
             </div>
             <Footer/>

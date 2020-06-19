@@ -1,66 +1,138 @@
 .todo
 {
     background: url("../assets/images/fundo_cadastro.jpg");
-    background-size: cover;
+    background-attachment: fixed;
     min-height: 100%;
     width: 100%;
-    position: absolute;
+    position: absolute;   
+    max-width: 1440px;
 }
 .register-container
 {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0.8;
+    border-radius: 5px;
+    margin:auto;
+    background:rgba(246, 232, 232, 0.8);
+    width: 360px;
+    min-height: 500px;
     display: flex;
-    position: relative;
-    max-width: 400px;
+    margin-top: 200px;
+    flex-direction: column;
+    align-content: center;
+}
+.register-header
+{
+    display: flex;
     align-items: center;
-    background-color: rgba(200, 200, 200, 0.7);
-    border-radius: 10px;
-    margin: 30px auto; 
-    padding: 40px 1px;
-    margin-bottom: 100px;
-}
-.register-container div,form
-{
-    text-align: center;
-    margin: 0 auto;
-    opacity: 1;
-}
-.center
-{
     justify-content: center;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 1.5em;
+    line-height: 24px;
+    color: #F5F3F3;
+    height: 78px;
+    background-color: #04018F;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 11px 80px;
 }
-.register-container div p
+.form-register
 {
-    font-size: 1.4em;
-    margin: 0 40px;
-}
-
-.message
-{
-    margin: 0 50px;
+    display: flex;
+    flex-direction: column;
+    margin: 35px auto;
+    margin-bottom: 0;
 }
 .form-register input
 {
-    font-size: 1.2em;
-    font-weight: 600;
-    width: 65%;
-    padding: 10px 5px;
-    margin: 10px auto;
+    width: 220px;
+    height: 34px;
+    margin-bottom: 30px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     text-align: center;
 }
 .form-register button
 {
-    font-size: 1.2em;
+    width: 100px;
+    height: 34px;
+    background: #779539;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin: 0 auto;
     font-weight: 500;
-    padding: 10px 20px;
-    margin: 15px;
-    border-radius: 7px;
-    background-color: #5cb85c;
-    color: #fff;
-    transition: 0.5s;
+    font-size: 1em;
+    line-height: 14px;
+    color: #ffffff;
+    transition: 0.3s;
+    border: none;
     cursor: pointer;
+    opacity: 1;
 }
 .form-register button:hover
 {
-    background-color: #449d44;    
+    opacity: 0.6;
+}
+.form-register span
+{
+    margin: 20px auto;
+    font-size: 1em;
+}
+.form-register span u
+{
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+    border-bottom: 1px solid #000000;
+}
+.form-register span u:hover
+{
+    color: rgba(100, 100, 100, 0.5);
+}
+h3
+{
+    text-align: center;
+}
+@media screen and (max-width:1366px)
+{
+    .register-container
+    {
+        margin:20px auto;
+    }
+    .register-header
+    {
+        font-size: 1.4em;
+    }
+}
+@media screen and (max-width:1024px)
+{
+    .register-container
+    {
+        margin: 50px auto;
+    }
+}
+@media screen and (max-width:768px)
+{
+    .register-container
+    {
+        margin: 50px auto;
+        margin-bottom: 100px;
+    }
+}
+@media screen and (max-width:425px)
+{
+    .register-container
+    {
+        width: 300px;
+    }
+    .register-header
+    {
+        padding: 11px 30px;
+        font-size: 1.2em;
+    }
 }
