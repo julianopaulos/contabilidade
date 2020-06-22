@@ -16,6 +16,11 @@
     background: #afeeee;
     min-height: 100%;    
 }
+.update_expense form 
+{
+    margin: 0 auto;
+    text-align: center;
+}
 .update_expense label
 {
     min-width: 100%;

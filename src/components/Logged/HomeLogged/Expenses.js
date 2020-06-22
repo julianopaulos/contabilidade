@@ -275,11 +275,11 @@ export default function Expenses(props)
                                         <div>
                                             <h4>Ações</h4>
                                             <div>
-                                                <span title="Editar despesa">
-                                                    <EditIcon onClick={()=>handleEdit(d.id)}/>
+                                                <span title="Editar despesa" >
+                                                    <EditIcon id="edit" onClick={()=>handleEdit(d.id)}/>
                                                 </span> 
-                                                <span title="Deletar despesa">
-                                                    <DeleteIcon  onClick={()=>handleDelete(d.id)} />
+                                                <span title="Deletar despesa" >
+                                                    <DeleteIcon id="delete"  onClick={()=>handleDelete(d.id)} />
                                                 </span>
                                             </div>
                                         </div>

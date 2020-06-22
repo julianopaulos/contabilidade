@@ -9,7 +9,6 @@ import api from '../../services/api';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
 import './style.css';
 export default function Login() {

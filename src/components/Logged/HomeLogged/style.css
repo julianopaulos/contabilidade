@@ -76,17 +76,15 @@
     background-color: black;
     opacity: 0.5;
 }
-.MuiSvgIcon-root
+#edit, #delete
 {
-    display: flex;
-    flex-direction: column;
     border: 1px solid black;
     border-radius: 3px;
     cursor: pointer;
     padding: 5px;
     transition: .5s;
 }
-.MuiSvgIcon-root:hover
+#edit:hover, #delete:hover
 {
     opacity: 0.7;
 }
