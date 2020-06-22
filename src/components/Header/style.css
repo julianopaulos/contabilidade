@@ -2,6 +2,7 @@
 {
     display: none;
     background: black;
+    height: 45px;
 }
 .MuiList-root,.MuiList-root:hover
 {
