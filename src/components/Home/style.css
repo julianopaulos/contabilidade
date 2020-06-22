@@ -1,10 +1,46 @@
-body
+.todo-home
 {
-    margin-bottom: 50px;
+    background: url("../assets/images/home-img.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+    max-width: 1440px;
+    font-family: sans-serif;
 }
-.control-root
+.home-container
 {
-    max-height: 800px;
+    margin-bottom: 65px;
+}
+.presentation
+{
+    background: rgba(196, 196, 196, 0.6);
+    border-radius: 20px;
+    max-width: 900px;
+    height: 450px;
+    margin: 230px auto;
+    margin-left: 77px; 
+    color: #ffffff;
+    padding: 35px 45px; 
+}
+.presentation .title
+{
+    font-size: 4.5em;
+    line-height: 83px;
+    display: flex;
+    align-items: center;
+    margin-left: 45px;
+}
+.presentation .subtitle
+{
+    margin-top: 50px;
+    font-weight: 500;
+    font-size: 2.18em;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 45px;
 }
 .carousel .carousel-status
 {
@@ -33,8 +69,91 @@ body
 {
     background: rgba(0,0,0,0.6);
 }
+@media screen and (max-width:1366px)
+{
+    .todo-home
+    {
+        max-width: 1366px;
+    }
+    .presentation
+    {
+        width: 700px;
+        height: 430px;
+        padding: 20px;
+        margin: 100px auto;
+        margin-left: 77px; 
+    }
+    .presentation .title
+    {
+        font-size: 3.5em;
+        margin-left: 30px;
+    }
+    .presentation .subtitle
+    {
+        margin-top: 30px;
+        font-size: 1.8em;
+        margin-left: 30px;
+    }
+}
+@media screen and (max-width:1024px)
+{
+    .todo-home
+    {
+        max-width: 1024px;
+    }
+}
+
+@media screen and (max-width:768px)
+{
+    .todo-home
+    {
+        max-width: 768px;
+    }
+    .presentation
+    {
+        margin: 100px auto; 
+    }
+    .presentation .title
+    {
+        font-size: 3em;
+        margin-left: 0;
+    }
+    .presentation .subtitle
+    {
+        margin-top: 20px;
+        font-size: 1.3em;
+        margin-left: 0;
+    }
+}
+
+
 @media screen and (max-width:425px)
 {
+    
+    .todo-home
+    {
+        max-width: 425px;
+    }
+    .presentation
+    {
+        max-height: 300px;
+    }
+    .presentation .title
+    {
+        font-size: 2em;
+        line-height: 50px;
+    }
+    .presentation .subtitle
+    {
+        font-size: 1em;
+    }
+    .presentation
+    {
+        width: 375px;
+        height: 430px;
+        padding: 10px;
+        margin: 100px auto;
+    }
     .carousel .slide .legend
     {
         width: 90%;
@@ -47,8 +166,34 @@ body
 }
 @media screen and (max-width:375px)
 {
-    .home-container
+    .todo-home
     {
-        margin-top: 30px;
+        max-width: 375px;
+    }
+    .presentation
+    {
+        width: 350px;
+        min-height: 360px;
+    }
+}
+@media screen and (max-width:320px)
+{
+    .todo-home
+    {
+        max-width: 320px;
+    }
+    .presentation
+    {
+        width: 300px;
+        margin: 100px auto;
+    }
+    .presentation .title
+    {
+        font-size: 1.7em;
+    }
+    .presentation .subtitle
+    {
+        font-size: 1em;
+        line-height: 20px;
     }
 }

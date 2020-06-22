@@ -16,9 +16,21 @@ export default function Home()
 {
     document.title = "Home";
     return(
-        <div>
+        <div className="todo-home">
             <Header/>
             <div className="home-container">
+                <div className="presentation">
+                    <div className="title">
+                        Quando gerenciar seus  <br/>
+                        gastos for um problema, <br/>
+                        conte conosco.
+                    </div>
+                    <div className="subtitle">
+                        Estamos  aqui para te ajudar a ter um controle <br/>
+                        maior sobre os seus gastos do dia a dia, sem <br/>
+                        ter surpresas ao final do mês.
+                    </div>
+                </div>
                 <Carousel>
                     <div>
                         <img src={img1} alt="1° imagem" />
