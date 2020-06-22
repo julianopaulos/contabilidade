@@ -4,6 +4,7 @@
     display: none;
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 45px;
 }
 .MuiList-root,.MuiList-root:hover
 {
@@ -65,7 +66,8 @@
 {
     .header
     {
-        margin-bottom: 0;
+        margin-bottom: 0;   
+        height: 50px;
     }
     .nav-link
     {
