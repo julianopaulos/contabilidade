@@ -129,7 +129,6 @@
 
 @media screen and (max-width:425px)
 {
-    
     .todo-home
     {
         max-width: 425px;
@@ -141,7 +140,7 @@
     .presentation .title
     {
         font-size: 2em;
-        line-height: 50px;
+        line-height: 30px;
     }
     .presentation .subtitle
     {
@@ -172,8 +171,8 @@
     }
     .presentation
     {
-        width: 350px;
-        min-height: 360px;
+        width: 330px;
+        min-height: 320px;
     }
 }
 @media screen and (max-width:320px)
@@ -184,7 +183,8 @@
     }
     .presentation
     {
-        width: 300px;
+        width: 280px;
+        min-height: 300px;
         margin: 100px auto;
     }
     .presentation .title
