@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import InputMask from 'react-input-mask';
 
+
 import api from '../../../services/api';
 
 export default function Form()
@@ -135,53 +136,59 @@ export default function Form()
 
 
     return (
-        <div className="container-data">
-            <h3>Atualize seus dados caso sinta a necessidade</h3>
-            <form className="form-profile" onSubmit={(e)=>handleUpdate(e)}>
-                    <label>
-                        <input 
-                            type="text" 
-                            name="name" 
-                            placeholder="Seu nome"
-                            value={name}
-                            onChange={(e)=>setName(e.target.value)}
-                            required
-                        />
-                    </label>
+        
+        <form className="form-profile" onSubmit={(e)=>handleUpdate(e)}>
+            <label>
+                <input 
+                    type="text" 
+                    name="name" 
+                    id="input_name"
+                    placeholder="Seu nome"
+                    value={name}
+                    onChange={(e)=>setName(e.target.value)}
+                    required
+                />
+            </label>
 
-                    <label>
-                        <input 
-                            type="email" 
-                            name="email" 
-                            placeholder="Seu E-mail"
-                            autoComplete="username"
-                            value={email}
-                            onChange={(e)=>setEmail(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <label>
-                        <InputMask 
-                            mask="(99) 9 9999-9999" 
-                            placeholder="Seu celular" 
-                            name="phone"  
-                            value={phone}
-                            onChange={(e)=>setPhone(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <label>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            placeholder="Insira Sua Nova Senha"
-                            autoComplete="current-password"
-                            onChange={(e)=>setPass(e.target.value)}
-                        />
-                    </label>
-                    <button type="submit" style={display}>Atualizar</button>
-                    <h3>{message}</h3>
-            </form>
-        </div>
+            <label>
+                <input 
+                    type="email" 
+                    name="email" 
+                    id="input_mail"
+                    placeholder="Seu E-mail"
+                    autoComplete="username"
+                    value={email}
+                    onChange={(e)=>setEmail(e.target.value)}
+                    required
+          
+                />
+            </label>
+            <label>
+                <InputMask 
+                    mask="(99) 9 9999-9999" 
+                    placeholder="Seu celular" 
+                    name="phone"  
+                    id="input_phone"
+                    value={phone}
+                    onChange={(e)=>setPhone(e.target.value)}
+                    required
+                   
+                />
+            </label>
+            <label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="input_pass"
+                    placeholder="Insira Sua Nova Senha"
+                    autoComplete="current-password"
+                    onChange={(e)=>setPass(e.target.value)}
+               
+                />
+            </label>
+            <button type="submit" style={display}>Atualizar dados</button>
+            <h3 id="message">{message}</h3>
+        </form>
+        
     );
 }

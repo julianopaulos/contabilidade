@@ -6,7 +6,6 @@ import Form from './Form';
 
 
 import Divider from '@material-ui/core/Divider';
-import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -192,7 +191,6 @@ export default function Profile()
         }
         else
         {
-            
             return(
                 <div className="modal-content" style={style}>    
                     <div className="form-modal">    
@@ -220,42 +218,40 @@ export default function Profile()
         if(userImg!==undefined)
         {
             return (
-                <Card className="container-img">
-                    <div>
+                <div className="todo_img">
+                    <div  className="container-img">
                         <img 
                             src={userImg} 
-                            style={{borderRadius:'50%'}} 
                             id="user_icon" 
                             alt="userProfile"
                             title="Foto de perfil"
                         />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2" >
-                                Olá, {data.name}
-                            </Typography>
-                        </CardContent>
                     </div>
-                </Card>
+                    <CardContent className="user_name">
+                        <Typography gutterBottom variant="h5" component="h2" >
+                            Olá, {data.name}
+                        </Typography>
+                    </CardContent>
+                </div>
             );
         } 
-        
         else
         {
-            return (
-                <Card className="container-img">
-                    <div>
+            return (      
+                <div className="todo_img">
+                    <div className="container-img">
                         <CardMedia id="user_icon"                
                             title="Adicione uma imagem de perfil"
                             image={user_icon}
                             onClick={()=>handleModal()}
                         />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2" >
-                                Olá, {data.name}
-                            </Typography>
-                        </CardContent>
                     </div>
-                </Card>
+                    <CardContent className="user_name">
+                        <Typography gutterBottom variant="h5" component="h2" >
+                            Olá, {data.name}
+                        </Typography>
+                    </CardContent>
+                </div>
             );
         }
      
@@ -267,6 +263,7 @@ export default function Profile()
     <div className="todo-profile">
         <Header/>
             {modalContainer()}
+            <a id="license" href='https://br.freepik.com/fotos-vetores-gratis/brochura' target="__blank">Brochura vetor criado por katemangostar - br.freepik.com</a>
             <div className="profile-container">
                 {containerImg()}
                 <Form/>
