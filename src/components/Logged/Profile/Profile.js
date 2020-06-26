@@ -202,7 +202,7 @@ export default function Profile()
                             <Divider/>
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
-                            <br/><h3>{message}</h3>
+                            <br/><h3 id="message_img">{message}</h3>
                         </form>
                     </div>
                 </div>

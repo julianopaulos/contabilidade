@@ -14,7 +14,12 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    margin-top: 17px;
+    background: rgba(246, 232, 232, 0.6);
+    border-radius: 10px;
+    width: 1000px;
+    margin: 80px auto;
+    padding-top: 20px;
+    margin-top: 10px;
 }
 .container-img, .todo-profile .MuiPaper-root
 {
@@ -152,10 +157,10 @@
     justify-content: center;
     align-content: flex-end;
     transition:0.5s;
+    border: 1px solid #000;
 }
 .form-modal #close:hover
 {
-    border: 1px solid #000;
     background: #fff;
     color: #000;
     font-weight: 600;
@@ -215,6 +220,13 @@
     margin: 20px auto;
     margin-bottom: 0;
 }
+#message_img
+{
+    margin: 30px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    word-break: normal;
+}
 
 @media screen and (max-width:1366px)
 {
@@ -223,6 +235,10 @@
         width: 150px;
         height: 150px;
         margin-bottom: 20px;
+    }
+    .profile-container
+    {
+        width: 800px;
     }
     .container-img
     {
@@ -279,11 +295,15 @@
     }
     .modal-content
     {
-        height: 89%;   
+        height: 90%;   
     }
 }
 @media screen and (max-width:1024px)
 {
+    .profile-container
+    {
+        width: 750px;
+    }
     .user_name .MuiTypography-h5
     {
         margin-bottom: 30px;
@@ -296,6 +316,10 @@
     {
         width: 120px;
         height: 120px;
+    }
+    .profile-container
+    {
+        width: 650px;
     }
     #user_icon
     {
@@ -310,6 +334,11 @@
 }
 @media screen and (max-width:425px)
 {
+    .profile-container
+    {
+        width: 400px;
+        background: rgba(246, 232, 232, 0.4);
+    }
     .form-profile input
     {
         font-size: 1em;
@@ -325,6 +354,10 @@
 }
 @media screen and (max-width:375px)
 {
+    .profile-container
+    {
+        width: 350px;
+    }
     .form-profile input
     {
         font-size: 1em;
@@ -347,16 +380,27 @@
 }
 @media screen and (max-width:320px)
 {
+    .profile-container
+    {
+        padding-top: 40px;
+        padding-bottom: 0;
+        width: 300px;
+        background: rgba(246, 232, 232, 0.2);
+    }
+    .form-profile
+    {
+        margin-bottom: 50px;
+    }
     .form-profile input
     {
         font-size: 1em;
-        width: 300px;
+        width: 260px;
         height: 35px;
         margin-bottom: 45px;
     }
     .form-profile button
     {
-        width: 200px;
+        width: 180px;
         height: 35px;
     }
     #input_name
