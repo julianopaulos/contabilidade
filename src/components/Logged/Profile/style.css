@@ -14,12 +14,12 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    background: rgba(246, 232, 232, 0.6);
+    background: rgba(246, 232, 232, 0.4);
     border-radius: 10px;
     width: 1000px;
     margin: 80px auto;
     padding-top: 20px;
-    margin-top: 10px;
+   
 }
 .container-img, .todo-profile .MuiPaper-root
 {
@@ -47,12 +47,7 @@
     font-size: 2.5em;
     line-height: 55px;
     font-family: 'Ubuntu', sans-serif;
-}
-.todo-profile #license
-{
-    text-decoration: none;
-    font-size: .5em;
-    color:rgba(196, 196, 196, 0.6);
+    max-width: 350px;
 }
 .form-profile
 {
@@ -239,6 +234,7 @@
     .profile-container
     {
         width: 800px;
+        margin-top: 30px;
     }
     .container-img
     {
@@ -259,7 +255,7 @@
     }
     .form-profile
     {
-        margin-bottom: 100px;
+        margin-bottom: 50px;
     }
     .form-profile input
     {
@@ -304,6 +300,7 @@
     {
         width: 750px;
     }
+    
     .user_name .MuiTypography-h5
     {
         margin-bottom: 30px;
@@ -321,6 +318,7 @@
     {
         width: 650px;
     }
+    
     #user_icon
     {
         width: 120px;
@@ -339,6 +337,7 @@
         width: 400px;
         background: rgba(246, 232, 232, 0.4);
     }
+    
     .form-profile input
     {
         font-size: 1em;
@@ -358,6 +357,7 @@
     {
         width: 350px;
     }
+    
     .form-profile input
     {
         font-size: 1em;
@@ -377,6 +377,7 @@
         min-width: 300px;
         border-radius:5px;
     }
+    
 }
 @media screen and (max-width:320px)
 {
@@ -387,10 +388,7 @@
         width: 300px;
         background: rgba(246, 232, 232, 0.2);
     }
-    .form-profile
-    {
-        margin-bottom: 50px;
-    }
+    
     .form-profile input
     {
         font-size: 1em;

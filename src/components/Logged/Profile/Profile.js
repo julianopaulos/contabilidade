@@ -263,7 +263,6 @@ export default function Profile()
     <div className="todo-profile">
         <Header/>
             {modalContainer()}
-            <a id="license" href='https://br.freepik.com/fotos-vetores-gratis/brochura' target="__blank">Brochura vetor criado por katemangostar - br.freepik.com</a>
             <div className="profile-container">
                 {containerImg()}
                 <Form/>
