@@ -103,6 +103,8 @@ export default function Expenses(props)
                     {
                         setExpense(req.data);
                         getTotalExpense(req.data);
+                        setDescription("");
+                        setValue("");
                     }
                 })
                 .catch((e)=>{
@@ -247,7 +249,9 @@ export default function Expenses(props)
                         </label>
                         <div className="total-value">
                             {(totalExpense>0 && (<div>
-                                Valor Total das Despesas: 
+                                <span>
+                                    Valor Total das Despesas: 
+                                </span>
                                 <div id="value">
                                     {" R$"+Number(totalExpense).toLocaleString("pt",{minimumFractionDigits: 2, 
                                                     maximumFractionDigits: 2})}
@@ -334,6 +338,6 @@ export default function Expenses(props)
         }
         else
         {
-            return (<div><h2>Primeiro adicione sua renda e também sua meta mensal de gastos!</h2></div>);
+            return (<div id="non_account"><h2>Primeiro adicione sua renda e também sua meta mensal de gastos!</h2></div>);
         }  
 }

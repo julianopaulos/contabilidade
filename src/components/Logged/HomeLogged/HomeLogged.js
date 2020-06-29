@@ -195,7 +195,6 @@ export default function HomeLogged() {
         {
             return (
                 <Card id="todo_card">
-                    
                     <img 
                         onClick={()=>redirect()} 
                         src={userImg} id="user_icon" 
@@ -209,7 +208,7 @@ export default function HomeLogged() {
                             Olá, {nameFormat(name)}
                         </Typography>
                             <div className="create_account">
-                                <h2>Cadastre seus dados financeiros abaixo para começar!</h2>
+                                <p>Cadastre seus dados financeiros abaixo para começar!</p>
                                 <form onSubmit={handleCreateAccount}>
                                     <label>Sua renda total do mês:<br/>
                                         <input 
@@ -229,13 +228,9 @@ export default function HomeLogged() {
                                             onChange={(e)=>setMeta(e.target.value)}
                                         />
                                     </label>
-                                    <input 
-                                        style={display} 
-                                        type="submit" 
-                                        title="Cadastrar renda e meta mensais de gasto" 
-                                        value="Cadastrar"
-
-                                    />
+                                    <button style={display}  type="submit" title="Cadastrar renda e meta mensais de gasto" >
+                                        Cadastrar
+                                    </button>
                                     {message}
                                 </form>
                             </div>    
