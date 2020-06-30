@@ -83,6 +83,16 @@ export default function Form()
                     "password":pass
                 }
             }
+            else if (pass && pass.length<=3)
+            {
+                setDisplay({
+                    display:''
+                });
+                setMessage("Ops! Algo deu errado!");
+                setTimeout(()=>{
+                    setMessage("");
+                },2000);
+            }
             else
             {
                 data={
