@@ -5,7 +5,7 @@
     min-height: 100%;
     width: 100%;
     position: absolute;   
-    max-width: 1440px;
+    max-width: 1920px;
 }
 .register-container
 {
@@ -15,8 +15,7 @@
     background:rgba(246, 232, 232, 0.8);
     width: 360px;
     min-height: 500px;
-    display: flex;
-    
+    display: flex;    
     flex-direction: column;
     align-content: center;
 }
