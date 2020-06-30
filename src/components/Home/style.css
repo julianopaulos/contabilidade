@@ -112,6 +112,7 @@
     .presentation
     {
         margin: 100px auto; 
+        background: rgba(196, 196, 196, 0.8);
     }
     .presentation .title
     {
@@ -145,11 +146,12 @@
     .presentation .subtitle
     {
         font-size: 1em;
+        line-height: 25px;
     }
     .presentation
     {
         width: 375px;
-        height: 430px;
+        max-height: 220px;
         padding: 10px;
         margin: 100px auto;
     }
@@ -172,7 +174,7 @@
     .presentation
     {
         width: 330px;
-        min-height: 320px;
+        min-height: 300px;
     }
 }
 @media screen and (max-width:320px)
@@ -184,7 +186,6 @@
     .presentation
     {
         width: 280px;
-        min-height: 300px;
         margin: 100px auto;
     }
     .presentation .title
