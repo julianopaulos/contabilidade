@@ -192,7 +192,7 @@ export default function Expenses(props)
 
 
 
-    if(props.account && Array.isArray(expense))
+    if(props.account && Array.isArray(expense) && expense.length>0)
         {    
             return (
                 <div>
