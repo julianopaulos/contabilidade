@@ -1,20 +1,23 @@
 .todo-edit
 {
-    background: #00CCCC;
     min-height: 100%;
     width: 100%;
-    position: absolute;
+    position: absolute;   
+    max-width: 1920px;
+    background-image: url("../../assets/images/fundo_expenses.jpg");
+    background-size: cover;
+    background-attachment: fixed;
 }
 .update_expense
 {
     display: flex;
     align-content: center;
-    max-width: 50%;
+    width: 500px;
     border-radius: 8px;
     padding: 3em 10px;
-    margin: 5em auto;
-    background: #afeeee;
-    min-height: 100%;    
+    margin: 150px auto;
+    background:rgba(246, 232, 232, 0.8);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .update_expense form 
 {
@@ -23,40 +26,106 @@
 }
 .update_expense label
 {
+    display: flex;
+    flex-direction: column;
     min-width: 100%;
-    margin: 20px auto;
+    font-size: 1.7em;
+    margin-bottom: 10px;
 }
 .update_expense input
 {
-    margin: 10px auto;
-    padding: 5px 10px;
+    width: 420px;
+    height: 44px;
+    margin-bottom: 30px;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     text-align: center;
+    font-size: 1.3em;
 }
-.update_expense input[type=submit],.update_expense input[type=button]
+.update_expense button
 {
-    padding: 5px 15px;
-    margin: 5px 10px;
-    transition: .5s;
+    font-size: 1.3em;
+    width: 150px;
+    height: 50px;
+    background: #779539;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    font-weight: 500;
+    line-height: 14px;
+    color: #ffffff;
+    transition: 0.3s;
+    border: none;
     cursor: pointer;
+    margin:10px;
 }
-.update_expense input[type=submit]:hover,.update_expense input[type=button]:hover
+.update_expense button[type=submit]
 {
-    opacity: 0.8;
+    background: rgba(80,180,80,1);
+}
+.update_expense button[type=button]
+{
+    background: rgba(100,250,100,1);
+}
+.update_expense button:hover
+{
+    opacity: 0.6;
     font-weight: 600;
 }
-.update_expense input[type=submit]
+.update_expense #message
 {
-    background: #F3CB85;
-}
-.update_expense input[type=button]
-{
-    background: #F3F085;
+    margin-top: 20px;
 }
 
 
-
-
+@media screen and (max-width:1366px)
+{
+    .update_expense
+    {
+        width: 360px;  
+        margin: 50px auto;
+        margin-bottom: 80px; 
+    }
+    .update_expense label
+    {
+        display: flex;
+        flex-direction: column;
+        min-width: 100%;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+    .update_expense input
+    {
+        width: 220px;
+        height: 34px;
+        margin-bottom: 20px;
+        font-size: 1em;
+    }
+    .update_expense button
+    {
+        width: 100px;
+        height: 34px;
+        font-size: 1em;
+    }
+    .update_expense button[type=submit]
+    {
+        background: rgba(80,180,80,1);
+    }
+    .update_expense button[type=button]
+    {
+        background: rgba(100,250,100,1);
+    }
+    .update_expense button:hover
+    {
+        opacity: 0.6;
+        font-weight: 600;
+    }
+    .update_expense #message
+    {
+        margin-top: 20px;
+    }
+}
 @media screen and (max-width:768px)
 {
     .update_expense

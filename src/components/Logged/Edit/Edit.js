@@ -119,31 +119,34 @@ export default function Edit()
             <Header/>
             <div className="update_expense">            
                 <form onSubmit={(e)=>handleSubmit(e)}>
-                    <label><h4>Data</h4>
-                        <input 
-                            type="date" 
-                            defaultValue={dateExpense} 
-                            onKeyUp={(e)=>setDateExpense(e.target.value)} 
-                            onChange={(e)=>{setDateExpense(e.target.value)}}
-                        />                       
-                    </label><br/>
-                    <label><h4>Descrição</h4>
-                        <input 
-                            type="text" 
-                            defaultValue={description} 
-                            onKeyUp={(e)=>setDescription(e.target.value)} 
-                        />
-                    </label><br/>
-                    <label><h4>Valor</h4>
-                        <input 
-                            type="text" 
-                            defaultValue={value} 
-                            onKeyUp={(e)=>setValue(e.target.value)}
-                        />
-                    </label><br/>
-                    <input type="submit" value="Alterar"/>
-                    <input type="button" value="Cancelar" onClick={()=>history.push("/Logged")}/>
-                    <br/>{message}
+                    <label htmlFor="date">Data</label>
+                    <input 
+                        type="date" 
+                        defaultValue={dateExpense} 
+                        name="date"
+                        onKeyUp={(e)=>setDateExpense(e.target.value)} 
+                        onChange={(e)=>{setDateExpense(e.target.value)}}
+                    />                       
+                    <br/>
+                    <label htmlFor="description">Descrição</label>
+                    <input 
+                        name="description"
+                        type="text" 
+                        defaultValue={description} 
+                        onKeyUp={(e)=>setDescription(e.target.value)} 
+                    />
+                    <br/>
+                    <label htmlFor="value">Valor</label>
+                    <input 
+                        name="value"
+                        type="text" 
+                        defaultValue={value} 
+                        onKeyUp={(e)=>setValue(e.target.value)}
+                    />
+                    <br/>
+                    <button type="submit">Alterar</button>
+                    <button type="button" onClick={()=>history.push("/Logged")}>Cancelar</button>
+                    <br/><h4 id="message">{message}</h4>
                 </form>
             </div>
             <Footer/>
