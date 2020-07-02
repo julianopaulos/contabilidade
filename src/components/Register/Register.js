@@ -7,6 +7,8 @@ import userIcon from '../assets/icons/user.png';
 import mailIcon from '../assets/icons/mail.png';
 import phoneIcon from '../assets/icons/phone.png';
 import passwordIcon from '../assets/icons/password.png';
+import openEye from '../assets/icons/eye.svg';
+import closeEye from '../assets/icons/eye-off.svg';
 
 import api from '../../services/api';
 
@@ -24,6 +26,7 @@ export default function Register() {
     const [email,setEmail] = useState("");
     const [phone,setPhone] = useState("");
     const [pass,setPass] = useState("");
+    const [eyeIcon, setEyeIcon] = useState(closeEye);
 
     const [display, setDisplay] = useState({
         display:''
@@ -34,6 +37,21 @@ export default function Register() {
         await history.push("/Login");
     }
 
+
+    function handleEyeIcon()
+    {
+        var fieldPass = document.querySelector("input[name='password']");
+        if(eyeIcon === openEye)
+        {
+            setEyeIcon(closeEye);
+            fieldPass.type = "password";
+        }
+        else
+        {
+            setEyeIcon(openEye);
+            fieldPass.type = "text";
+        }
+    }
     async function register(e)
     {
         if(
@@ -151,7 +169,7 @@ export default function Register() {
                         />
                     </label>
 
-                    <label>
+                    <label style={{display:"flex",alignItems:"center"}}>
                         <input 
                             onChange={(e)=>setPass(e.target.value)} 
                             type="password" 
@@ -163,6 +181,7 @@ export default function Register() {
                             placeholder="Crie sua senha"
                             autoComplete="current-password"
                         />
+                        <span toggle="#password" onClick={handleEyeIcon}><img className="eye-icon"  src={eyeIcon} style={{width:'20px'}} alt="openEye"/></span>
                     </label>
                     <button type="submit" style={display}>Cadastrar</button>
                     <span>Já tem sua conta? <u onClick={()=>redirect()}>Entrar</u></span>

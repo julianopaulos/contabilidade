@@ -96,6 +96,16 @@ h3
 {
     text-align: center;
 }
+.eye-icon
+{
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    margin-right: 10px;
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
+}
 @media screen and (max-width:1366px)
 {
     .register-container
