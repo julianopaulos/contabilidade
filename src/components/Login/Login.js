@@ -3,6 +3,8 @@ import {useHistory} from 'react-router-dom';
 
 import mailIcon from '../assets/icons/mail.png';
 import passwordIcon from '../assets/icons/password.png';
+import openEye from '../assets/icons/eye.svg';
+import closeEye from '../assets/icons/eye-off.svg';
 
 import api from '../../services/api';
 
@@ -20,13 +22,27 @@ export default function Login() {
     const [display, setDisplay] = useState({
         display:''
     });
+    const [eyeIcon, setEyeIcon] = useState(closeEye);
     
     async function redirect()
     {
         await history.push("/Register");
     }
 
-
+    function handleEyeIcon()
+    {
+        var fieldPass = document.querySelector("input[name='password']");
+        if(eyeIcon === openEye)
+        {
+            setEyeIcon(closeEye);
+            fieldPass.type = "password";
+        }
+        else
+        {
+            setEyeIcon(openEye);
+            fieldPass.type = "text";
+        }
+    }
     async function handleSubmit(e)
     {
         if(!email || !pass)
@@ -95,7 +111,7 @@ export default function Login() {
                                 }}
                             />
                         </label>
-                        <label>
+                        <label style={{display:"flex",alignItems:"center"}}>
                             <input 
                                 type="password" 
                                 name="password" 
@@ -108,6 +124,14 @@ export default function Login() {
                                     backgroundColor: '#ffffff'
                                 }}
                             />
+                            <span toggle="#password" onClick={handleEyeIcon}>
+                                <img 
+                                    className="eye-icon"  
+                                    src={eyeIcon} 
+                                    style={{width:'20px'}} 
+                                    alt="openEye"    
+                                />
+                            </span>
                         </label>
                         <button type="submit" style={display}>Entrar</button>
                         <span>Ainda não tem uma conta? <u onClick={()=>redirect()}>Cadastre-se</u></span>

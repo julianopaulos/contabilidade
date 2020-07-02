@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 import InputMask from 'react-input-mask';
 
+import openEye from '../../assets/icons/eye.svg';
+import closeEye from '../../assets/icons/eye-off.svg';
 
 import api from '../../../services/api';
 
@@ -15,7 +17,7 @@ export default function Form()
     const [phone,setPhone] = useState("");
     const [pass,setPass] = useState("");
     const [message,setMessage] = useState("");
-
+    const [eyeIcon, setEyeIcon] = useState(closeEye);
 
     const [display,setDisplay] = useState({
         display:''
@@ -49,6 +51,20 @@ export default function Form()
         }
     },[history]);
 
+    function handleEyeIcon()
+    {
+        var fieldPass = document.querySelector("input[name='password']");
+        if(eyeIcon === openEye)
+        {
+            setEyeIcon(closeEye);
+            fieldPass.type = "password";
+        }
+        else
+        {
+            setEyeIcon(openEye);
+            fieldPass.type = "text";
+        }
+    }
 
     async function handleUpdate(e)
     {
@@ -185,7 +201,7 @@ export default function Form()
                    
                 />
             </label>
-            <label>
+            <label style={{display:"flex",alignItems:"center"}}>
                 <input 
                     type="password" 
                     name="password" 
@@ -193,8 +209,15 @@ export default function Form()
                     placeholder="Insira Sua Nova Senha"
                     autoComplete="current-password"
                     onChange={(e)=>setPass(e.target.value)}
-               
                 />
+                <span toggle="#password" onClick={handleEyeIcon}>
+                    <img 
+                        className="eye-icon"  
+                        src={eyeIcon} 
+                        style={{width:'20px', marginTop:"-32px"}} 
+                        alt="openEye"    
+                    />
+                </span>
             </label>
             <button type="submit" style={display}>Atualizar dados</button>
             <h3 id="message">{message}</h3>
