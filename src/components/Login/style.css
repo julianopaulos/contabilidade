@@ -143,3 +143,19 @@ h3
         margin-left: -75px;
     }
 }
+@media screen and (max-width:375px)
+{
+    .form-login span
+    {
+        margin: 20px auto;
+    }
+    .form-login input[name="password"]
+    {
+        margin-left: 0;
+    }
+    .form-login .eye-icon
+    {
+        margin-left: -35px;
+    }
+    
+}

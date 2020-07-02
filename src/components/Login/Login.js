@@ -124,12 +124,12 @@ export default function Login() {
                                     backgroundColor: '#ffffff'
                                 }}
                             />
-                            <span toggle="#password" onClick={handleEyeIcon}>
+                            <span onClick={handleEyeIcon}>
                                 <img 
                                     className="eye-icon"  
                                     src={eyeIcon} 
                                     style={{width:'20px'}} 
-                                    alt="openEye"    
+                                    alt="Eye"    
                                 />
                             </span>
                         </label>

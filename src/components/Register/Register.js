@@ -181,7 +181,14 @@ export default function Register() {
                             placeholder="Crie sua senha"
                             autoComplete="current-password"
                         />
-                        <span toggle="#password" onClick={handleEyeIcon}><img className="eye-icon"  src={eyeIcon} style={{width:'20px'}} alt="openEye"/></span>
+                        <span onClick={handleEyeIcon}>
+                            <img 
+                                className="eye-icon"  
+                                src={eyeIcon} 
+                                style={{width:'20px'}} 
+                                alt="openEye"
+                            />
+                        </span>
                     </label>
                     <button type="submit" style={display}>Cadastrar</button>
                     <span>Já tem sua conta? <u onClick={()=>redirect()}>Entrar</u></span>
