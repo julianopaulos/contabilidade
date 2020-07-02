@@ -215,7 +215,7 @@ export default function Form()
                         className="eye-icon"  
                         src={eyeIcon} 
                         style={{width:'20px', marginTop:"-32px"}} 
-                        alt="openEye"    
+                        alt="Eye"    
                     />
                 </span>
             </label>

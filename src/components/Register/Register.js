@@ -186,7 +186,7 @@ export default function Register() {
                                 className="eye-icon"  
                                 src={eyeIcon} 
                                 style={{width:'20px'}} 
-                                alt="openEye"
+                                alt="Eye"
                             />
                         </span>
                     </label>
