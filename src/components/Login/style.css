@@ -134,4 +134,12 @@ h3
     {
         margin: 20px 50px;
     }
+    .form-login input[name="password"]
+    {
+        margin-left: 40px;
+    }
+    .form-login .eye-icon
+    {
+        margin-left: -75px;
+    }
 }
