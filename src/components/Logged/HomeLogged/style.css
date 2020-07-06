@@ -353,6 +353,7 @@
     .date-filter label input
     {
         margin: 15px auto;
+        background: #ffffff;
     }
 }
 @media screen and (max-width:375px)
