@@ -4,7 +4,7 @@
     width: 100%;
     position: absolute;   
     max-width: 1920px;
-    background-image: url("../../assets/images/fundo_expenses.jpg");
+    background-image: url("../../assets/images/fundo_profile.png");
     background-size: cover;
     background-attachment: fixed;
 }

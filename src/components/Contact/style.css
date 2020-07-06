@@ -1,6 +1,7 @@
 .todo-contact
 {
-    background: url("../assets/images/fundo_contato.jpg");
+    background: url("../assets/images/home-img.jpg");
+    background-size: cover;
     background-attachment: fixed;
     min-height: 100%;
     width: 100%;
@@ -10,7 +11,6 @@
 .contact-container
 {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    opacity: 0.8;
     border-radius: 5px;
     margin:200px auto;
     background:rgba(246, 232, 232, 0.8);
@@ -32,7 +32,7 @@
     line-height: 24px;
     color: #F5F3F3;
     height: 78px;
-    background-color: #04018F;
+    background-color: rgba(81,123,130, 0.5);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 11px 80px;
 }

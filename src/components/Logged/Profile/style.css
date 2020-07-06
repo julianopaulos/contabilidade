@@ -1,12 +1,13 @@
 .todo-profile
 {
-    background: url("../../assets/images/fundo_profile.png");
+    background-image: url("../../assets/images/fundo_profile.png");
     background-size: cover;
     background-attachment: fixed;
     min-height: 100%;
     width: 100%;
     position: absolute;
     max-width: 1920px;
+    background-color: rgba(246, 232, 232, 0.4);
 }
 .profile-container
 {
@@ -14,7 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    background: rgba(246, 232, 232, 0.4);
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     width: 1000px;
     margin: 80px auto;
@@ -335,9 +336,7 @@
     .profile-container
     {
         width: 400px;
-        background: rgba(246, 232, 232, 0.4);
     }
-    
     .form-profile input
     {
         font-size: 1em;
@@ -386,7 +385,6 @@
         padding-top: 40px;
         padding-bottom: 0;
         width: 300px;
-        background: rgba(246, 232, 232, 0.2);
     }
     
     .form-profile input
