@@ -1,14 +1,4 @@
-.todo-logged
-{
-    background: #00CCCC;
-    min-height: 100%;
-    width: 100%;
-    position: absolute;
-    background-image: url("../../assets/images/fundo_profile.png");
-    background-size: cover;
-    background-attachment: fixed;
-    max-width: 1920px;
-}
+
 .logged-container
 {
     display: flex;

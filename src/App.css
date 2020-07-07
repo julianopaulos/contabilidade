@@ -14,6 +14,27 @@ body
   max-width: 1440px;
   background: #CACACA;
 }
+.todo-home,.todo-contact, .todo-login, .todo
+{
+  background: url("./components/assets/images/home-img.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100%;
+  width: 100%;
+  position: absolute;   
+  max-width: 1920px;
+}
+.todo-logged, .todo-profile,.todo-edit
+{
+  background-image: url("./components/assets/images/fundo_profile.png");
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100%;
+  width: 100%;
+  position: absolute;
+  max-width: 1920px;
+  background-color: rgba(246, 232, 232, 0.4);
+}
 @media screen and (max-width:1366px)
 {
   body
