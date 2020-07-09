@@ -7,8 +7,8 @@ import userIcon from '../assets/icons/user.png';
 import mailIcon from '../assets/icons/mail.png';
 import phoneIcon from '../assets/icons/phone.png';
 import passwordIcon from '../assets/icons/password.png';
-import openEye from '../assets/icons/eye.svg';
-import closeEye from '../assets/icons/eye-off.svg';
+import openEyeIcon from '../assets/icons/eye.svg';
+import closedEyeIcon from '../assets/icons/eye-off.svg';
 
 import api from '../../services/api';
 
@@ -21,14 +21,14 @@ import './style.css';
 export default function Register() {
     document.title="Cadastrar";
     const history = useHistory();
-    const [message,setMessage] = useState("");
+    const [statusMessage,setStatusMessage] = useState("");
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
     const [phone,setPhone] = useState("");
-    const [pass,setPass] = useState("");
-    const [eyeIcon, setEyeIcon] = useState(closeEye);
+    const [password,setPassword] = useState("");
+    const [eyeIcon, setEyeIcon] = useState(closedEyeIcon);
 
-    const [display, setDisplay] = useState({
+    const [displayButton, setDisplayButton] = useState({
         display:''
     });
 
@@ -41,14 +41,14 @@ export default function Register() {
     function handleEyeIcon()
     {
         var fieldPass = document.querySelector("input[name='password']");
-        if(eyeIcon === openEye)
+        if(eyeIcon === openEyeIcon)
         {
-            setEyeIcon(closeEye);
+            setEyeIcon(closedEyeIcon);
             fieldPass.type = "password";
         }
         else
         {
-            setEyeIcon(openEye);
+            setEyeIcon(openEyeIcon);
             fieldPass.type = "text";
         }
     }
@@ -59,62 +59,62 @@ export default function Register() {
             email.search(/^[a-z0-9.]+@[a-z0-9]/)===-1 ||
             email.length<17 ||
             phone.search(/[0-9]/)===-1 || 
-            pass.length<=3 ||
+            password.length<=3 ||
             phone.split(/[0-9]/).length<=11
         )
         {
             e.preventDefault();
-            setMessage("Digite todos os campos do formulário corretamente!");
+            setStatusMessage("Digite todos os campos do formulário corretamente!");
         }
         else
         {
-            setDisplay({
+            setDisplayButton({
                 display:'none'
             });
-            setMessage("Aguarde...");
+            setStatusMessage("Aguarde...");
             e.preventDefault();
             const data = {
                 name: name,
                 email: email,
                 phone: phone,
-                password: pass
+                password: password
             }
 
             
             await api.post("register",data)
             .then((response)=>{
-                setDisplay({
+                setDisplayButton({
                     display:''
                 });
-                setMessage(response.data.message);
+                setStatusMessage(response.data.message);
                 if(response.data.router!==undefined)
                 {
                     history.push(`/${response.data.router}`);
                 }
                 else
                 {
-                    setMessage("Ops! Algo deu errado!");
+                    setStatusMessage("Ops! Algo deu errado!");
                     setTimeout(()=>{
-                        setMessage("");
+                        setStatusMessage("");
                     },2000);
                 }
                 
             })
             .catch((error)=>{
-                setDisplay({
+                setDisplayButton({
                     display:''
                 });
                 console.log(error);
                 if(error.router)
                 {
-                    setMessage(error.message);
+                    setStatusMessage(error.message);
                     history.push(`/${error.router}`);
                 }
                 else
                 {
-                    setMessage("Ops! Algo deu errado!");
+                    setStatusMessage("Ops! Algo deu errado!");
                     setTimeout(()=>{
-                        setMessage("");
+                        setStatusMessage("");
                     },2000);
                 }
             });
@@ -171,7 +171,7 @@ export default function Register() {
 
                     <label style={{display:"flex",alignItems:"center"}}>
                         <input 
-                            onChange={(e)=>setPass(e.target.value)} 
+                            onChange={(e)=>setPassword(e.target.value)} 
                             type="password" 
                             name="password" 
                             style={{
@@ -190,10 +190,10 @@ export default function Register() {
                             />
                         </span>
                     </label>
-                    <button type="submit" style={display}>Cadastrar</button>
+                    <button type="submit" style={displayButton}>Cadastrar</button>
                     <span>Já tem sua conta? <u onClick={()=>redirect()}>Entrar</u></span>
                 </form>
-                <h3 className="message">{message}</h3>
+                <h3 className="message">{statusMessage}</h3>
                 </div>
             </div>
             <Footer/>

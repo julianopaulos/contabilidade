@@ -3,8 +3,8 @@ import {useHistory} from 'react-router-dom';
 
 import mailIcon from '../assets/icons/mail.png';
 import passwordIcon from '../assets/icons/password.png';
-import openEye from '../assets/icons/eye.svg';
-import closeEye from '../assets/icons/eye-off.svg';
+import openEyeIcon from '../assets/icons/eye.svg';
+import closedEyeIcon from '../assets/icons/eye-off.svg';
 
 import api from '../../services/api';
 
@@ -16,13 +16,13 @@ import './style.css';
 export default function Login() {
     document.title="Login";
     const history = useHistory();
-    const[message,setMessage] = useState("");
     const[email, setEmail] = useState("");
-    const [pass,setPass] = useState("");
-    const [display, setDisplay] = useState({
+    const [password,setPassword] = useState("");
+    const[statusMessage,setStatusMessage] = useState("");
+    const [displayButton, setDisplayButton] = useState({
         display:''
     });
-    const [eyeIcon, setEyeIcon] = useState(closeEye);
+    const [eyeIcon, setEyeIcon] = useState(closedEyeIcon);
     
     async function redirect()
     {
@@ -32,40 +32,40 @@ export default function Login() {
     function handleEyeIcon()
     {
         var fieldPass = document.querySelector("input[name='password']");
-        if(eyeIcon === openEye)
+        if(eyeIcon === openEyeIcon)
         {
-            setEyeIcon(closeEye);
+            setEyeIcon(closedEyeIcon);
             fieldPass.type = "password";
         }
         else
         {
-            setEyeIcon(openEye);
+            setEyeIcon(openEyeIcon);
             fieldPass.type = "text";
         }
     }
     async function handleSubmit(e)
     {
-        if(!email || !pass)
+        if(!email || !password)
         {
             e.preventDefault();
-            setMessage("Digite todos os campos necessários!");
+            setStatusMessage("Digite todos os campos necessários!");
         }
         else
         {
             e.preventDefault();
-            setDisplay({
+            setDisplayButton({
                 display:'none'
             });
-            setMessage("Aguarde...");
+            setStatusMessage("Aguarde...");
             await api.get('login',
             {
-                auth: {username:email, password: pass}
+                auth: {username:email, password: password}
             })
             .then((request)=>{
-                setMessage(request.data.message); 
+                setStatusMessage(request.data.message); 
                 if(request.data.router)
                 {
-                    setDisplay({
+                    setDisplayButton({
                         display:''
                     });
                     setTimeout(()=>{
@@ -78,12 +78,12 @@ export default function Login() {
             .catch((e)=>
             {
                 console.log(e);
-                setDisplay({
+                setDisplayButton({
                     display:''
                 }); 
-                setMessage("Ops! Algo deu errado!");
+                setStatusMessage("Ops! Algo deu errado!");
                 setTimeout(()=>{
-                    setMessage("");
+                    setStatusMessage("");
                 },2000);
             });
         }
@@ -117,7 +117,7 @@ export default function Login() {
                                 name="password" 
                                 placeholder="Insira Sua Senha"
                                 autoComplete="current-password"
-                                onChange={(e)=>setPass(e.target.value)}
+                                onChange={(e)=>setPassword(e.target.value)}
                                 required
                                 style={{
                                     background: `url(${passwordIcon})no-repeat 10px 8px`,
@@ -133,10 +133,10 @@ export default function Login() {
                                 />
                             </span>
                         </label>
-                        <button type="submit" style={display}>Entrar</button>
+                        <button type="submit" style={displayButton}>Entrar</button>
                         <span>Ainda não tem uma conta? <u onClick={()=>redirect()}>Cadastre-se</u></span>
                     </form>
-                    <h3 className="message">{message}</h3>
+                    <h3 className="message">{statusMessage}</h3>
                 </div>
             </div>
             <Footer/>

@@ -15,11 +15,11 @@ export default function Contact() {
     const [display, setDisplay] = useState({
         display:''  
     });
-    const [disable, setDisable] = useState("");
+    const [disableButton, setDisableButton] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
-    const [userMessage, setUserMessage] = useState("");
+    const [bodyMessage, setBodyMessage] = useState("");
+    const [statusMessage, setStatusMessage] = useState("");
 
     async function handleSubmit(e)
     {
@@ -28,14 +28,14 @@ export default function Contact() {
             name.search(/[A-Za-z]/)===-1 || 
             email.search(/^[a-z0-9.]+@[a-z0-9]/)===-1 ||
             email.length<17 ||
-            message.length<4 ||
+            bodyMessage.length<4 ||
             name.length<3
         )
         {
-            setUserMessage("Digite todos os dados corretamente!");
+            setStatusMessage("Digite todos os dados corretamente!");
             setTimeout(()=>{
-                setUserMessage("");
-                setDisable("");
+                setStatusMessage("");
+                setDisableButton("");
             },1500);
         }
         else
@@ -43,50 +43,50 @@ export default function Contact() {
             setDisplay({
                 display: 'none'
             }); 
-            setDisable("disabled");
-            setUserMessage("Aguarde...");
+            setDisableButton("disabled");
+            setStatusMessage("Aguarde...");
             const data = {
                 name, 
                 email, 
-                message
+                bodyMessage
             }
             await api.post("/email",data)
             .then((res)=>{
                 if(res.data.message)
                 {
-                    setUserMessage(res.data.message);
+                    setStatusMessage(res.data.message);
                     setTimeout(()=>{
-                        setUserMessage("");
+                        setStatusMessage("");
                         setDisplay({
                             display: ''
                         });
-                        setDisable("");
+                        setDisableButton("");
                     },2500);
                 }
                 else
                 {
-                    setUserMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
+                    setStatusMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
                     setTimeout(()=>{
-                        setUserMessage("");
+                        setStatusMessage("");
                         setDisplay({
                             display: ''
                         });
-                        setUserMessage("");
-                        setDisable("");
+                        setStatusMessage("");
+                        setDisableButton("");
                     },2500);
                 }
             })
             .catch((e)=>
             {
                 console.log(e);
-                setUserMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
+                setStatusMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
                 setTimeout(()=>{
-                    setUserMessage("");
+                    setStatusMessage("");
                     setDisplay({
                         display: ''
                     });
-                    setUserMessage("");
-                    setDisable("");
+                    setStatusMessage("");
+                    setDisableButton("");
                 },2500);
             });
         }
@@ -131,13 +131,13 @@ export default function Contact() {
                                 name="message" 
                                 rows="4" 
                                 placeholder="Sua Mensagem..."
-                                onKeyUp={(e)=>setMessage(e.target.value)} 
+                                onKeyUp={(e)=>setBodyMessage(e.target.value)} 
                             />
                         </label>
-                        <button type="submit" disabled={disable} style={display}>Enviar E-mail</button>
+                        <button type="submit" disabled={disableButton} style={display}>Enviar E-mail</button>
                         
                     </form>
-                    <br/><h3 className="message">{userMessage}</h3>
+                    <br/><h3 className="message">{statusMessage}</h3>
                 </div>
             </div>
         <Footer/>
