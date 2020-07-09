@@ -28,16 +28,16 @@ export default function Profile()
     
     const history = useHistory();
     document.title = "Perfil";
-    const [style,setStyle] = useState(
+    const [modalDisplay,setModalDisplay] = useState(
         {
             'display': 'none'
         }
     );
     const [userImg, setUserImg] = useState();
-    const [img,setImg] = useState();
-    const [data,setData] = useState([]);
+    const [previewImg,setPreviewImg] = useState();
+    const [userData,setUserData] = useState([]);
 
-    const [message, setMessage] = useState("");
+    const [statusMessage, setStatusMessage] = useState("");
    
 
     useEffect(()=>{
@@ -55,7 +55,7 @@ export default function Profile()
                 }
                 else
                 {
-                    setData(req.data);
+                    setUserData(req.data);
                     
                     api.get("/img",{
                         headers:{
@@ -84,15 +84,15 @@ export default function Profile()
 
     
 
-    async function handleImg(e)
+    async function handleAddImg(e)
     {
         
         e.preventDefault();
-        if(img.size<2097152)
+        if(previewImg.size<2097152)
         {
             const formData = new FormData();
-            formData.append("img",img);
-            setMessage("Aguarde...")
+            formData.append("img",previewImg);
+            setStatusMessage("Aguarde...")
             await api.post("/img",formData, {
                 headers: {
                     authorization: sessionStorage.getItem("token"),
@@ -108,9 +108,9 @@ export default function Profile()
                 .then((res)=>{
                     if(res.data.url)
                     {
-                        setMessage("Foto cadastrada!");
+                        setStatusMessage("Foto cadastrada!");
                         setTimeout(()=>{
-                            setMessage("");
+                            setStatusMessage("");
                         },2500);
                         setUserImg(res.data.url);
                         handleModal();
@@ -118,24 +118,24 @@ export default function Profile()
                 })
                 .catch((e)=>{
                     console.log(e);
-                    setMessage("Ops! Algo deu errado!")
+                    setStatusMessage("Ops! Algo deu errado!")
                     setTimeout(()=>{
-                        setMessage("");
+                        setStatusMessage("");
                     },2000);
                 })
             })
             .catch(e=>{
-                console.log(e);setMessage("Ops! Algo deu errado!")
+                console.log(e);setStatusMessage("Ops! Algo deu errado!")
                 setTimeout(()=>{
-                    setMessage("");
+                    setStatusMessage("");
                 },2000);
             });
         }
         else
         {
-            setMessage("A Imagem excedeu o tamanho máximo, que é de 2MB!");
+            setStatusMessage("A Imagem excedeu o tamanho máximo, que é de 2MB!");
             setTimeout(()=>{
-                setMessage("");
+                setStatusMessage("");
             },3500);
         }
         
@@ -148,42 +148,42 @@ export default function Profile()
         {
             e.preventDefault();
         }
-        if(style.display === 'none')
+        if(modalDisplay.display === 'none')
         {
-            setStyle({'display':'flex'});
+            setModalDisplay({'display':'flex'});
         }
         else
         {
-            setStyle({'display':'none'});
+            setModalDisplay({'display':'none'});
         }
     }
 
     function modalContainer()
     {
-        if(img)
+        if(previewImg)
         {
             let preview = new FileReader();
             preview.onload=function(e){
                 document.querySelector("img[name=user_img]").src=e.target.result;
             }
-            preview.readAsDataURL(img);
+            preview.readAsDataURL(previewImg);
         }
-        if(img===undefined)
+        if(previewImg===undefined)
         {
             return(
-                <div className="modal-content" style={style}>
+                <div className="modal-content" style={modalDisplay}>
                 
                     <div className="form-modal">
                         
                         <div onClick={(e)=>handleModal(e)} id="close">x</div>
                         <Divider/>
-                        <form onSubmit={(e)=>handleImg(e)} encType="multipart/form-data">
-                            <input type="file" name="userImg" onChange={(e)=>setImg(e.target.files[0])} />
+                        <form onSubmit={(e)=>handleAddImg(e)} encType="multipart/form-data">
+                            <input type="file" name="userImg" onChange={(e)=>setPreviewImg(e.target.files[0])} />
                             
                             <Divider/>
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
-                            <br/><h3>{message}</h3>
+                            <br/><h3>{statusMessage}</h3>
                         </form>
                     </div>
                 </div>
@@ -192,17 +192,17 @@ export default function Profile()
         else
         {
             return(
-                <div className="modal-content" style={style}>    
+                <div className="modal-content" style={modalDisplay}>    
                     <div className="form-modal">    
                         <div onClick={(e)=>handleModal(e)} id="close">x</div>
                         <Divider/>
-                        <form onSubmit={(e)=>handleImg(e)} encType="multipart/form-data">
-                            <input type="file" name="userImg" onChange={(e)=>setImg(e.target.files[0])} />
+                        <form onSubmit={(e)=>handleAddImg(e)} encType="multipart/form-data">
+                            <input type="file" name="userImg" onChange={(e)=>setPreviewImg(e.target.files[0])} />
                             <img name="user_img" alt="user" id="user_img"/>
                             <Divider/>
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
-                            <br/><h3 id="message_img">{message}</h3>
+                            <br/><h3 id="message_img">{statusMessage}</h3>
                         </form>
                     </div>
                 </div>
@@ -229,7 +229,7 @@ export default function Profile()
                     </div>
                     <CardContent className="user_name">
                         <Typography gutterBottom variant="h5" component="h2" >
-                            Olá, {data.name}
+                            Olá, {userData.name}
                         </Typography>
                     </CardContent>
                 </div>
@@ -248,7 +248,7 @@ export default function Profile()
                     </div>
                     <CardContent className="user_name">
                         <Typography gutterBottom variant="h5" component="h2" >
-                            Olá, {data.name}
+                            Olá, {userData.name}
                         </Typography>
                     </CardContent>
                 </div>

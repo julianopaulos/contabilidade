@@ -27,15 +27,15 @@ export default function HomeLogged() {
     document.title = "Home";
     const history = useHistory();
     const [name, setName] = useState("");
-    const [meta, setMeta] = useState("");
+    const [metaSpending, setMeta] = useState("");
     const [total_income, setTotalIncome] = useState("");
-    const [account, setAccount] = useState("");
+    const [accountUser, setAccountUser] = useState("");
     
     const [userImg, setUserImg] = useState();
     const [imgTitle, setImgTitle] = useState("");
 
-    const [message, setMessage] = useState("");
-    const [display,setDisplay] = useState({
+    const [statusMessage, setStatusMessage] = useState("");
+    const [displayButton,setDisplayButton] = useState({
         display:''
     });
 
@@ -58,7 +58,7 @@ export default function HomeLogged() {
             {
                 if(req.data.total_income)
                 {
-                    setAccount(req.data);
+                    setAccountUser(req.data);
                 }
                 setName(req.data.name);
             }
@@ -102,7 +102,7 @@ export default function HomeLogged() {
 
 
 
-    async function redirect()
+    async function redirectToProfile()
     {
         await history.push("/Profile");
     }
@@ -110,19 +110,19 @@ export default function HomeLogged() {
     async function handleCreateAccount(e)
     {
         e.preventDefault();
-        if(!total_income || !meta || total_income<0 || meta<0)
+        if(!total_income || !metaSpending || total_income<0 || metaSpending<0)
         {
             alert("Digite os dados corretamente");
         }
         else
         {
-            setDisplay({
+            setDisplayButton({
                 display:'none'
             });
-            setMessage("Processando...");
+            setStatusMessage("Processando...");
             let data = {
                 total_income: total_income,
-                meta: meta
+                meta: metaSpending
             };
             await api.post("/account",data,{
                 headers:{
@@ -130,20 +130,20 @@ export default function HomeLogged() {
                 }
             })
             .then((req)=>{
-                setDisplay({
+                setDisplayButton({
                     display:''
                 });
-                setMessage("");
-                setAccount(req.data);
+                setStatusMessage("");
+                setAccountUser(req.data);
             })
             .catch((e)=>{
                 console.log(e);
-                setMessage("Ops, algo deu errado! Tente novamente mais tarde.");
+                setStatusMessage("Ops, algo deu errado! Tente novamente mais tarde.");
                 setTimeout(()=>{
-                    setDisplay({
+                    setDisplayButton({
                         display:''
                     });
-                    setMessage("");
+                    setStatusMessage("");
                 },2000);
             });
         }
@@ -152,13 +152,13 @@ export default function HomeLogged() {
 
     function getAccount()
     {
-        if(account)
+        if(accountUser)
         {
             return(
                 <Card id="todo_card">
                     
                     <img 
-                        onClick={()=>redirect()} 
+                        onClick={()=>redirectToProfile()} 
                         src={userImg} 
                         id="user_icon" 
                         style={{borderRadius:'50%'}} 
@@ -175,7 +175,7 @@ export default function HomeLogged() {
                                 Renda mensal:
                             </div>
                             <div className="val">
-                            {"R$"+Number(account.total_income).toLocaleString("pt",{minimumFractionDigits: 2, 
+                            {"R$"+Number(accountUser.total_income).toLocaleString("pt",{minimumFractionDigits: 2, 
                                     maximumFractionDigits: 2})}
                             </div>
                             
@@ -184,7 +184,7 @@ export default function HomeLogged() {
                                 Meta mensal de gastos:
                             </div>
                             <div className="val">
-                            {"R$"+Number(account.meta).toLocaleString("pt",{minimumFractionDigits: 2, 
+                            {"R$"+Number(accountUser.meta).toLocaleString("pt",{minimumFractionDigits: 2, 
                                 maximumFractionDigits: 2})}
                             </div>
                     </CardContent>
@@ -196,7 +196,7 @@ export default function HomeLogged() {
             return (
                 <Card id="todo_card">
                     <img 
-                        onClick={()=>redirect()} 
+                        onClick={()=>redirectToProfile()} 
                         src={userImg} id="user_icon" 
                         style={{borderRadius:'50%'}} 
                         alt="profilePicture" 
@@ -224,14 +224,14 @@ export default function HomeLogged() {
                                             type="text"
                                             placeholder="Sua meta" 
                                             required 
-                                            value={meta}
+                                            value={metaSpending}
                                             onChange={(e)=>setMeta(e.target.value)}
                                         />
                                     </label>
-                                    <button style={display}  type="submit" title="Cadastrar renda e meta mensais de gasto" >
+                                    <button style={displayButton}  type="submit" title="Cadastrar renda e meta mensais de gasto" >
                                         Cadastrar
                                     </button>
-                                    {message}
+                                    {statusMessage}
                                 </form>
                             </div>    
                     </CardContent>
@@ -252,7 +252,7 @@ export default function HomeLogged() {
                 </div>
                 <div className="account_details">
                     <Expenses
-                        account={account}
+                        account={accountUser}
                     />
                 </div>
             </div>

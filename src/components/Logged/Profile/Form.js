@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 import InputMask from 'react-input-mask';
 
-import openEye from '../../assets/icons/eye.svg';
-import closeEye from '../../assets/icons/eye-off.svg';
+import openedEyeIcon from '../../assets/icons/eye.svg';
+import closedEyeIcon from '../../assets/icons/eye-off.svg';
 
 import api from '../../../services/api';
 
@@ -15,9 +15,9 @@ export default function Form()
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
     const [phone,setPhone] = useState("");
-    const [pass,setPass] = useState("");
-    const [message,setMessage] = useState("");
-    const [eyeIcon, setEyeIcon] = useState(closeEye);
+    const [password,setPassword] = useState("");
+    const [statusMessage,setStatusMessage] = useState("");
+    const [eyeIcon, setEyeIcon] = useState(closedEyeIcon);
 
     const [display,setDisplay] = useState({
         display:''
@@ -54,14 +54,14 @@ export default function Form()
     function handleEyeIcon()
     {
         var fieldPass = document.querySelector("input[name='password']");
-        if(eyeIcon === openEye)
+        if(eyeIcon === openedEyeIcon)
         {
-            setEyeIcon(closeEye);
+            setEyeIcon(closedEyeIcon);
             fieldPass.type = "password";
         }
         else
         {
-            setEyeIcon(openEye);
+            setEyeIcon(openedEyeIcon);
             fieldPass.type = "text";
         }
     }
@@ -78,9 +78,9 @@ export default function Form()
             phone.split(/[0-9]/).length<=11
         )
         {
-            setMessage("Insira os campos do formulário corretamente!");
+            setStatusMessage("Insira os campos do formulário corretamente!");
             setTimeout(()=>{
-                setMessage("");
+                setStatusMessage("");
             },3000);
         }
         else
@@ -88,25 +88,25 @@ export default function Form()
             setDisplay({
                 display:'none'
             });
-            setMessage("Processando...");
+            setStatusMessage("Processando...");
             let data = [];
-            if(pass && pass.length>=3)
+            if(password && password.length>=3)
             {
                 data={
                     "name":name,
                     "email": email,
                     "phone":phone,
-                    "password":pass
+                    "password":password
                 }
             }
-            else if (pass && pass.length<=3)
+            else if (password && password.length<=3)
             {
                 setDisplay({
                     display:''
                 });
-                setMessage("Ops! Algo deu errado!");
+                setStatusMessage("Ops! Algo deu errado!");
                 setTimeout(()=>{
-                    setMessage("");
+                    setStatusMessage("");
                 },2000);
             }
             else
@@ -129,9 +129,9 @@ export default function Form()
                     setDisplay({
                         display:''
                     });
-                    setMessage(res.data);
+                    setStatusMessage(res.data);
                     setTimeout(()=>{
-                        setMessage("");
+                        setStatusMessage("");
                     },3000);
                 }
                 else
@@ -139,20 +139,20 @@ export default function Form()
                     setDisplay({
                         display:''
                     });
-                    setMessage("Ops! Algo deu errado!");
+                    setStatusMessage("Ops! Algo deu errado!");
                     setTimeout(()=>{
-                        setMessage("");
+                        setStatusMessage("");
                     },2000);
                 }
             })
             .catch((e)=>{
                 console.log(e);
-                setMessage("Ops! Algo deu errado!");
+                setStatusMessage("Ops! Algo deu errado!");
                 setTimeout(()=>{
                     setDisplay({
                         display:''
                     });
-                    setMessage("");
+                    setStatusMessage("");
                 },2000);
             })
         }
@@ -208,7 +208,7 @@ export default function Form()
                     id="input_pass"
                     placeholder="Insira Sua Nova Senha"
                     autoComplete="current-password"
-                    onChange={(e)=>setPass(e.target.value)}
+                    onChange={(e)=>setPassword(e.target.value)}
                 />
                 <span toggle="#password" onClick={handleEyeIcon}>
                     <img 
@@ -220,7 +220,7 @@ export default function Form()
                 </span>
             </label>
             <button type="submit" style={display}>Atualizar dados</button>
-            <h3 id="message">{message}</h3>
+            <h3 id="message">{statusMessage}</h3>
         </form>
         
     );
