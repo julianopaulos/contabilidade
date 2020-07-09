@@ -18,8 +18,7 @@ export default function Edit()
     const [description, setDescription] = useState(null);
     const [value, setValue] = useState(null);
     const [dateExpense, setDateExpense] = useState(null);
-    const [message,setMessage] = useState("");
-    
+    const [statusMessage,setStatusMessage] = useState("");
     
     
     
@@ -36,12 +35,12 @@ export default function Edit()
                 {
                     history.push(`/${res.data.router}`);
                 }
-                let url_string = window.location.href; 
-                let url = new URL(url_string);
-                let id = Number(url.searchParams.get("id"));
-                if(id)
+                let get_string_url = window.location.href; 
+                let url = new URL(get_string_url);
+                let id_expense = Number(url.searchParams.get("id"));
+                if(id_expense)
                 {
-                    api.get(`/edit?id=${id}`,{
+                    api.get(`/edit?id=${id_expense}`,{
                         headers:{
                             authorization: sessionStorage.getItem("token")
                         }
@@ -84,20 +83,20 @@ export default function Edit()
                 "value":value,
                 "date_expense":dateExpense
             }
-            let url_string = window.location.href; 
-            let url = new URL(url_string);
-            let id = Number(url.searchParams.get("id"));
-            setMessage("Aguarde...");
+            let get_string_url = window.location.href; 
+            let url = new URL(get_string_url);
+            let expense_id = Number(url.searchParams.get("id"));
+            setStatusMessage("Aguarde...");
             api.put("/expense",data,{
                 headers:{
                     authorization: sessionStorage.getItem("token"),
-                    id_expense: id
+                    id_expense: expense_id
                 }
             })
             .then((res)=>{
                 if(res.data.message)
                 {
-                    setMessage(res.data.message);
+                    setStatusMessage(res.data.message);
                     setTimeout(()=>{
                         history.push("/Logged");
                     },1000);
@@ -106,9 +105,9 @@ export default function Edit()
             })
             .catch(e=>{
                 console.log(e);
-                setMessage("Ops, algo deu errado! Recarregue e tente novamente.");
+                setStatusMessage("Ops, algo deu errado! Recarregue e tente novamente.");
                 setTimeout(()=>{
-                    setMessage("");
+                    setStatusMessage("");
                 },2000);
             });
         }
@@ -146,7 +145,7 @@ export default function Edit()
                     <br/>
                     <button type="submit">Alterar</button>
                     <button type="button" onClick={()=>history.push("/Logged")}>Cancelar</button>
-                    <br/><h4 id="message">{message}</h4>
+                    <br/><h4 id="message">{statusMessage}</h4>
                 </form>
             </div>
             <Footer/>

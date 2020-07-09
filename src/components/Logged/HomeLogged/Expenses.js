@@ -16,10 +16,10 @@ export default function Expenses(props)
     const history = useHistory();
     const [description, setDescription] = useState("");
     const [value, setValue] = useState("");
-    const [expense,setExpense] = useState([]);
-    const [totalExpense, setTotalExpense] = useState(0);
-    const [message, setMessage] = useState("");
-    const [display,setDisplay] = useState({
+    const [expenses,setExpenses] = useState([]);
+    const [expensesTotalValue, setExpensesTotalValue] = useState(0);
+    const [statusMessage, setStatusMessage] = useState("");
+    const [displayButton,setDisplayButton] = useState({
         display:''
     });
     
@@ -45,8 +45,8 @@ export default function Expenses(props)
                 
                 if(req.data)
                 {
-                    setExpense(req.data);
-                    getTotalExpense(req.data);
+                    setExpenses(req.data);
+                    getExpenseValues(req.data);
                 }
             })
             .catch(e=>console.log(e));
@@ -64,15 +64,15 @@ export default function Expenses(props)
         }
         else
         {
-            setDisplay({
+            setDisplayButton({
                 display:'none'
             });
-            setMessage("Processando...");
+            setStatusMessage("Processando...");
 
-            let d = new Date();
-            let day = (d.getDate()<10)?"0"+d.getDate():d.getDate();
-            let month = ((d.getMonth()+1)<10)?"0"+(d.getMonth()+1): d.getMonth()+1;
-            let year = d.getFullYear();
+            let atual_date = new Date();
+            let atual_day = (atual_date.getDate()<10)?"0"+atual_date.getDate():atual_date.getDate();
+            let atual_month = ((atual_date.getMonth()+1)<10)?"0"+(atual_date.getMonth()+1): atual_date.getMonth()+1;
+            let atual_year = atual_date.getFullYear();
             if(value.indexOf(",")!==-1)
             {
                 alert("Os números devem ser separados por ponto");
@@ -81,7 +81,7 @@ export default function Expenses(props)
             let data = {
                 value:value,
                 description: description,
-                date_expense: `${year}/${month}/${day}`
+                date_expense: `${atual_year}/${atual_month}/${atual_day}`
             };
             await api.post("/expense",data,{
                 headers:{
@@ -95,26 +95,26 @@ export default function Expenses(props)
                     }
                 })
                 .then((req)=>{
-                    setDisplay({
+                    setDisplayButton({
                         display:''
                     });
-                    setMessage("");
+                    setStatusMessage("");
                     if(req.data)
                     {
-                        setExpense(req.data);
-                        getTotalExpense(req.data);
+                        setExpenses(req.data);
+                        getExpenseValues(req.data);
                         setDescription("");
                         setValue("");
                     }
                 })
                 .catch((e)=>{
                     console.log(e);
-                    setMessage("Ops, algo deu errado! Tente novamente mais tarde.");
+                    setStatusMessage("Ops, algo deu errado! Tente novamente mais tarde.");
                     setTimeout(()=>{
-                        setDisplay({
+                        setDisplayButton({
                             display:''
                         });
-                        setMessage("");
+                        setStatusMessage("");
                     },2000);
                 });
             })
@@ -122,20 +122,19 @@ export default function Expenses(props)
         }
     }
 
-    async function handleEdit(id)
+    async function redirectToEditPage(id)
     {
-        
         history.push(`/Edit?id=${id}`);
     }
 
-    async function handleDelete(id)
+    async function handleDelete(expense_id)
     {
         if(window.confirm("Tem certeza que deseja fazer isso?"))
         {
             await api.delete("/expense",{
                 headers:{
                     authorization: sessionStorage.getItem("token"),
-                    id_expense: id
+                    id_expense: expense_id
                 }
             })
             .then((req)=>{
@@ -143,10 +142,10 @@ export default function Expenses(props)
                 {
                     history.push(`/${req.data.router}`);
                 }
-                if(expense)
+                if(expenses)
                 {
-                    setExpense(expense.filter((expense)=>expense.id!==id));
-                    getTotalExpense(expense.filter((expense)=>expense.id!==id));
+                    setExpenses(expenses.filter((expense)=>expense.id!==expense_id));
+                    getExpenseValues(expenses.filter((expense)=>expense.id!==expense_id));
                 }       
             })
             .catch(e=>{
@@ -155,7 +154,7 @@ export default function Expenses(props)
         }
     }
 
-    async function filterDate()
+    async function filterByDate()
     {
         let initDate = document.querySelector("#initDate").value;
         let finalDate = document.querySelector("#finalDate").value;
@@ -166,8 +165,8 @@ export default function Expenses(props)
                     authorization: sessionStorage.getItem("token")
                 }
             }).then((res)=>{
-                setExpense(res.data);
-                getTotalExpense(res.data);
+                setExpenses(res.data);
+                getExpenseValues(res.data);
             }).catch(e=>console.log(e));
         }
     }
@@ -179,7 +178,7 @@ export default function Expenses(props)
         return format_date;
     }
 
-    function getTotalExpense(expenses)
+    function getExpenseValues(expenses)
     {
         let expenseValues = expenses.map(expense=>{return expense.value});
         let totalValue = 0;
@@ -187,12 +186,12 @@ export default function Expenses(props)
         {
             totalValue+=expenseValues[i];
         }
-        setTotalExpense(totalValue);
+        setExpensesTotalValue(totalValue);
     }
 
 
 
-    if(props.account && Array.isArray(expense) && expense.length>0)
+    if(props.account && Array.isArray(expenses) && expenses.length>0)
         {    
             return (
                 <div>
@@ -222,11 +221,11 @@ export default function Expenses(props)
                             <button 
                                 type="submit" 
                                 title="Cadastrar despesa" 
-                                style={display}
+                                style={displayButton}
                             >
                                 Cadastrar
                             </button>
-                            {message}
+                            {statusMessage}
                         </form>
                     </div>
                     <Divider/>
@@ -235,7 +234,7 @@ export default function Expenses(props)
                         <label>de:
                             <input 
                                 type="date"  
-                                onChange={(e)=>filterDate()}  
+                                onChange={(e)=>filterByDate()}  
                                 id="initDate"
                             />
                         </label>
@@ -243,47 +242,47 @@ export default function Expenses(props)
                         <label>até:
                             <input 
                                 type="date"  
-                                onChange={(e)=>filterDate()}  
+                                onChange={(e)=>filterByDate()}  
                                 id="finalDate"
                             />
                         </label>
                         <div className="total-value">
-                            {(totalExpense>0 && (<div>
+                            {(expensesTotalValue>0 && (<div>
                                 <span>
                                     Valor Total das Despesas: 
                                 </span>
                                 <div id="value">
-                                    {" R$"+Number(totalExpense).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                    {" R$"+Number(expensesTotalValue).toLocaleString("pt",{minimumFractionDigits: 2, 
                                                     maximumFractionDigits: 2})}
                                 </div>
                             </div>))}
                         </div>
                         <Divider id="before-expenses"/>
                     </div>
-                    <div style={(expense.length>1)?{height: 600 }:{height:400}}>    
+                    <div style={(expenses.length>1)?{height: 600 }:{height:400}}>    
                         <InfiniteLoadingList
-                            items={expense}
+                            items={expenses}
                             itemHeight={400}
                             loadMoreItems={Expenses}
                         >
-                            {expense.map(d=>{
+                            {expenses.map(expense=>{
                                 return (
-                                    <div key={d.id} className="expense">            
-                                        <div><h4>Data</h4><div>{dateFormat(d.date_expense)}</div></div>
-                                        <div><h4>Descrição</h4><div>{d.description}</div></div>
+                                    <div key={expense.id} className="expense">            
+                                        <div><h4>Data</h4><div>{dateFormat(expense.date_expense)}</div></div>
+                                        <div><h4>Descrição</h4><div>{expense.description}</div></div>
                                         <div>
                                             <h4>Valor</h4>
-                                                {"R$"+Number(d.value).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                                {"R$"+Number(expense.value).toLocaleString("pt",{minimumFractionDigits: 2, 
                                                     maximumFractionDigits: 2})}
                                         </div>
                                         <div>
                                             <h4>Ações</h4>
                                             <div>
                                                 <span title="Editar despesa" >
-                                                    <EditIcon id="edit" onClick={()=>handleEdit(d.id)}/>
+                                                    <EditIcon id="edit" onClick={()=>redirectToEditPage(expense.id)}/>
                                                 </span> 
                                                 <span title="Deletar despesa" >
-                                                    <DeleteIcon id="delete"  onClick={()=>handleDelete(d.id)} />
+                                                    <DeleteIcon id="delete"  onClick={()=>handleDelete(expense.id)} />
                                                 </span>
                                             </div>
                                         </div>
@@ -327,11 +326,11 @@ export default function Expenses(props)
                         <button 
                                 type="submit" 
                                 title="Cadastrar despesa" 
-                                style={display}
+                                style={displayButton}
                         >
                             Cadastrar
                         </button>
-                        {message}
+                        {statusMessage}
                     </form>
                 </div>
             );
