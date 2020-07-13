@@ -148,7 +148,7 @@ export default function Expenses(props)
                     setStatusMessage("");
                     if(req.data)
                     {
-                        setCurrentExpenses([]);
+                        setCount(() => ({ prev: 0, next: 5 }));
                         setExpenses(req.data);
                         getExpenseValues(req.data);
                         setDescription("");
