@@ -1,6 +1,6 @@
 {
   "name": "react_com_php",
-  "homepage": "http://superrango.epizy.com/",
+  "homepage": "http://admincontabil.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,11 +13,11 @@
     "crypto-js": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-infinite-scroll-component": "^5.0.5",
     "react-input-mask": "^2.0.4",
     "react-responsive-carousel": "^3.1.57",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "react-simple-infinite-loading": "^1.0.0"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

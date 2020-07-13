@@ -6,13 +6,13 @@ module.exports ={
     {   
         try
         {
-            
-           const token = req.headers.authorization;
+            const token = req.headers.authorization;
             const payload = await jwt.verify(token);
             if(payload)
             {
                 const account = await connection('user_account').select("*").where("id_user",payload.user_id).first();
-                res.status(200).send(account);
+                (account)?
+                res.status(200).json(account):res.json(token);
             }
             else
             {

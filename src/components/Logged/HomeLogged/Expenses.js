@@ -5,8 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-
-import InfiniteLoadingList from 'react-simple-infinite-loading'
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import api from '../../../services/api';
 
@@ -18,11 +17,21 @@ export default function Expenses(props)
     const [value, setValue] = useState("");
     const [expenses,setExpenses] = useState([]);
     const [expensesTotalValue, setExpensesTotalValue] = useState(0);
+    const [currentExpensesTotalValue, setCurrentExpensesTotalValue] = useState(0);
     const [statusMessage, setStatusMessage] = useState("");
     const [displayButton,setDisplayButton] = useState({
         display:''
     });
     
+    const [count, setCount] = useState({
+        prev: 0,
+        next: 5 
+    });
+    
+    
+    const [hasMoreExpenses, setHasMoreExpenses] = useState(true);
+    const [currentExpenses, setCurrentExpenses] = useState([]);
+
     useEffect(()=>{
         api.get("/user",{
             headers:{
@@ -35,24 +44,57 @@ export default function Expenses(props)
                 sessionStorage.clear();
                 history.push(`/${req.data.router}`);
             }
-            
             api.get("/expense",{
                 headers:{
                     authorization: sessionStorage.getItem("token")
                 }
             })
-            .then((req)=>{
-                
+            .then((req)=>{            
                 if(req.data)
                 {
                     setExpenses(req.data);
+                    getCurrentExpenseValues(req.data);
                     getExpenseValues(req.data);
                 }
             })
             .catch(e=>console.log(e));
         })
         .catch(e=>console.log(e))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[history]);
+
+    useEffect(()=>{
+        setCount({
+          prev:0,
+          next:5
+        });
+        setHasMoreExpenses(false);
+        if(expenses.length>5)
+        {  
+          setHasMoreExpenses(true);
+        }
+        getCurrentExpenseValues(expenses.slice(count.prev, count.next));
+        if(expenses.length>1)
+        {
+          setCurrentExpenses(expenses.slice(count.prev, count.next));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[expenses]);
+
+
+    const getMoreData = () => {  
+        
+        if (currentExpenses.length === expenses.length) {
+            getCurrentExpenseValues(expenses);
+            setHasMoreExpenses(false);
+            return;
+        }
+        setTimeout(() => {
+          setCurrentExpenses(currentExpenses.concat(expenses.slice(count.prev + 5, count.next + 5)))
+          getCurrentExpenseValues(currentExpenses);
+        }, 1000);
+        setCount((prevState) => ({ prev: prevState.prev + 5, next: prevState.next + 5 }));
+    }
 
 
     async function handleCreateExpense(e)
@@ -101,6 +143,7 @@ export default function Expenses(props)
                     setStatusMessage("");
                     if(req.data)
                     {
+                        setCurrentExpenses([]);
                         setExpenses(req.data);
                         getExpenseValues(req.data);
                         setDescription("");
@@ -146,6 +189,7 @@ export default function Expenses(props)
                 {
                     setExpenses(expenses.filter((expense)=>expense.id!==expense_id));
                     getExpenseValues(expenses.filter((expense)=>expense.id!==expense_id));
+                    getCurrentExpenseValues(currentExpenses.filter((expense)=>expense.id!==expense_id));
                 }       
             })
             .catch(e=>{
@@ -166,7 +210,12 @@ export default function Expenses(props)
                 }
             }).then((res)=>{
                 setExpenses(res.data);
-                getExpenseValues(res.data);
+                setCurrentExpenses([]);
+                if(res.data.length===1)
+                {
+                    setCurrentExpenses(res.data);
+                    getCurrentExpenseValues(res.data);
+                }
             }).catch(e=>console.log(e));
         }
     }
@@ -178,6 +227,16 @@ export default function Expenses(props)
         return format_date;
     }
 
+    function getCurrentExpenseValues(expenses)
+    {
+        let expenseValues = expenses.map(expense=>{return expense.value});
+        let totalValue = 0;
+        for(let i =0; i<expenseValues.length;i++)
+        {
+            totalValue+=expenseValues[i];
+        }
+        setCurrentExpensesTotalValue(totalValue);
+    }
     function getExpenseValues(expenses)
     {
         let expenseValues = expenses.map(expense=>{return expense.value});
@@ -187,113 +246,128 @@ export default function Expenses(props)
             totalValue+=expenseValues[i];
         }
         setExpensesTotalValue(totalValue);
+        console.log(expensesTotalValue);
     }
 
 
 
-    if(props.account && Array.isArray(expenses) && expenses.length>0)
+    if(props.account && Array.isArray(currentExpenses) && currentExpenses.length>0)
         {    
             return (
                 <div>
-                    <div className="form-expense">
-                        <h2>
-                            Adicione suas despesas aqui!
-                        </h2>
-                        <form onSubmit={(e)=>{handleCreateExpense(e)}}>
-                                <label>Descrição da despesa<br/>
-                                <input 
-                                    type="text" 
-                                    placeholder="Descrição"  
-                                    required
-                                    value={description}
-                                    onChange={e=>setDescription(e.target.value)}
-                                />
-                                </label><br/>
-                                <label>Valor da despesa:<br/>
-                                <input 
-                                    type="text" 
-                                    placeholder="Valor" 
-                                    required
-                                    value={value}
-                                    onChange={e=>setValue(e.target.value)}
-                                />
-                            </label><br/>
-                            <button 
-                                type="submit" 
-                                title="Cadastrar despesa" 
-                                style={displayButton}
-                            >
-                                Cadastrar
-                            </button>
-                            {statusMessage}
-                        </form>
-                    </div>
-                    <Divider/>
-                    <div className="date-filter">   
-                        <div>Filtre seus gastos por período: </div>
-                        <label>de:
-                            <input 
-                                type="date"  
-                                onChange={(e)=>filterByDate()}  
-                                id="initDate"
-                            />
-                        </label>
-                        
-                        <label>até:
-                            <input 
-                                type="date"  
-                                onChange={(e)=>filterByDate()}  
-                                id="finalDate"
-                            />
-                        </label>
-                        <div className="total-value">
-                            {(expensesTotalValue>0 && (<div>
-                                <span>
-                                    Valor Total das Despesas: 
-                                </span>
-                                <div id="value">
-                                    {" R$"+Number(expensesTotalValue).toLocaleString("pt",{minimumFractionDigits: 2, 
-                                                    maximumFractionDigits: 2})}
-                                </div>
-                            </div>))}
-                        </div>
-                        <Divider id="before-expenses"/>
-                    </div>
-                    <div style={(expenses.length>1)?{height: 600 }:{height:400}}>    
-                        <InfiniteLoadingList
-                            items={expenses}
-                            itemHeight={400}
-                            loadMoreItems={Expenses}
-                        >
-                            {expenses.map(expense=>{
-                                return (
-                                    <div key={expense.id} className="expense">            
-                                        <div><h4>Data</h4><div>{dateFormat(expense.date_expense)}</div></div>
-                                        <div><h4>Descrição</h4><div>{expense.description}</div></div>
-                                        <div>
-                                            <h4>Valor</h4>
-                                                {"R$"+Number(expense.value).toLocaleString("pt",{minimumFractionDigits: 2, 
-                                                    maximumFractionDigits: 2})}
-                                        </div>
-                                        <div>
-                                            <h4>Ações</h4>
-                                            <div>
-                                                <span title="Editar despesa" >
-                                                    <EditIcon id="edit" onClick={()=>redirectToEditPage(expense.id)}/>
-                                                </span> 
-                                                <span title="Deletar despesa" >
-                                                    <DeleteIcon id="delete"  onClick={()=>handleDelete(expense.id)} />
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <Divider/>
-                                    </div>
-                                );
-                        })}
-                        </InfiniteLoadingList>
-                    </div>
-                    
-                </div>
+                  <div className="form-expense">
+                      <h2>
+                          Adicione suas despesas aqui!
+                      </h2>
+                      <form onSubmit={(e)=>{handleCreateExpense(e)}}>
+                              <label>Descrição da despesa<br/>
+                              <input 
+                                  type="text" 
+                                  placeholder="Descrição"  
+                                  required
+                                  value={description}
+                                  onChange={e=>setDescription(e.target.value)}
+                              />
+                              </label><br/>
+                              <label>Valor da despesa:<br/>
+                              <input 
+                                  type="text" 
+                                  placeholder="Valor" 
+                                  required
+                                  value={value}
+                                  onChange={e=>setValue(e.target.value)}
+                              />
+                          </label><br/>
+                          <button 
+                              type="submit" 
+                              title="Cadastrar despesa" 
+                              
+                          >
+                              Cadastrar
+                          </button>
+                          {statusMessage}
+                      </form>
+                  </div>
+                  
+                  <div className="date-filter">   
+                      <div>Filtre seus gastos por período: </div>
+                      <label>de:
+                          <input 
+                              type="date"  
+                              onChange={(e)=>filterByDate()}  
+                              id="initDate"
+                          />
+                      </label>
+                      
+                      <label>até:
+                          <input 
+                              type="date"  
+                              onChange={(e)=>filterByDate()}  
+                              id="finalDate"
+                          />
+                      </label>
+                      <div className="total-value">
+                          {(currentExpensesTotalValue>0 && (<div>
+                            <span>
+                                  Valor Total das Despesas: 
+                              </span>
+                              <div id="value">
+                                  {" R$"+Number(expensesTotalValue).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                                  maximumFractionDigits: 2})}
+                              </div>
+                              <span>
+                                  Valor das Despesas visíveis: 
+                              </span>
+                              <div id="value">
+                                  {" R$"+Number(currentExpensesTotalValue).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                                  maximumFractionDigits: 2})}
+                              </div>
+                          </div>))}
+                      </div>
+                      <Divider id="before-expenses"/>
+                  </div>
+                  <InfiniteScroll
+                      dataLength={currentExpenses.length}
+                      next={getMoreData}
+                      hasMore={hasMoreExpenses}
+                      loader={<div className="sk-chase">
+                      <div className="sk-chase-dot"></div>
+                      <div className="sk-chase-dot"></div>
+                      <div className="sk-chase-dot"></div>
+                      <div className="sk-chase-dot"></div>
+                      <div className="sk-chase-dot"></div>
+                      <div className="sk-chase-dot"></div>
+                      </div>}
+                      style={{overflow:"hidden"}}
+                  >
+                  {currentExpenses && currentExpenses.map(((expense, index) => {
+                      return (
+                          <div key={expense.id} className="expense">            
+                              <div><h4>Data</h4><div>{dateFormat(expense.date_expense)}</div></div>
+                              <div><h4>Descrição</h4><div>{expense.description}</div></div>
+                              <div>
+                                  <h4>Valor</h4>
+                                      {"R$"+Number(expense.value).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                           maximumFractionDigits: 2})}
+                              </div>
+                              <div>
+                                  <h4>Ações</h4>
+                                  <div>
+                                    <span title="Editar despesa" >
+                                            <EditIcon id="edit" onClick={()=>redirectToEditPage(expense.id)}/>
+                                    </span> 
+                                    <span title="Deletar despesa" >
+                                        <DeleteIcon id="delete"  onClick={()=>handleDelete(expense.id)} />
+                                    </span>
+                                  </div>
+                              </div>
+                              <Divider/>
+                          </div>
+                      );
+                  }))}
+                     
+                  </InfiniteScroll>
+              </div>
             );
         }  
         else if(props.account)
