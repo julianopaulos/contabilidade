@@ -41,12 +41,15 @@ export default function Profile()
    
 
     useEffect(()=>{
+        const abortController = new AbortController();
+        const signal = abortController.signal;
         try
         {
             api.get("/user",{
                 headers:{
                     authorization:"Bearer "+sessionStorage.getItem("token")
-                }
+                },
+                signal:signal
             }).then((req)=>{
                 if(req.data.router)
                 {
@@ -70,15 +73,28 @@ export default function Profile()
                         }
                         
                     })
-                    .catch(e=>console.log(e))
+                    .catch(e=>console.log(e));
+                    return function cleanup()
+                    {
+                        abortController.abort();
+                    }
                 }
             })
             .catch((error)=>{console.log(error)});
+            return function cleanup()
+            {
+                abortController.abort();
+            }
         }
         catch(e)
         {
             console.log(e);
         }
+        return function cleanup()
+        {
+            abortController.abort();
+        }
+        
     },[history]);
 
 

@@ -50,7 +50,7 @@ module.exports = {
                     .first();
                 if(Number.isInteger(id_account.id))
                 {
-                    const data = await connection("user_expenses")
+                     const data = await connection("user_expenses")
                         .select("*")
                         .where("id_user_account",id_account.id) 
                         .whereBetween("date_expense",
@@ -60,17 +60,22 @@ module.exports = {
                     {
                         return res.status(200).json(data);
                     }
-                    return res.status(400);
+                    else
+                    {
+                        return res.json({"message":"Nenhuma despesa encontrada!"});
+                    }
                 }
-                return res.status(400); 
-                
+                else{return res.status(400); }
             }
-            return res.send(payload);
+            else
+            {
+                return res.status(401).send(payload); 
+            }
             
         }
         catch(e)
         {
-            return res.send(e);
+            return res.status(401).send(e);
         }
     }
 }

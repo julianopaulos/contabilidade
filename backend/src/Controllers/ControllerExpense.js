@@ -37,7 +37,7 @@ module.exports={
         }
         catch(e)
         {
-            res.status(401).send(e,{message:"Conta já cadastrada"});
+            res.status(401).send(e);
         }
     },
     async create(req,res)

@@ -50,11 +50,9 @@ export default function Expenses(props)
                 }
             })
             .then((req)=>{            
-                if(req.data)
+                if(Array.isArray(req.data))
                 {
                     setExpenses(req.data);
-                    getCurrentExpenseValues(req.data);
-                    getExpenseValues(req.data);
                 }
             })
             .catch(e=>console.log(e));
@@ -64,12 +62,10 @@ export default function Expenses(props)
     },[history]);
 
     useEffect(()=>{
-        setCount({
-          prev:0,
-          next:5
-        });
+        getCurrentExpenseValues(expenses);
+        getExpenseValues(expenses);
         setHasMoreExpenses(false);
-        if(expenses.length>5)
+        if(expenses.length>5 && expenses.length>currentExpenses.length)
         {  
           setHasMoreExpenses(true);
         }
@@ -77,6 +73,10 @@ export default function Expenses(props)
         if(expenses.length>1)
         {
           setCurrentExpenses(expenses.slice(count.prev, count.next));
+        }
+        if(expenses.length===1)
+        {
+            setCurrentExpenses(expenses);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[expenses]);
@@ -90,13 +90,18 @@ export default function Expenses(props)
             return;
         }
         setTimeout(() => {
-          setCurrentExpenses(currentExpenses.concat(expenses.slice(count.prev + 5, count.next + 5)))
-          getCurrentExpenseValues(currentExpenses);
+            try
+            {
+                setCurrentExpenses(currentExpenses.concat(expenses.slice(count.prev + 5, count.next + 5)));
+                getCurrentExpenseValues(currentExpenses);
+            }
+            catch(e)
+            {
+                console.log(e)
+            }
         }, 1000);
         setCount((prevState) => ({ prev: prevState.prev + 5, next: prevState.next + 5 }));
     }
-
-
     async function handleCreateExpense(e)
     {
         e.preventDefault();
@@ -202,19 +207,27 @@ export default function Expenses(props)
     {
         let initDate = document.querySelector("#initDate").value;
         let finalDate = document.querySelector("#finalDate").value;
+
         if(initDate.indexOf("-")!==-1 && finalDate.indexOf("-")!==-1)
         {
-            await api.get(`/filter?initDate=${initDate}&finalDate=${finalDate}`,{
+            await api.get(`/filter`,{
                 headers:{
                     authorization: sessionStorage.getItem("token")
+                },
+                params:{
+                    initDate:initDate,
+                    finalDate:finalDate
                 }
             }).then((res)=>{
-                setExpenses(res.data);
-                setCurrentExpenses([]);
-                if(res.data.length===1)
+                if(!res.data.message)
                 {
-                    setCurrentExpenses(res.data);
-                    getCurrentExpenseValues(res.data);
+                    setCount(() => ({ prev: 0, next: 5 }));
+                    setExpenses(res.data);
+                    if(res.data.length===1)
+                    {
+                        setCurrentExpenses(res.data);
+                        getCurrentExpenseValues(res.data);
+                    }
                 }
             }).catch(e=>console.log(e));
         }
@@ -246,9 +259,7 @@ export default function Expenses(props)
             totalValue+=expenseValues[i];
         }
         setExpensesTotalValue(totalValue);
-        console.log(expensesTotalValue);
     }
-
 
 
     if(props.account && Array.isArray(currentExpenses) && currentExpenses.length>0)
@@ -342,7 +353,7 @@ export default function Expenses(props)
                   >
                   {currentExpenses && currentExpenses.map(((expense, index) => {
                       return (
-                          <div key={expense.id} className="expense">            
+                          <div key={index} className="expense">            
                               <div><h4>Data</h4><div>{dateFormat(expense.date_expense)}</div></div>
                               <div><h4>Descrição</h4><div>{expense.description}</div></div>
                               <div>

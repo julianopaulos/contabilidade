@@ -1,6 +1,6 @@
 exports.up = function(knex) {
     return knex.schema.createTable('user_expenses',function(table){
-        table.int('id').primary().notNullable().unique();
+        table.increments("id").primary();
         table.int('id_user_account').notNullable();
         table.double('value').notNullable();
         table.string('description').notNullable();
