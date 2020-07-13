@@ -285,7 +285,7 @@ export default function Expenses(props)
                           >
                               Cadastrar
                           </button>
-                          {statusMessage}
+                          <br/>{statusMessage}
                       </form>
                   </div>
                   
@@ -404,7 +404,7 @@ export default function Expenses(props)
                         >
                             Cadastrar
                         </button>
-                        {statusMessage}
+                        <br/>{statusMessage}
                     </form>
                 </div>
             );
