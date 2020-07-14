@@ -8,22 +8,18 @@ module.exports ={
         {
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
-            if(payload)
+            if(Number.isInteger(payload.user_id))
             {
                 const account = await connection('user_account').select("*").where("id_user",payload.user_id).first();
-                (account)?
-                res.status(200).json(account):res.json(token);
+                (account)?res.status(200).json(account):res.json("Sem conta cadastrada");
             }
-            else
-            {
-                res.status(401).json("Sem conta cadastrada");
-            }
+            return res.status(401).json(payload);
         }
         catch(e)
         {
             const message = "Conta financeira inexistente";
             const router = "Login";
-            return res.send({message,router},"erro");
+            return res.status(400).send({message,router},"erro");
         }
     },
     async create(req,res)
@@ -33,32 +29,32 @@ module.exports ={
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
             const {total_income,meta} = req.body; 
-            const id_user = payload.user_id;
-
-            const data = await connection("user_account").select("*").where("id_user",id_user).first();
-
-            if(!data)
+            if(Number.isInteger(payload.user_id))
             {
-                await connection('user_account').insert({
-                    id_user,
-                    total_income,
-                    meta
-                });
-                const data_account = {total_income,meta};
-                return res.status(200).send(data_account);
-            }
-            else
-            {
+                const id_user = payload.user_id;
+
+                const data = await connection("user_account").select("*").where("id_user",id_user).first();
+
+                if(!data)
+                {
+                    await connection('user_account').insert({
+                        id_user,
+                        total_income,
+                        meta
+                    });
+                    const data_account = {total_income,meta};
+                    return res.status(201).send(data_account);
+                }
                 const message = "Conta já  cadastrada!";
-                return res.status(207).send(message);
+                return res.send(message);
             }
-
+            return res.status(401).send(payload);
         }
         catch(e)
         {
             const message = "Algo deu errado";
             const router = "Login";
-            return res.status(401).send({message,router});
+            return res.status(400).send({message,router});
         }
     }
 }

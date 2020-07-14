@@ -6,20 +6,20 @@ module.exports = {
         try{
             const token = req.headers.authorization;
             const payload = jwt.verify(token);
-            if(payload.user_id)
+            if(Number.isInteger(payload.user_id))
             {
                 const [data] = await connection("user_img").select("*").where("id_user",payload.user_id);
                 if(data)
                 {
-                    return res.send(data);
+                    return res.status(200).send(data);
                 }
                 return res.send("Imagem não encontrada!");
             }
-            return res.send("Imagem não encontrada!");
+            return res.status(401).send(payload);
         }
         catch(e)
         {
-            return res.status(401).send(e);
+            return res.status(400).send(e);
         }
     },
 
@@ -31,7 +31,7 @@ module.exports = {
             //let id = Number(Math.floor(Math.random()*1000+1)+""+Math.floor(Math.random()*100+1));
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
-            if(payload.user_id)
+            if(Number.isInteger(payload.user_id))
             {
                 const {filename, size} = req.file;
                 
@@ -48,13 +48,13 @@ module.exports = {
                     })
                     
                 }
-                return res.status(200).json(req.file);
+                return res.status(201).json(req.file);
             }
-            return res.status(401).send("algo deu errado!");
+            return res.status(401).send(payload);
         }
         catch(e)
         {
-            return res.send(e);
+            return res.status(400).send(e);
         }      
     }
 

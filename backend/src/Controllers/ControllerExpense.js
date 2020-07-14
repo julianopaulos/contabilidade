@@ -9,35 +9,40 @@ module.exports={
         {
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
-            const id = await connection("user_account").select("id").where("id_user",payload.user_id).first();
-            
-            
-            if(id)
+            if(Number.isInteger(payload.user_id))
             {
-                const id_user_account = id.id;
-                if(id_user_account)
+                const id = await connection("user_account").select("id").where("id_user",payload.user_id).first();
+                
+                if(id)
                 {
-                    const data = await connection("user_expenses").select("*")
-                    .where("id_user_account",id_user_account)
-                    .orderBy("date_expense","desc");
-                    data.map(d=>{
-                        return d.id_user_account = undefined;
-                    });
-                    res.json(data); 
+                    const id_user_account = id.id;
+                    if(id_user_account)
+                    {
+                        const data = await connection("user_expenses").select("*")
+                        .where("id_user_account",id_user_account)
+                        .orderBy("date_expense","desc");
+                        if(data)
+                        {
+                            data.map(d=>{
+                                return d.id_user_account = undefined;
+                            });
+                            return res.status(200).json(data); 
+                        }
+                        return res.send("Nenhuma despesa encontrada!");
+                    }
+                    
+                    return res.json("Sem conta cadastrada!");
+                    
                 }
-                else
-                {
-                    res.json("Sem conta cadastrada");
-                }
+                
+                return res.json("Sem conta cadastrada!");
             }
-            else
-            {
-                res.json("Sem conta cadastrada");
-            }
+            
+            return res.status(401).send(payload);
         }
         catch(e)
         {
-            res.status(401).send(e);
+            return res.status(400).send(e);
         }
     },
     async create(req,res)
@@ -48,27 +53,28 @@ module.exports={
             //let id = Number(Math.floor(Math.random()*100000+1)+""+Math.floor(Math.random()*100+1));   
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
-            const [data] = await connection("user_account").select("*").where("id_user",payload.user_id);
-            const id_user_account = data.id; 
-            
-            if(id_user_account && value>0)
+            if(Number.isInteger(payload.user_id))
             {
-                const [id] = await connection("user_expenses").insert({
-                    id_user_account,
-                    value,
-                    description,
-                    date_expense
-                })
-                return res.status(201).json({id,value,description,date_expense});
-            }
-            else{
+                const [data] = await connection("user_account").select("*").where("id_user",payload.user_id);
+                const id_user_account = data.id; 
+                
+                if(id_user_account && value>0)
+                {
+                    const [id] = await connection("user_expenses").insert({
+                        id_user_account,
+                        value,
+                        description,
+                        date_expense
+                    })
+                    return res.status(201).json({id,value,description,date_expense});
+                }
                 return res.json("Algo deu errado!");
             }
-            
+            return res.status(401).send(payload);
         }
         catch(e)
         {
-            res.status(401).send(e);
+            return res.status(400).send(e);
         }
     },
 
@@ -84,7 +90,7 @@ module.exports={
 
             const payload = jwt.verify(token);
 
-            if(payload.user_id)
+            if(Number.isInteger(payload.user_id))
             {
                 const id_account = await connection("user_account")
                     .select("id")
@@ -102,19 +108,17 @@ module.exports={
                         await connection("user_expenses")
                         .update({"value":Number(value),"description":description,"date_expense":`${date_expense.replace(/-/g,"/","/")}`})
                         .where("id",id_expense);
-                        return res.json({message:"Dados alterados com sucesso!"});
+                        return res.status(202).json({message:"Dados alterados com sucesso!"});
                     }
-                    return res.status(401);
+                    return res.send("Não foram encontradas despesas!");
                 }
-                
+                return res.send("Conta não encontrada!");
             }
-
-
-            return res.status(200).json(id_expense);
+            return res.status(401).json(payload);
         }
         catch(e)
         {
-            return res.status(401).send(e);
+            return res.status(400).send(e);
         }
     },
 
@@ -125,22 +129,27 @@ module.exports={
             const id_expense = req.headers.id_expense;
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
-            const id_account = await connection("user_account").select("*").where("id_user",payload.user_id).first();
-            const id_user_account = id_account.id;
-
-            if(id_user_account)
+            if(Number.isInteger(payload.user_id))
             {
-                const data = await connection("user_expenses")
-                .where("id_user_account",id_user_account)
-                .where("id",id_expense)
-                .del();
-                return res.status(204).json(data);
+                const id_account = await connection("user_account").select("*").where("id_user",payload.user_id).first();
+                const id_user_account = id_account.id;
+
+                if(id_user_account)
+                {
+                    const data = await connection("user_expenses")
+                    .where("id_user_account",id_user_account)
+                    .where("id",id_expense)
+                    .del();
+                    return res.status(204).json(data);
+                }
+                return res.send("Despesa não encontrada");
             }
+            return res.status(401).send(payload);
         }
         catch(e)
         {
             let router = "Home";
-            return res.status(401).send({e,router});
+            return res.status(400).send({e,router});
         }
     }
     

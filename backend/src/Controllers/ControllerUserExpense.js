@@ -10,7 +10,7 @@ module.exports = {
             const token = req.headers.authorization;  
             const payload = jwt.verify(token);
             const id_expense = Number(req.query.id);
-            if(payload.user_id)
+            if(Number.isInteger(payload.user_id))
             {
                 const id_account = await connection("user_account")
                     .select("id")
@@ -26,9 +26,9 @@ module.exports = {
                     data.id_user_account = undefined;
                     return res.status(200).send(data);
                 }
-                return res.status(401); 
+                return res.send("Sem despesas encontradas!"); 
             }
-            return res.status(401); 
+            return res.status(401).send(payload); 
         }
         catch(e)
         {
@@ -42,7 +42,7 @@ module.exports = {
             const {initDate,finalDate} = req.query;
             const token = req.headers.authorization;
             const payload = jwt.verify(token);
-            if(payload.user_id)
+            if(Number.isInteger(payload.user_id))
             {
                 const id_account = await connection("user_account")
                     .select("id")
@@ -50,7 +50,7 @@ module.exports = {
                     .first();
                 if(Number.isInteger(id_account.id))
                 {
-                     const data = await connection("user_expenses")
+                    const data = await connection("user_expenses")
                         .select("*")
                         .where("id_user_account",id_account.id) 
                         .whereBetween("date_expense",
@@ -60,22 +60,15 @@ module.exports = {
                     {
                         return res.status(200).json(data);
                     }
-                    else
-                    {
-                        return res.json({"message":"Nenhuma despesa encontrada!"});
-                    }
+                    return res.json({"message":"Nenhuma despesa encontrada!"});
                 }
-                else{return res.status(400); }
+                return res.json({"message":"Conta não encontrada!"});
             }
-            else
-            {
-                return res.status(401).send(payload); 
-            }
-            
+            return res.status(401).send(payload); 
         }
         catch(e)
         {
-            return res.status(401).send(e);
+            return res.status(400).send(e);
         }
     }
 }

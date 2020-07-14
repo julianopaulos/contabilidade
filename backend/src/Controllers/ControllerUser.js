@@ -28,12 +28,12 @@ module.exports={
             data.pass = undefined;
             const token = jwt.sign({user_id : data.id});
             
-            return res.json({data,token,message,router});
+            return res.status(200).json({data,token,message,router});
             
         }
         catch(e)
         {
-            res.status(401).send(e);
+            return res.status(400).send(e);
         }
         
     },
@@ -63,10 +63,10 @@ module.exports={
                 return res.send({message,router});
             }
             const token = jwt.sign({user_id : id});
-            return res.json({id,token,router});
+            return res.status(201).json({id,token,router});
         }
         catch(e){
-            res.status(401).send(e);
+            return res.status(400).send(e);
         }
     },
     async find(req,res)
@@ -79,7 +79,7 @@ module.exports={
             try
             {
                 const payload = jwt.verify(token);
-                if(payload.user_id)
+                if(Number.isInteger(payload.user_id))
                 {
                     const data = await connection("user")
                     .join("user_account","user.id","user_account.id_user")
@@ -90,27 +90,32 @@ module.exports={
                         data.pass = undefined;
                         return res.json(data);
                     }
-                    else
+                    
+                    const data_user = await connection("user")
+                        .select("*")
+                        .where("id",payload.user_id)
+                        .first();
+                    if(data_user)
                     {
-                        const data_user = await connection("user").select("*").where("id",payload.user_id).first();
                         data_user.pass = undefined;
-                        return res.json(data_user);
+                        return res.status(200).json(data_user);    
                     }
+                    return res.send("Usuário não encontrado!");
+                    
                 }
-                else
-                {
-                    return res.send(router);
-                }
+                
+                return res.send(router);
+                
             }
             catch(e)
             {
-                return res.send({e,router});
+                return res.status(400).send({e,router});
             }
 
         }
         catch(e)
         {
-            res.status(401).send(e);
+            return res.status(400).send(e);
         }
         
     },
@@ -123,7 +128,7 @@ module.exports={
             const {name,email,phone,password} = req.body;
             const token = req.headers.authorization;  
             const payload = jwt.verify(token);    
-            if(payload.user_id)
+            if(Number.isInteger(payload.user_id))
             {
                 const id = await connection("user").select("id").where("email",email).first();
                 if(((id && id.id===payload.user_id) || !id.id) && password)
@@ -131,23 +136,21 @@ module.exports={
                     let pass = cryptographe.cript(password);
                     await connection("user").update({'name':name,'email':email,phone:phone,'pass':pass})
                     .where("id",payload.user_id);
-                    return res.json("Dados alterados com sucesso!");
+                    return res.status(200).json("Dados alterados com sucesso!");
                 }
                 if(((id && id.id===payload.user_id) || !id.id) && !password)
                 {
                     await connection("user").update({'name':name,'email':email,'phone':phone})
                     .where("id",payload.user_id);
-                    return res.json("Dados alterados com sucesso!"); 
+                    return res.status(200).json("Dados alterados com sucesso!"); 
                 }
-                else
-                {
-                    res.json("E-mail já utilizado!");
-                }
+                return res.json("E-mail já utilizado!");
             }
+            return res.status(401).send(payload);
         }
         catch(e)
         {
-            res.status(401).send(e);
+            return res.status(400).send(e);
         }
     }
 
