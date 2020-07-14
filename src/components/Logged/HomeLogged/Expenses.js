@@ -190,12 +190,13 @@ export default function Expenses(props)
                 {
                     history.push(`/${req.data.router}`);
                 }
-                if(expenses)
+                if(expenses.length>0)
                 {
                     setExpenses(expenses.filter((expense)=>expense.id!==expense_id));
                     getExpenseValues(expenses.filter((expense)=>expense.id!==expense_id));
                     getCurrentExpenseValues(currentExpenses.filter((expense)=>expense.id!==expense_id));
-                }       
+                }
+                    
             })
             .catch(e=>{
                 console.log(e);
@@ -244,7 +245,7 @@ export default function Expenses(props)
     {
         let expenseValues = expenses.map(expense=>{return expense.value});
         let totalValue = 0;
-        for(let i =0; i<expenseValues.length;i++)
+        for(let i=0; i<expenseValues.length;i++)
         {
             totalValue+=expenseValues[i];
         }
@@ -262,7 +263,7 @@ export default function Expenses(props)
     }
 
 
-    if(props.account && Array.isArray(currentExpenses) && currentExpenses.length>0)
+    if(props.account && Array.isArray(currentExpenses) && currentExpenses.length>0 && expenses.length>0)
         {    
             return (
                 <div>
