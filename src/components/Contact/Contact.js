@@ -48,7 +48,7 @@ export default function Contact() {
             const data = {
                 name, 
                 email, 
-                bodyMessage
+                message:bodyMessage
             }
             await api.post("/email",data)
             .then((res)=>{

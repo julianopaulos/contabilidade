@@ -242,13 +242,12 @@ export default function HomeLogged() {
     }
 
     
-    
     return (
         <div className="todo-logged">
             <Header/>
             <div className="logged-container">
                 <div className="user_details">
-                        {getAccount()}
+                        {getAccount()}       
                 </div>
                 <div className="account_details">
                     <Expenses
