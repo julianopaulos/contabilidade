@@ -30,8 +30,6 @@ module.exports ={
     {
         try
         {
-
-            let id = Number(Math.floor(Math.random()*1000+1)+""+Math.floor(Math.random()*100+1));
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
             const {total_income,meta} = req.body; 
@@ -42,7 +40,6 @@ module.exports ={
             if(!data)
             {
                 await connection('user_account').insert({
-                    id,
                     id_user,
                     total_income,
                     meta

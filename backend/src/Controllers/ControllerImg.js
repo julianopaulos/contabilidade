@@ -28,7 +28,7 @@ module.exports = {
         try
         {
             //res.json([req.headers.authorization,req.file]);
-            let id = Number(Math.floor(Math.random()*1000+1)+""+Math.floor(Math.random()*100+1));
+            //let id = Number(Math.floor(Math.random()*1000+1)+""+Math.floor(Math.random()*100+1));
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
             if(payload.user_id)
@@ -41,7 +41,6 @@ module.exports = {
                     const id_user = payload.user_id;
                     
                     await connection("user_img").insert({
-                        id,
                         id_user,
                         name: filename,
                         size,

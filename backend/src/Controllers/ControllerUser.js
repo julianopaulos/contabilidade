@@ -40,19 +40,17 @@ module.exports={
 
     async create(req,res)
     {  
-        let id = Number(Math.floor(Math.random()*1000+1)+""+Math.floor(Math.random()*100+1));
-        const {name,email,phone,password} = req.body;
-        const token = jwt.sign({user_id : id});
+        const {name,email,phone,password} = req.body; 
         let pass = cryptographe.cript(password);
         try
         {   
+            let id = 0;
             let message="E-mail já cadastrado!";
             let router = "Login";
             const data = await connection('user').select("*").where("email",email).where("pass",pass);
             if(data.length===0)
             {
-                await connection('user').insert({
-                    id,
+                [id] = await connection('user').insert({
                     name, 
                     email,
                     phone,
@@ -64,6 +62,7 @@ module.exports={
                 router = "Login";
                 return res.send({message,router});
             }
+            const token = jwt.sign({user_id : id});
             return res.json({id,token,router});
         }
         catch(e){

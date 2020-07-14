@@ -45,7 +45,7 @@ module.exports={
         try
         {
             const {value, description,date_expense} = req.body;
-            let id = Number(Math.floor(Math.random()*100000+1)+""+Math.floor(Math.random()*100+1));   
+            //let id = Number(Math.floor(Math.random()*100000+1)+""+Math.floor(Math.random()*100+1));   
             const token = req.headers.authorization;
             const payload = await jwt.verify(token);
             const [data] = await connection("user_account").select("*").where("id_user",payload.user_id);
@@ -53,8 +53,7 @@ module.exports={
             
             if(id_user_account && value>0)
             {
-                await connection("user_expenses").insert({
-                    id,
+                const [id] = await connection("user_expenses").insert({
                     id_user_account,
                     value,
                     description,
