@@ -149,7 +149,7 @@ module.exports={
         catch(e)
         {
             let router = "Home";
-            return res.status(400).send({e,router});
+            return res.send({e,router});
         }
     }
     

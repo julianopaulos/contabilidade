@@ -32,7 +32,7 @@ module.exports = {
         }
         catch(e)
         {
-            res.status(400).send(e.message);
+            res.status(400).send(e);
         }
     },
     async findByDate(req,res)

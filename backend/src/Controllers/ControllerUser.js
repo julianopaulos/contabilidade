@@ -109,7 +109,7 @@ module.exports={
             }
             catch(e)
             {
-                return res.status(400).send({e,router});
+                return res.send({e,router});
             }
 
         }
