@@ -60,10 +60,6 @@
 }
 @media screen and (max-width:1366px)
 {
-    .todo-home
-    {
-        max-width: 1366px;
-    }
     .presentation
     {
         width: 700px;
@@ -84,20 +80,9 @@
         margin-left: 30px;
     }
 }
-@media screen and (max-width:1024px)
-{
-    .todo-home
-    {
-        max-width: 1024px;
-    }
-}
 
 @media screen and (max-width:768px)
 {
-    .todo-home
-    {
-        max-width: 768px;
-    }
     .presentation
     {
         margin: 100px auto; 
@@ -119,10 +104,6 @@
 
 @media screen and (max-width:425px)
 {
-    .todo-home
-    {
-        max-width: 425px;
-    }
     .presentation
     {
         max-height: 300px;
@@ -156,10 +137,6 @@
 }
 @media screen and (max-width:375px)
 {
-    .todo-home
-    {
-        max-width: 375px;
-    }
     .presentation
     {
         width: 330px;
@@ -168,10 +145,6 @@
 }
 @media screen and (max-width:320px)
 {
-    .todo-home
-    {
-        max-width: 320px;
-    }
     .presentation
     {
         width: 280px;

@@ -10,6 +10,11 @@
     flex-direction: column;
     align-content: center;
 }
+.contact-container .message
+{
+    text-align: center;
+    margin: 10px 30px;
+}
 .contact-header
 {
     display: flex;
@@ -33,7 +38,7 @@
     margin: 35px auto;
     margin-bottom: 0;
 }
-label
+.contact-form label
 {
     margin: 0 auto;
 }
@@ -60,9 +65,7 @@ label
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     margin: 0 auto;
-    font-weight: 500;
     font-size: 1em;
-    line-height: 14px;
     color: #ffffff;
     transition: 0.3s;
     border: none;
@@ -91,10 +94,7 @@ label
 {
     color: rgba(100, 100, 100, 0.5);
 }
-h3
-{
-    text-align: center;
-}
+
 @media screen and (max-width:1366px)
 {
     .todo-contact

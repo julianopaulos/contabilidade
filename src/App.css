@@ -11,7 +11,7 @@ html
 body
 {
   font-family: 'Ubuntu', sans-serif;
-  max-width: 1440px;
+  max-width: 1920px;
   background: #CACACA;
 }
 .todo-home,.todo-contact, .todo-login, .todo
@@ -34,46 +34,4 @@ body
   position: absolute;
   max-width: 1920px;
   background-color: rgba(246, 232, 232, 0.4);
-}
-@media screen and (max-width:1366px)
-{
-  body
-  {
-      max-width: 1366px;
-  }
-}
-@media screen and (max-width:1024px)
-{
-  body
-  {
-      max-width: 1024px;
-  }
-}
-@media screen and (max-width:768px)
-{
- body
-  {
-    max-width: 768px;
-  }
-}
-@media screen and (max-width:425px)
-{
-  body
-  {
-    max-width: 425px;
-  }
-}
-@media screen and (max-width:375px)
-{
-  body
-  {
-    max-width: 375px;
-  }
-}
-@media screen and (max-width:320px)
-{
-  body
-  {
-    max-width: 320px;
-  }
 }

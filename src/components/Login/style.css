@@ -1,3 +1,20 @@
+.login-container
+{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin:200px auto;
+    background:rgba(246, 232, 232, 0.8);
+    width: 360px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.login-container .message
+{
+    text-align: center;
+    margin: 10px 50px;
+}
 .login-header
 {
     display: flex;
@@ -14,28 +31,16 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 11px 80px;
 }
-.login-container
-{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    margin:200px auto;
-    background:rgba(246, 232, 232, 0.8);
-    width: 360px;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-}
-.message
-{
-    margin: 10px 50px;
-}
 .form-login
 {
     display: flex;
     flex-direction: column;
     margin: 35px auto;
     margin-bottom: 0;
+}
+.form-login label
+{
+    margin: 0 auto;
 }
 .form-login input
 {
@@ -56,7 +61,6 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     margin: 0 auto;
-    font-weight: 500;
     font-size: 1em;
     line-height: 14px;
     color: #ffffff;
@@ -68,6 +72,16 @@
 .form-login button:hover
 {
     opacity: 0.6;
+}
+.form-login .eye-icon
+{
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    margin-right: 10px;
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
 }
 .form-login span
 {
@@ -87,10 +101,7 @@
 {
     color: rgba(100, 100, 100, 0.5);
 }
-h3
-{
-    text-align: center;
-}
+
 @media screen and (max-width:1366px)
 {
     .login-container
@@ -120,10 +131,6 @@ h3
     {
         width: 300px;
     }
-    .form-login span
-    {
-        margin: 20px 50px;
-    }
     .form-login input[name="password"]
     {
         margin-left: 40px;
@@ -132,13 +139,14 @@ h3
     {
         margin-left: -75px;
     }
+    .form-login span
+    {
+        margin: 20px 50px;
+    }
+
 }
 @media screen and (max-width:375px)
 {
-    .form-login span
-    {
-        margin: 20px auto;
-    }
     .form-login input[name="password"]
     {
         margin-left: 0;
@@ -147,5 +155,8 @@ h3
     {
         margin-left: -35px;
     }
-    
+    .form-login span
+    {
+        margin: 20px auto;
+    }
 }

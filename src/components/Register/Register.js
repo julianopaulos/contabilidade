@@ -28,9 +28,7 @@ export default function Register() {
     const [password,setPassword] = useState("");
     const [eyeIcon, setEyeIcon] = useState(closedEyeIcon);
 
-    const [displayButton, setDisplayButton] = useState({
-        display:''
-    });
+    const [displayButton, setDisplayButton] = useState({display:''});
 
     async function redirect()
     {
@@ -65,12 +63,13 @@ export default function Register() {
         {
             e.preventDefault();
             setStatusMessage("Digite todos os campos do formulário corretamente!");
+            setTimeout(()=>{
+                setStatusMessage("");
+            },2000);
         }
         else
         {
-            setDisplayButton({
-                display:'none'
-            });
+            setDisplayButton({display:'none'});
             setStatusMessage("Aguarde...");
             e.preventDefault();
             const data = {
@@ -83,9 +82,7 @@ export default function Register() {
             
             await api.post("register",data)
             .then((response)=>{
-                setDisplayButton({
-                    display:''
-                });
+                setDisplayButton({display:''});
                 setStatusMessage(response.data.message);
                 if(response.data.router!==undefined)
                 {
@@ -100,15 +97,13 @@ export default function Register() {
                 }
                 
             })
-            .catch((error)=>{
-                setDisplayButton({
-                    display:''
-                });
-                console.log(error);
-                if(error.router)
+            .catch((e)=>{
+                setDisplayButton({display:''});
+                console.log(e);
+                if(e.router)
                 {
-                    setStatusMessage(error.message);
-                    history.push(`/${error.router}`);
+                    setStatusMessage(e.message);
+                    history.push(`/${e.router}`);
                 }
                 else
                 {

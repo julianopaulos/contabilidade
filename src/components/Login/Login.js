@@ -19,9 +19,7 @@ export default function Login() {
     const[email, setEmail] = useState("");
     const [password,setPassword] = useState("");
     const[statusMessage,setStatusMessage] = useState("");
-    const [displayButton, setDisplayButton] = useState({
-        display:''
-    });
+    const [displayButton, setDisplayButton] = useState({display:''});
     const [eyeIcon, setEyeIcon] = useState(closedEyeIcon);
     
     async function redirect()
@@ -49,13 +47,14 @@ export default function Login() {
         {
             e.preventDefault();
             setStatusMessage("Digite todos os campos necessários!");
+            setTimeout(()=>{
+                setStatusMessage("");
+            },2000);
         }
         else
         {
             e.preventDefault();
-            setDisplayButton({
-                display:'none'
-            });
+            setDisplayButton({display:'none'});
             setStatusMessage("Aguarde...");
             await api.get('login',
             {
@@ -65,22 +64,20 @@ export default function Login() {
                 setStatusMessage(request.data.message); 
                 if(request.data.router)
                 {
-                    setDisplayButton({
-                        display:''
-                    });
+                    setDisplayButton({display:''});
                     setTimeout(()=>{
                         sessionStorage.setItem("token",request.data.token);
                         history.push(`/${request.data.router}`);
                     },300);
-                }
-                
+                }  
+                setTimeout(()=>{
+                    setStatusMessage("");
+                },2000);
             })
             .catch((e)=>
             {
                 console.log(e);
-                setDisplayButton({
-                    display:''
-                }); 
+                setDisplayButton({display:''}); 
                 setStatusMessage("Ops! Algo deu errado!");
                 setTimeout(()=>{
                     setStatusMessage("");

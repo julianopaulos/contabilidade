@@ -12,9 +12,7 @@ import api from '../../services/api.js';
 
 export default function Contact() {
     document.title = "Contato";
-    const [display, setDisplay] = useState({
-        display:''  
-    });
+    const [display, setDisplay] = useState({display:''});
     const [disableButton, setDisableButton] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -40,9 +38,7 @@ export default function Contact() {
         }
         else
         {
-            setDisplay({
-                display: 'none'
-            }); 
+            setDisplay({display: 'none'}); 
             setDisableButton("disabled");
             setStatusMessage("Aguarde...");
             const data = {
@@ -57,9 +53,7 @@ export default function Contact() {
                     setStatusMessage(res.data.message);
                     setTimeout(()=>{
                         setStatusMessage("");
-                        setDisplay({
-                            display: ''
-                        });
+                        setDisplay({display: ''});
                         setDisableButton("");
                     },2500);
                 }
@@ -68,9 +62,7 @@ export default function Contact() {
                     setStatusMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
                     setTimeout(()=>{
                         setStatusMessage("");
-                        setDisplay({
-                            display: ''
-                        });
+                        setDisplay({display: ''});
                         setStatusMessage("");
                         setDisableButton("");
                     },2500);
@@ -82,9 +74,7 @@ export default function Contact() {
                 setStatusMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
                 setTimeout(()=>{
                     setStatusMessage("");
-                    setDisplay({
-                        display: ''
-                    });
+                    setDisplay({display: ''});
                     setStatusMessage("");
                     setDisableButton("");
                 },2500);
