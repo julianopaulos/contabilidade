@@ -19,9 +19,7 @@ export default function Form()
     const [statusMessage,setStatusMessage] = useState("");
     const [eyeIcon, setEyeIcon] = useState(closedEyeIcon);
 
-    const [display,setDisplay] = useState({
-        display:''
-    });
+    const [display,setDisplay] = useState({display:''});
 
     useEffect(()=>{
         try
@@ -85,9 +83,7 @@ export default function Form()
         }
         else
         {
-            setDisplay({
-                display:'none'
-            });
+            setDisplay({display:'none'});
             setStatusMessage("Processando...");
             let data = [];
             if(password && password.length>=3)
@@ -101,9 +97,7 @@ export default function Form()
             }
             else if (password && password.length<=3)
             {
-                setDisplay({
-                    display:''
-                });
+                setDisplay({display:''});
                 setStatusMessage("Ops! Algo deu errado!");
                 setTimeout(()=>{
                     setStatusMessage("");
@@ -126,9 +120,7 @@ export default function Form()
             .then((res)=>{
                 if(res.data)
                 {
-                    setDisplay({
-                        display:''
-                    });
+                    setDisplay({display:''});
                     setStatusMessage(res.data);
                     setTimeout(()=>{
                         setStatusMessage("");
@@ -136,9 +128,7 @@ export default function Form()
                 }
                 else
                 {
-                    setDisplay({
-                        display:''
-                    });
+                    setDisplay({display:''});
                     setStatusMessage("Ops! Algo deu errado!");
                     setTimeout(()=>{
                         setStatusMessage("");
@@ -149,9 +139,7 @@ export default function Form()
                 console.log(e);
                 setStatusMessage("Ops! Algo deu errado!");
                 setTimeout(()=>{
-                    setDisplay({
-                        display:''
-                    });
+                    setDisplay({display:''});
                     setStatusMessage("");
                 },2000);
             })

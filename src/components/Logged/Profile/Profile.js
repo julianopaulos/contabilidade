@@ -28,11 +28,7 @@ export default function Profile()
     
     const history = useHistory();
     document.title = "Perfil";
-    const [modalDisplay,setModalDisplay] = useState(
-        {
-            'display': 'none'
-        }
-    );
+    const [modalDisplay,setModalDisplay] = useState({'display': 'none'});
     const [userImg, setUserImg] = useState();
     const [previewImg,setPreviewImg] = useState();
     const [userData,setUserData] = useState([]);
@@ -104,7 +100,7 @@ export default function Profile()
     {
         
         e.preventDefault();
-        if(previewImg.size<2097152)
+        if(previewImg && previewImg.size<2097152)
         {
             const formData = new FormData();
             formData.append("img",previewImg);
@@ -147,9 +143,16 @@ export default function Profile()
                 },2000);
             });
         }
-        else
+        else if(previewImg && previewImg.size>=2097152)
         {
             setStatusMessage("A Imagem excedeu o tamanho máximo, que é de 2MB!");
+            setTimeout(()=>{
+                setStatusMessage("");
+            },3500);
+        }
+        else
+        {
+            setStatusMessage("Por favor escolha uma imagem na sua galeria!");
             setTimeout(()=>{
                 setStatusMessage("");
             },3500);
@@ -199,7 +202,7 @@ export default function Profile()
                             <Divider/>
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
-                            <br/><h3>{statusMessage}</h3>
+                            <br/><h3 id="message_img">{statusMessage}</h3>
                         </form>
                     </div>
                 </div>

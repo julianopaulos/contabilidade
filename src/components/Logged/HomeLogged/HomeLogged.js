@@ -35,9 +35,7 @@ export default function HomeLogged() {
     const [imgTitle, setImgTitle] = useState("");
 
     const [statusMessage, setStatusMessage] = useState("");
-    const [displayButton,setDisplayButton] = useState({
-        display:''
-    });
+    const [displayButton,setDisplayButton] = useState({display:''});
 
     
     
@@ -94,10 +92,7 @@ export default function HomeLogged() {
             let [format,] =  name.split(" ");
             return format;
         }
-        else
-        {
-            return name;
-        }
+        return name; 
     }
 
 
@@ -116,9 +111,7 @@ export default function HomeLogged() {
         }
         else
         {
-            setDisplayButton({
-                display:'none'
-            });
+            setDisplayButton({display:'none'});
             setStatusMessage("Processando...");
             let data = {
                 total_income: total_income,
@@ -130,9 +123,7 @@ export default function HomeLogged() {
                 }
             })
             .then((req)=>{
-                setDisplayButton({
-                    display:''
-                });
+                setDisplayButton({display:''});
                 setStatusMessage("");
                 setAccountUser(req.data);
             })
@@ -140,9 +131,7 @@ export default function HomeLogged() {
                 console.log(e);
                 setStatusMessage("Ops, algo deu errado! Tente novamente mais tarde.");
                 setTimeout(()=>{
-                    setDisplayButton({
-                        display:''
-                    });
+                    setDisplayButton({display:''});
                     setStatusMessage("");
                 },2000);
             });

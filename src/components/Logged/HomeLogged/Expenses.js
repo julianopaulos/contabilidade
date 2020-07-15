@@ -19,9 +19,7 @@ export default function Expenses(props)
     const [expensesTotalValue, setExpensesTotalValue] = useState(0);
     const [currentExpensesTotalValue, setCurrentExpensesTotalValue] = useState(0);
     const [statusMessage, setStatusMessage] = useState("");
-    const [displayButton,setDisplayButton] = useState({
-        display:''
-    });
+    const [displayButton,setDisplayButton] = useState({display:''});
     
     const [count, setCount] = useState({
         prev: 0,
@@ -111,9 +109,7 @@ export default function Expenses(props)
         }
         else
         {
-            setDisplayButton({
-                display:'none'
-            });
+            setDisplayButton({display:'none'});
             setStatusMessage("Processando...");
 
             let atual_date = new Date();
@@ -142,9 +138,7 @@ export default function Expenses(props)
                     }
                 })
                 .then((req)=>{
-                    setDisplayButton({
-                        display:''
-                    });
+                    setDisplayButton({display:''});
                     setStatusMessage("");
                     if(req.data)
                     {
@@ -159,9 +153,7 @@ export default function Expenses(props)
                     console.log(e);
                     setStatusMessage("Ops, algo deu errado! Tente novamente mais tarde.");
                     setTimeout(()=>{
-                        setDisplayButton({
-                            display:''
-                        });
+                        setDisplayButton({display:''});
                         setStatusMessage("");
                     },2000);
                 });

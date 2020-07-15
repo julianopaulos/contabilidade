@@ -6,21 +6,6 @@
     align-content: center;
     margin: 50px 100px;
 }
-::-webkit-scrollbar {
-    width: .5em;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: grey;
-    border-radius: 10px;
-  }
 .user_details #todo_card
 {
     background:rgba(246, 232, 232, 0.8);
@@ -29,56 +14,6 @@
     box-shadow: none;
     width: 400px;
     margin-right: 40px;
-}
-.account_details
-{
-    background:rgba(246, 232, 232, 0.8);  
-    border-radius: 5px;
-    text-align: center;
-    padding: 10px;
-}
-.account_details
-{
-    min-width: 60%;
-    width: auto;
-    margin-bottom: 50px;
-}
-.expense
-{
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-content: center;
-    margin: 10px 0;
-    font-size: 1.3em;
-}
-.expense div
-{
-    margin: 10px 50px;
-}
-.expense .MuiDivider-root
-{
-    color: #000000;
-    height: 2px;
-    margin: 20px 0;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-    background-color: none;
-}
-.expense:last-child .MuiDivider-root
-{
-    display: none;
-}
-#edit, #delete
-{
-    border: 1px solid black;
-    border-radius: 3px;
-    cursor: pointer;
-    padding: 5px;
-    transition: .5s;
-}
-#edit:hover, #delete:hover
-{
-    opacity: 0.5;
 }
 #todo_card
 {
@@ -119,6 +54,32 @@
 {
     margin: 24px;
 }
+.create_account input
+{
+    margin: 5px auto;
+    width: 200px;
+    padding: 5px;
+    border-radius: 4px;
+    text-align: center;
+}
+.create_account button
+{
+    margin-top: 20px;
+    width: 100px;
+}
+.account_details
+{
+    background:rgba(246, 232, 232, 0.8);  
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+}
+.account_details
+{
+    min-width: 60%;
+    width: auto;
+    margin-bottom: 50px;
+}
 .form-expense
 {
     font-size: 1.5em;
@@ -145,42 +106,26 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     margin: 10px auto;
-    font-weight: 500;
-    line-height: 14px;
     color: #ffffff;
     transition: 0.3s;
     border: none;
     cursor: pointer;
 }
-.create_account input
-{
-    margin: 5px auto;
-    width: 200px;
-    padding: 5px;
-    border-radius: 4px;
-    text-align: center;
-}
-.create_account button
-{
-    margin-top: 20px;
-    width: 100px;
-}
 .form-expense button:hover, .create_account button:hover
 {
     background-color: rgb(100, 230, 110);
 }
-
 .date-filter
 {
     margin-top: 10px;
 }
-
 .date-filter input
 {
     margin: 20px;
     width: 200px;
     height: 30px;
     text-align: center;
+    background: #ffffff;
     border-radius: 5px;
     font-weight: 600;
     border: none;
@@ -205,68 +150,50 @@
 {
     margin-bottom: 25px;
 }
+.expense
+{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-content: center;
+    margin: 10px 0;
+    font-size: 1.3em;
+}
+.expense div
+{
+    margin: 10px 50px;
+}
+.expense .MuiDivider-root
+{
+    color: #000000;
+    height: 2px;
+    margin: 20px 0;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    background-color: none;
+}
+.expense:last-child .MuiDivider-root
+{
+    display: none;
+}
+#edit, #delete
+{
+    border: 1px solid black;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px;
+    transition: .5s;
+}
+#edit:hover, #delete:hover
+{
+    opacity: 0.5;
+}
 #non_account
 {
     width: 600px;
     margin: 50px;
     font-size: 1.2em;
 }
-.sk-chase {
-    width: 80px;
-    height: 80px;
-    position: relative;
-    margin: 0 auto;
-    animation: sk-chase 2.5s infinite linear both;
-}
-  
-.sk-chase-dot {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0; 
-    animation: sk-chase-dot 2.0s infinite ease-in-out both; 
-}
-  
-.sk-chase-dot:before {
-    content: '';
-    display: block;
-    width: 25%;
-    height: 25%;
-    background-color: #000;
-    margin:10px auto;
-    border-radius: 100%;
-    animation: sk-chase-dot-before 2.0s infinite ease-in-out both; 
-}
-  
-.sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
-.sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
-.sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }
-.sk-chase-dot:nth-child(4) { animation-delay: -0.8s; }
-.sk-chase-dot:nth-child(5) { animation-delay: -0.7s; }
-.sk-chase-dot:nth-child(6) { animation-delay: -0.6s; }
-.sk-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
-.sk-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
-.sk-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
-.sk-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
-.sk-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
-.sk-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
-  
-@keyframes sk-chase {
-    100% { transform: rotate(360deg); } 
-}
-  
-@keyframes sk-chase-dot {
-    80%, 100% { transform: rotate(360deg); } 
-}
-  
-@keyframes sk-chase-dot-before {
-    50% {
-      transform: scale(0.4); 
-    } 100%, 0% {
-      transform: scale(1.0); 
-    } 
-}
+
 @media screen and (max-width:1366px)
 {
     .logged-container
@@ -449,4 +376,75 @@
     {
         margin: 15cdpx;
     }
+}
+::-webkit-scrollbar {
+    width: .5em;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 10px;
+  }
+  .sk-chase {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    margin: 0 auto;
+    animation: sk-chase 2.5s infinite linear both;
+}
+  
+.sk-chase-dot {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0; 
+    animation: sk-chase-dot 2.0s infinite ease-in-out both; 
+}
+  
+.sk-chase-dot:before {
+    content: '';
+    display: block;
+    width: 25%;
+    height: 25%;
+    background-color: #000;
+    margin:10px auto;
+    border-radius: 100%;
+    animation: sk-chase-dot-before 2.0s infinite ease-in-out both; 
+}
+  
+.sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
+.sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
+.sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }
+.sk-chase-dot:nth-child(4) { animation-delay: -0.8s; }
+.sk-chase-dot:nth-child(5) { animation-delay: -0.7s; }
+.sk-chase-dot:nth-child(6) { animation-delay: -0.6s; }
+.sk-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
+.sk-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
+.sk-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
+.sk-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
+.sk-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
+.sk-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
+  
+@keyframes sk-chase {
+    100% { transform: rotate(360deg); } 
+}
+  
+@keyframes sk-chase-dot {
+    80%, 100% { transform: rotate(360deg); } 
+}
+  
+@keyframes sk-chase-dot-before {
+    50% {
+      transform: scale(0.4); 
+    } 100%, 0% {
+      transform: scale(1.0); 
+    } 
 }
