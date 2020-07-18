@@ -97,10 +97,13 @@
 }
 #message_img
 {
-    margin: 50px 20px;
+    padding: 10px;
+    margin: 50px auto;
     margin-bottom: 10px;
     display: flex;
     word-break: normal;
+    align-content: center;
+    justify-content: center;
 }
 .container-img, .todo-profile .MuiPaper-root
 {

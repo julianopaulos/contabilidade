@@ -32,7 +32,6 @@ export default function Profile()
     const [userImg, setUserImg] = useState();
     const [previewImg,setPreviewImg] = useState();
     const [userData,setUserData] = useState([]);
-    const [uploadProgress, setUploadProgress] = useState(0);
 
     const [statusMessage, setStatusMessage] = useState("");
    
@@ -100,23 +99,28 @@ export default function Profile()
     {
         
         e.preventDefault();
-        if(previewImg && previewImg.size<2097152)
+        if(previewImg && previewImg.size<4194304)
         {
             const formData = new FormData();
             formData.append("img",previewImg);
-            setStatusMessage("Aguarde...")
+            
             await api.post("/img",formData, {
                 headers: {
                     authorization: sessionStorage.getItem("token"),
                     "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
                 },
                 onUploadProgress: (progressEvent)=>{
-                    setUploadProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
-                    setStatusMessage(`Progresso: ${uploadProgress}%`);
+                    let progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setStatusMessage(
+                        `Progresso: ${progress}%`
+                    );
+                    if(progress === 100)
+                    {
+                        setStatusMessage("Aguarde...");
+                    }
                 }
             })
             .then((res)=>{
-                console.log(res.progress);
                 api.get("/img",{
                     headers:{
                         Authorization: sessionStorage.getItem("token"),
@@ -283,7 +287,6 @@ export default function Profile()
         
         
     }
-
    return(
     <div className="todo-profile">
         <Header/>
