@@ -32,6 +32,7 @@ export default function Profile()
     const [userImg, setUserImg] = useState();
     const [previewImg,setPreviewImg] = useState();
     const [userData,setUserData] = useState([]);
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const [statusMessage, setStatusMessage] = useState("");
    
@@ -47,10 +48,10 @@ export default function Profile()
                 },
                 signal:signal
             }).then((req)=>{
-                if(req.data.router)
+                
+                if(typeof(req.data) !== "object")
                 {
-                    sessionStorage.clear();
-                    history.push(`/${req.data.router}`);
+                    history.push("/Home");
                 }
                 else
                 {
@@ -64,7 +65,6 @@ export default function Profile()
                     .then((res)=>{
                         if(res.data.url)
                         {
-                            console.log(res.data.url);
                             setUserImg(res.data.url);
                         }
                         
@@ -76,7 +76,7 @@ export default function Profile()
                     }
                 }
             })
-            .catch((error)=>{console.log(error)});
+            .catch((error)=>{console.log(error);});
             return function cleanup()
             {
                 abortController.abort();
@@ -111,10 +111,14 @@ export default function Profile()
                     "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
                 }
             })
-            .then(()=>{
+            .then((res)=>{
+                console.log(res.progress);
                 api.get("/img",{
                     headers:{
-                        Authorization: sessionStorage.getItem("token")
+                        Authorization: sessionStorage.getItem("token"),
+                    },
+                    onUploadProgress: (progressEvent)=>{
+                        setUploadProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total))
                     }
                 })
                 .then((res)=>{
@@ -203,6 +207,7 @@ export default function Profile()
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
                             <br/><h3 id="message_img">{statusMessage}</h3>
+                            <h3>{uploadProgress}</h3>
                         </form>
                     </div>
                 </div>
@@ -222,6 +227,7 @@ export default function Profile()
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
                             <br/><h3 id="message_img">{statusMessage}</h3>
+                            <h3>{uploadProgress}</h3>
                         </form>
                     </div>
                 </div>

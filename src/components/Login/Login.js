@@ -43,6 +43,7 @@ export default function Login() {
     }
     async function handleSubmit(e)
     {
+        
         if(!email || !password)
         {
             e.preventDefault();
@@ -53,36 +54,50 @@ export default function Login() {
         }
         else
         {
-            e.preventDefault();
-            setDisplayButton({display:'none'});
-            setStatusMessage("Aguarde...");
-            await api.get('login',
+            try
             {
-                auth: {username:email, password: password}
-            })
-            .then((request)=>{
-                setStatusMessage(request.data.message); 
-                if(request.data.router)
+                e.preventDefault();
+                const abortController = new AbortController();
+                const signal = abortController.signal;
+                setDisplayButton({display:'none'});
+                setStatusMessage("Aguarde...");
+                await api.get('login',
                 {
-                    setDisplayButton({display:''});
+                    auth: {username:email, password: password},
+                    signal: signal
+                })
+                .then((request)=>{
+                    setStatusMessage(request.data.message); 
+                    if(request.data.router)
+                    {
+                        setDisplayButton({display:''});
+                        setTimeout(()=>{
+                            sessionStorage.setItem("token",request.data.token);
+                            history.push(`/${request.data.router}`);
+                        },300);
+                        return function cleanup()
+                        {
+                            abortController.abort();
+                        }
+                    }  
                     setTimeout(()=>{
-                        sessionStorage.setItem("token",request.data.token);
-                        history.push(`/${request.data.router}`);
-                    },300);
-                }  
-                setTimeout(()=>{
-                    setStatusMessage("");
-                },2000);
-            })
-            .catch((e)=>
-            {
+                        setStatusMessage("");
+                    },2000);
+                })
+                .catch((e)=>
+                {
+                    console.log(e);
+                    setDisplayButton({display:''}); 
+                    setStatusMessage("Ops! Algo deu errado!");
+                    setTimeout(()=>{
+                        setStatusMessage("");
+                    },2000);
+                });
+            }
+            catch(e){
                 console.log(e);
-                setDisplayButton({display:''}); 
-                setStatusMessage("Ops! Algo deu errado!");
-                setTimeout(()=>{
-                    setStatusMessage("");
-                },2000);
-            });
+            }
+            
         }
     }
     return (
@@ -131,7 +146,9 @@ export default function Login() {
                             </span>
                         </label>
                         <button type="submit" style={displayButton}>Entrar</button>
-                        <span>Ainda não tem uma conta? <u onClick={()=>redirect()}>Cadastre-se</u></span>
+                        <span>Ainda não tem uma conta? 
+                            <u onClick={()=>redirect()} title="Cadastrar">Cadastre-se</u>
+                        </span>
                     </form>
                     <h3 className="message">{statusMessage}</h3>
                 </div>

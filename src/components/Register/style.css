@@ -95,10 +95,12 @@
     transition: 0.3s;
     cursor: pointer;
     border-bottom: 1px solid #000000;
+    margin-left: 5px;
 }
 .form-register span u:hover
 {
     color: rgba(100, 100, 100, 0.5);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.25);
 }
 
 

@@ -186,7 +186,9 @@ export default function Register() {
                         </span>
                     </label>
                     <button type="submit" style={displayButton}>Cadastrar</button>
-                    <span>Já tem sua conta? <u onClick={()=>redirect()}>Entrar</u></span>
+                    <span>Já tem sua conta? 
+                        <u onClick={()=>redirect()} title="Login">Entrar</u>
+                    </span>
                 </form>
                 <h3 className="message">{statusMessage}</h3>
                 </div>
