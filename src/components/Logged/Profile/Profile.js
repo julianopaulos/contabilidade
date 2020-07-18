@@ -109,6 +109,10 @@ export default function Profile()
                 headers: {
                     authorization: sessionStorage.getItem("token"),
                     "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
+                },
+                onUploadProgress: (progressEvent)=>{
+                    setUploadProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+                    setStatusMessage(`Progresso: ${uploadProgress}%`);
                 }
             })
             .then((res)=>{
@@ -116,9 +120,6 @@ export default function Profile()
                 api.get("/img",{
                     headers:{
                         Authorization: sessionStorage.getItem("token"),
-                    },
-                    onUploadProgress: (progressEvent)=>{
-                        setUploadProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total))
                     }
                 })
                 .then((res)=>{
@@ -207,7 +208,6 @@ export default function Profile()
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
                             <br/><h3 id="message_img">{statusMessage}</h3>
-                            <h3>{uploadProgress}</h3>
                         </form>
                     </div>
                 </div>
@@ -227,7 +227,7 @@ export default function Profile()
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
                             <br/><h3 id="message_img">{statusMessage}</h3>
-                            <h3>{uploadProgress}</h3>
+                            
                         </form>
                     </div>
                 </div>
