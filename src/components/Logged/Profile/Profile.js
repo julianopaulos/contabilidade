@@ -96,7 +96,7 @@ export default function Profile()
                 },
                 onUploadProgress: (progressEvent)=>{
                     let progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    (progress === 100)?
+                    (progress < 100)?
                     setStatusMessage(`Progresso: ${progress}%`) : setStatusMessage("Aguarde...");
                 }
             })
