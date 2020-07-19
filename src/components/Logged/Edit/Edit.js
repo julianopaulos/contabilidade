@@ -31,10 +31,7 @@ export default function Edit()
                 }
             })
             .then((res)=>{
-                if(res.data.router)
-                {
-                    history.push(`/${res.data.router}`);
-                }
+                if(res.data.router)history.push(`/${res.data.router}`);
                 let get_string_url = window.location.href; 
                 let url = new URL(get_string_url);
                 let id_expense = Number(url.searchParams.get("id"));
@@ -46,20 +43,16 @@ export default function Edit()
                         }
                     })
                     .then((res)=>{
-                        if(res.data)
+                        if(typeof(res.data) === "object")
                         {
                             setDescription(res.data.description);
                             setDateExpense(res.data.date_expense.replace(/\//g,"-"));
                             setValue(res.data.value);
                         }
-                        else
-                        {
-                            history.push("/Logged");
-                        }                        
+                        else history.push("/Logged");                     
                     })
                     .catch(e=>console.log(e))
                 }
-                
             })
             .catch(e=>console.log(e))
         }
@@ -72,9 +65,9 @@ export default function Edit()
     async function handleSubmit(e)
     {
         e.preventDefault();
-        if(description === " " || value === " " || dateExpense === " ")
+        if(description === "" || value === "" || dateExpense === "")
         {
-            alert("Nenhum dado pode ficar vazio")
+            setStatusMessage("Nenhum campo pode ficar vazio!");
         }
         else
         {
@@ -97,18 +90,13 @@ export default function Edit()
                 if(res.data.message)
                 {
                     setStatusMessage(res.data.message);
-                    setTimeout(()=>{
-                        history.push("/Logged");
-                    },1000);
-                    
+                    setTimeout(()=>history.push("/Logged"),1000);
                 }
             })
             .catch(e=>{
                 console.log(e);
                 setStatusMessage("Ops, algo deu errado! Recarregue e tente novamente.");
-                setTimeout(()=>{
-                    setStatusMessage("");
-                },2000);
+                setTimeout(()=>setStatusMessage(""),2000);
             });
         }
     }
