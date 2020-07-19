@@ -43,10 +43,7 @@ export default function Form()
             })
             .catch((error)=>{console.log(error)});
         }
-        catch(e)
-        {
-            console.log(e);
-        }
+        catch(e){console.log(e);}
     },[history]);
 
     function handleEyeIcon()
@@ -67,7 +64,6 @@ export default function Form()
     async function handleUpdate(e)
     {
         e.preventDefault();
-        
         if(
             name.search(/[A-Za-z]/)===-1 || 
             email.search(/^[a-z0-9.]+@[a-z0-9]/)===-1 ||
@@ -77,9 +73,7 @@ export default function Form()
         )
         {
             setStatusMessage("Insira os campos do formulário corretamente!");
-            setTimeout(()=>{
-                setStatusMessage("");
-            },3000);
+            setTimeout(()=>setStatusMessage(""),3000);
         }
         else
         {
@@ -99,9 +93,7 @@ export default function Form()
             {
                 setDisplay({display:''});
                 setStatusMessage("Ops! Algo deu errado!");
-                setTimeout(()=>{
-                    setStatusMessage("");
-                },2000);
+                setTimeout(()=>setStatusMessage(""),2000);
             }
             else
             {
@@ -122,17 +114,13 @@ export default function Form()
                 {
                     setDisplay({display:''});
                     setStatusMessage(res.data);
-                    setTimeout(()=>{
-                        setStatusMessage("");
-                    },3000);
+                    setTimeout(()=>setStatusMessage(""),3000);
                 }
                 else
                 {
                     setDisplay({display:''});
                     setStatusMessage("Ops! Algo deu errado!");
-                    setTimeout(()=>{
-                        setStatusMessage("");
-                    },2000);
+                    setTimeout(()=>setStatusMessage(""),2000);
                 }
             })
             .catch((e)=>{
@@ -150,7 +138,6 @@ export default function Form()
 
 
     return (
-        
         <form className="form-profile" onSubmit={(e)=>handleUpdate(e)}>
             <label>
                 <input 

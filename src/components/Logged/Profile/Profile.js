@@ -47,27 +47,16 @@ export default function Profile()
                 },
                 signal:signal
             }).then((req)=>{
-                
-                if(typeof(req.data) !== "object")
-                {
-                    history.push("/Home");
-                }
+                if(typeof(req.data) !== "object")history.push("/Home");
                 else
                 {
                     setUserData(req.data);
-                    
                     api.get("/img",{
                         headers:{
                             Authorization: sessionStorage.getItem("token")
                         }
                     })
-                    .then((res)=>{
-                        if(res.data.url)
-                        {
-                            setUserImg(res.data.url);
-                        }
-                        
-                    })
+                    .then((res)=>{if(res.data.url)setUserImg(res.data.url)})
                     .catch(e=>console.log(e));
                     return function cleanup()
                     {
@@ -81,10 +70,7 @@ export default function Profile()
                 abortController.abort();
             }
         }
-        catch(e)
-        {
-            console.log(e);
-        }
+        catch(e){console.log(e);}
         return function cleanup()
         {
             abortController.abort();
@@ -97,9 +83,8 @@ export default function Profile()
 
     async function handleAddImg(e)
     {
-        
         e.preventDefault();
-        if(previewImg && previewImg.size<4194304)
+        if(previewImg && previewImg.size<=2097152)
         {
             const formData = new FormData();
             formData.append("img",previewImg);
@@ -111,13 +96,8 @@ export default function Profile()
                 },
                 onUploadProgress: (progressEvent)=>{
                     let progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    setStatusMessage(
-                        `Progresso: ${progress}%`
-                    );
-                    if(progress === 100)
-                    {
-                        setStatusMessage("Aguarde...");
-                    }
+                    (progress === 100)?
+                    setStatusMessage(`Progresso: ${progress}%`) : setStatusMessage("Aguarde...");
                 }
             })
             .then((res)=>{
@@ -130,9 +110,7 @@ export default function Profile()
                     if(res.data.url)
                     {
                         setStatusMessage("Foto cadastrada!");
-                        setTimeout(()=>{
-                            setStatusMessage("");
-                        },2500);
+                        setTimeout(()=>setStatusMessage(""),2500);
                         setUserImg(res.data.url);
                         handleModal();
                     }
@@ -140,31 +118,23 @@ export default function Profile()
                 .catch((e)=>{
                     console.log(e);
                     setStatusMessage("Ops! Algo deu errado!")
-                    setTimeout(()=>{
-                        setStatusMessage("");
-                    },2000);
+                    setTimeout(()=>setStatusMessage(""),2000);
                 })
             })
             .catch(e=>{
                 console.log(e);setStatusMessage("Ops! Algo deu errado!")
-                setTimeout(()=>{
-                    setStatusMessage("");
-                },2000);
+                setTimeout(()=>setStatusMessage(""),2000);
             });
         }
-        else if(previewImg && previewImg.size>=2097152)
+        else if(previewImg && previewImg.size>2097152)
         {
             setStatusMessage("A Imagem excedeu o tamanho máximo, que é de 2MB!");
-            setTimeout(()=>{
-                setStatusMessage("");
-            },3500);
+            setTimeout(()=>setStatusMessage(""),3500);
         }
         else
         {
             setStatusMessage("Por favor escolha uma imagem na sua galeria!");
-            setTimeout(()=>{
-                setStatusMessage("");
-            },3500);
+            setTimeout(()=>setStatusMessage(""),3500);
         }
         
     }
@@ -231,7 +201,6 @@ export default function Profile()
                             <button type="submit">Ok</button>
                             <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
                             <br/><h3 id="message_img">{statusMessage}</h3>
-                            
                         </form>
                     </div>
                 </div>
@@ -283,9 +252,6 @@ export default function Profile()
                 </div>
             );
         }
-     
-        
-        
     }
    return(
     <div className="todo-profile">
