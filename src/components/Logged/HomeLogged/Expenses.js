@@ -21,10 +21,7 @@ export default function Expenses(props)
     const [statusMessage, setStatusMessage] = useState("");
     const [displayButton,setDisplayButton] = useState({display:''});
     
-    const [count, setCount] = useState({
-        prev: 0,
-        next: 5 
-    });
+    const [count, setCount] = useState({prev: 0,next: 5 });
     
     
     const [hasMoreExpenses, setHasMoreExpenses] = useState(true);
@@ -48,10 +45,7 @@ export default function Expenses(props)
                 }
             })
             .then((req)=>{            
-                if(Array.isArray(req.data))
-                {
-                    setExpenses(req.data);
-                }
+                if(Array.isArray(req.data))setExpenses(req.data);
             })
             .catch(e=>console.log(e));
         })
@@ -63,19 +57,12 @@ export default function Expenses(props)
         getCurrentExpenseValues(expenses);
         getExpenseValues(expenses);
         setHasMoreExpenses(false);
-        if(expenses.length>5 && expenses.length>currentExpenses.length)
-        {  
-          setHasMoreExpenses(true);
-        }
+        if(expenses.length>5 && expenses.length>currentExpenses.length)setHasMoreExpenses(true);
+
         getCurrentExpenseValues(expenses.slice(count.prev, count.next));
-        if(expenses.length>1)
-        {
-          setCurrentExpenses(expenses.slice(count.prev, count.next));
-        }
-        if(expenses.length===1)
-        {
-            setCurrentExpenses(expenses);
-        }
+
+        if(expenses.length>1)setCurrentExpenses(expenses.slice(count.prev, count.next));
+        if(expenses.length===1)setCurrentExpenses(expenses);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[expenses]);
 
@@ -93,20 +80,14 @@ export default function Expenses(props)
                 setCurrentExpenses(currentExpenses.concat(expenses.slice(count.prev + 5, count.next + 5)));
                 getCurrentExpenseValues(currentExpenses);
             }
-            catch(e)
-            {
-                console.log(e)
-            }
+            catch(e){console.log(e);}
         }, 1000);
         setCount((prevState) => ({ prev: prevState.prev + 5, next: prevState.next + 5 }));
     }
     async function handleCreateExpense(e)
     {
         e.preventDefault();
-        if(!description || !value || value<0)
-        {
-            alert("Digite os dados corretamente!");
-        }
+        if(!description || !value || value<0)setStatusMessage("Digite os dados corretamente!");
         else
         {
             setDisplayButton({display:'none'});
@@ -116,10 +97,7 @@ export default function Expenses(props)
             let atual_day = (atual_date.getDate()<10)?"0"+atual_date.getDate():atual_date.getDate();
             let atual_month = ((atual_date.getMonth()+1)<10)?"0"+(atual_date.getMonth()+1): atual_date.getMonth()+1;
             let atual_year = atual_date.getFullYear();
-            if(value.indexOf(",")!==-1)
-            {
-                alert("Os números devem ser separados por ponto");
-            }
+            if(value.indexOf(",")!==-1)setStatusMessage("Os números devem ser separados por ponto!");
             
             let data = {
                 value:value,
@@ -190,9 +168,7 @@ export default function Expenses(props)
                 }
                     
             })
-            .catch(e=>{
-                console.log(e);
-            });
+            .catch(e=>console.log(e));
         }
     }
 
@@ -237,25 +213,19 @@ export default function Expenses(props)
     {
         let expenseValues = expenses.map(expense=>{return expense.value});
         let totalValue = 0;
-        for(let i=0; i<expenseValues.length;i++)
-        {
-            totalValue+=expenseValues[i];
-        }
+        for(let i=0; i<expenseValues.length;i++)totalValue+=expenseValues[i];
         setCurrentExpensesTotalValue(totalValue);
     }
     function getExpenseValues(expenses)
     {
         let expenseValues = expenses.map(expense=>{return expense.value});
         let totalValue = 0;
-        for(let i =0; i<expenseValues.length;i++)
-        {
-            totalValue+=expenseValues[i];
-        }
+        for(let i =0; i<expenseValues.length;i++)totalValue+=expenseValues[i];
         setExpensesTotalValue(totalValue);
     }
 
 
-    if(props.account && Array.isArray(currentExpenses) && currentExpenses.length>0 && expenses.length>0)
+    if(props.account && Array.isArray(expenses) && expenses.length>0)
         {    
             return (
                 <div>

@@ -54,10 +54,7 @@ export default function HomeLogged() {
             }
             if(req.data)
             {
-                if(req.data.total_income)
-                {
-                    setAccountUser(req.data);
-                }
+                if(req.data.total_income)setAccountUser(req.data);
                 setName(req.data.name);
             }
             api.get("/img",{
@@ -105,10 +102,7 @@ export default function HomeLogged() {
     async function handleCreateAccount(e)
     {
         e.preventDefault();
-        if(!total_income || !metaSpending || total_income<0 || metaSpending<0)
-        {
-            alert("Digite os dados corretamente");
-        }
+        if(!total_income || !metaSpending || total_income<=0 || metaSpending<=0)setStatusMessage("Insira os valores corretamente!");
         else
         {
             setDisplayButton({display:'none'});
@@ -153,18 +147,16 @@ export default function HomeLogged() {
                         style={{borderRadius:'50%'}} 
                         alt="profilePicture" 
                         title={imgTitle}
-
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             Olá, {nameFormat(name)}
                         </Typography>
-                            
                             <div className="title">
                                 Renda mensal:
                             </div>
                             <div className="val">
-                            {"R$"+Number(accountUser.total_income).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                {"R$"+Number(accountUser.total_income).toLocaleString("pt",{minimumFractionDigits: 2, 
                                     maximumFractionDigits: 2})}
                             </div>
                             
@@ -173,8 +165,8 @@ export default function HomeLogged() {
                                 Meta mensal de gastos:
                             </div>
                             <div className="val">
-                            {"R$"+Number(accountUser.meta).toLocaleString("pt",{minimumFractionDigits: 2, 
-                                maximumFractionDigits: 2})}
+                                {"R$"+Number(accountUser.meta).toLocaleString("pt",{minimumFractionDigits: 2, 
+                                    maximumFractionDigits: 2})}
                             </div>
                     </CardContent>
                 </Card>  
