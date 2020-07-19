@@ -48,9 +48,7 @@ export default function Login() {
         {
             e.preventDefault();
             setStatusMessage("Digite todos os campos necessários!");
-            setTimeout(()=>{
-                setStatusMessage("");
-            },2000);
+            setTimeout(()=>setStatusMessage(""),2000);
         }
         else
         {
@@ -80,24 +78,17 @@ export default function Login() {
                             abortController.abort();
                         }
                     }  
-                    setTimeout(()=>{
-                        setStatusMessage("");
-                    },2000);
+                    setTimeout(()=>setStatusMessage(""),2000);
                 })
                 .catch((e)=>
                 {
                     console.log(e);
                     setDisplayButton({display:''}); 
                     setStatusMessage("Ops! Algo deu errado!");
-                    setTimeout(()=>{
-                        setStatusMessage("");
-                    },2000);
+                    setTimeout(()=>setStatusMessage(""),2000);
                 });
             }
-            catch(e){
-                console.log(e);
-            }
-            
+            catch(e){console.log(e);}
         }
     }
     return (

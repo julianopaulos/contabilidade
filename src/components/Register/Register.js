@@ -63,9 +63,7 @@ export default function Register() {
         {
             e.preventDefault();
             setStatusMessage("Digite todos os campos do formulário corretamente!");
-            setTimeout(()=>{
-                setStatusMessage("");
-            },2000);
+            setTimeout(()=>setStatusMessage(""),2000);
         }
         else
         {
@@ -78,24 +76,16 @@ export default function Register() {
                 phone: phone,
                 password: password
             }
-
-            
             await api.post("register",data)
             .then((response)=>{
                 setDisplayButton({display:''});
                 setStatusMessage(response.data.message);
-                if(response.data.router!==undefined)
-                {
-                    history.push(`/${response.data.router}`);
-                }
+                if(response.data.router!==undefined)history.push(`/${response.data.router}`);
                 else
                 {
                     setStatusMessage("Ops! Algo deu errado!");
-                    setTimeout(()=>{
-                        setStatusMessage("");
-                    },2000);
+                    setTimeout(()=>setStatusMessage(""),2000);
                 }
-                
             })
             .catch((e)=>{
                 setDisplayButton({display:''});
@@ -108,9 +98,7 @@ export default function Register() {
                 else
                 {
                     setStatusMessage("Ops! Algo deu errado!");
-                    setTimeout(()=>{
-                        setStatusMessage("");
-                    },2000);
+                    setTimeout(()=>setStatusMessage(""),2000);
                 }
             });
         }
