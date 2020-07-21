@@ -51,16 +51,17 @@
 }
 .update_expense button[type=submit]
 {
-    background: rgba(80,180,80,.8);
+    background: #779539;
+    transition: .6s;
 }
 .update_expense button[type=button]
 {
-    background: rgba(100,250,100,.8);
+    background-color: rgba(250, 60, 60, 0.7);
+    transition: .6s;
 }
 .update_expense button:hover
 {
     opacity: 0.6;
-    font-weight: 600;
 }
 .update_expense #message
 {
@@ -103,12 +104,7 @@
     }
     .update_expense button[type=button]
     {
-        background: rgba(100,250,100,1);
-    }
-    .update_expense button:hover
-    {
-        opacity: 0.6;
-        font-weight: 600;
+        background-color: rgba(250, 60, 60, 0.7);
     }
     .update_expense #message
     {

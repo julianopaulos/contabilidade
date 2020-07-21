@@ -66,7 +66,7 @@
 {
     padding: 10px 15px;
     border:1px solid #fff;
-    background-color: #449d44;
+    background: #779539;
     border-radius: 8px;
     margin: 5px 3px;
     cursor: pointer;
@@ -76,7 +76,7 @@
 }
 .form-modal button:hover
 {
-    background-color: #5cb85c;
+    opacity: 0.6;
 }
 #cancel
 {
@@ -185,7 +185,7 @@
 }
 .form-profile button:hover
 {
-    opacity: 0.8;
+    opacity: 0.6;
 }
 .form-profile .eye-icon
 {

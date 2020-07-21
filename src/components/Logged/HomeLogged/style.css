@@ -113,7 +113,7 @@
 }
 .form-expense button:hover, .create_account button:hover
 {
-    background-color: rgb(100, 230, 110);
+    opacity: 0.6;
 }
 .date-filter
 {

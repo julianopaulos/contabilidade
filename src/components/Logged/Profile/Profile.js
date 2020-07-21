@@ -34,6 +34,8 @@ export default function Profile()
     const [userData,setUserData] = useState([]);
 
     const [statusMessage, setStatusMessage] = useState("");
+
+    const [disableButton, setDisableButton] = useState("");
    
 
     useEffect(()=>{
@@ -84,6 +86,7 @@ export default function Profile()
     async function handleAddImg(e)
     {
         e.preventDefault();
+        setDisableButton("disabled");
         if(previewImg && previewImg.size<=2097152)
         {
             const formData = new FormData();
@@ -119,24 +122,27 @@ export default function Profile()
                     console.log(e);
                     setStatusMessage("Ops! Algo deu errado!")
                     setTimeout(()=>setStatusMessage(""),2000);
+                    setDisableButton("");
                 })
             })
             .catch(e=>{
                 console.log(e);setStatusMessage("Ops! Algo deu errado!")
                 setTimeout(()=>setStatusMessage(""),2000);
+                setDisableButton("");
             });
         }
         else if(previewImg && previewImg.size>2097152)
         {
             setStatusMessage("A Imagem excedeu o tamanho máximo, que é de 2MB!");
             setTimeout(()=>setStatusMessage(""),3500);
+            setDisableButton("");
         }
         else
         {
             setStatusMessage("Por favor escolha uma imagem na sua galeria!");
             setTimeout(()=>setStatusMessage(""),3500);
+            setDisableButton("");
         }
-        
     }
     
     
@@ -179,8 +185,8 @@ export default function Profile()
                             <input type="file" name="userImg" onChange={(e)=>setPreviewImg(e.target.files[0])} />
                             
                             <Divider/>
-                            <button type="submit">Ok</button>
-                            <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
+                            <button type="submit" disabled={disableButton}>Ok</button>
+                            <button id="cancel" disabled={disableButton}  onClick={(e)=>handleModal(e)}>Cancelar</button>
                             <br/><h3 id="message_img">{statusMessage}</h3>
                         </form>
                     </div>
@@ -198,8 +204,8 @@ export default function Profile()
                             <input type="file" name="userImg" onChange={(e)=>setPreviewImg(e.target.files[0])} />
                             <img name="user_img" alt="user" id="user_img"/>
                             <Divider/>
-                            <button type="submit">Ok</button>
-                            <button id="cancel" onClick={(e)=>handleModal(e)}>Cancelar</button>
+                            <button type="submit" disabled={disableButton}>Ok</button>
+                            <button id="cancel" disabled={disableButton}  onClick={(e)=>handleModal(e)}>Cancelar</button>
                             <br/><h3 id="message_img">{statusMessage}</h3>
                         </form>
                     </div>
