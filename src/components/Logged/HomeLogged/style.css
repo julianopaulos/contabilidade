@@ -89,10 +89,11 @@
     font-size: .8em;
     margin: 10px auto;
     width: 250px;
-    height: 20px;
+    height: 40px;
     padding: 5px;
-    border: 1px solid #000000;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    box-sizing: border-box;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     text-align: center;
 }
@@ -202,8 +203,8 @@
     }
     #todo_card #user_icon
     {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
     }
     .create_account p
     {
@@ -224,7 +225,7 @@
         font-size: .8em;
         margin: 5px auto;
         width: 200px;
-        height: 20px;
+        height: 30px;
     }
     #non_account
     {
@@ -291,8 +292,16 @@
     .account_details
     {
         margin-bottom: 60px;
+    }
+    .form-expense input, .create_account input
+    {
+        width: 250px;   
     }   
-
+    .form-expense button, .create_account button
+    {
+        margin-top: 20px;
+        width: 150px;
+    }
 }
 @media screen and (max-width:425px)
 {
@@ -310,6 +319,10 @@
         width: 370px;
         margin: 10px auto;
         margin-bottom: 80px;
+    }
+    .create_account label
+    {
+        margin-top: 15px;
     }
     #non_account
     {

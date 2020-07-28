@@ -4,16 +4,20 @@
 }
 .presentation
 {
-    background: rgba(196, 196, 196, 0.6);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: rgba(196, 196, 196, 0.7);
+    box-shadow: 3px 4px 7px rgba(0, 0, 0, 0.25);
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
+    border-radius: 10px;
     max-width: 900px;
     height: 450px;
-    margin: 230px auto;
+    margin: 150px auto;
     margin-left: 77px; 
     color: #ffffff;
-    padding: 35px 45px; 
+    padding: 25px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .presentation .title
 {
@@ -65,13 +69,14 @@
     .presentation
     {
         width: 700px;
-        height: 430px;
-        padding: 20px;
-        margin: 100px auto;
+        height: 400px;
+        padding: 10px;
+        margin: 90px auto;
         margin-left: 77px; 
     }
     .presentation .title
     {
+        line-height: 60px;
         font-size: 3.5em;
         margin-left: 30px;
     }
@@ -86,9 +91,13 @@
 @media screen and (max-width:768px)
 {
     .presentation
-    {
+    {   
+        width: 600px;
         margin: 100px auto; 
         background: rgba(196, 196, 196, 0.8);
+        align-items: stretch;
+        padding-left: 30px;
+        padding-right: 0;
     }
     .presentation .title
     {
@@ -117,6 +126,7 @@
     }
     .presentation .subtitle
     {
+        text-align: justify;
         font-size: 1em;
         line-height: 25px;
     }
