@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import InputMask from 'react-input-mask';
 
@@ -29,6 +29,15 @@ export default function Register() {
     const [eyeIcon, setEyeIcon] = useState(closedEyeIcon);
 
     const [displayButton, setDisplayButton] = useState({display:''});
+
+
+    useEffect(()=>{
+        let div = document.querySelector("div.register-container");
+        div.classList.add("register-container","animating");
+        document.querySelectorAll("input").forEach(function(element){
+            element.classList.add("animating");
+        });
+    },[history]);
 
     async function redirect()
     {
@@ -107,7 +116,7 @@ export default function Register() {
     return (
         <div className="todo">
             <Header/>
-            <div className="register-container">
+            <div className="register-container" data-animation="top">
                 <div>
                 <div className="register-header">
                     Faça seu cadastro<br/> agora mesmo!
@@ -123,6 +132,7 @@ export default function Register() {
                                 background: `url(${userIcon})no-repeat 10px 8px`,
                                 backgroundColor: '#ffffff'
                             }}
+                            data-animation="left"
                         />
                     </label>
 
@@ -137,6 +147,7 @@ export default function Register() {
                                 background: `url(${mailIcon})no-repeat 10px 8px`,
                                 backgroundColor: '#ffffff'
                             }}
+                            data-animation="left"
                         />
                     </label>
                     <label>
@@ -149,6 +160,7 @@ export default function Register() {
                                 background: `url(${phoneIcon})no-repeat 10px 8px`,
                                 backgroundColor: '#ffffff'
                             }}
+                            data-animation="left"
                         />
                     </label>
 
@@ -163,6 +175,7 @@ export default function Register() {
                             }}
                             placeholder="Crie sua senha"
                             autoComplete="current-password"
+                            data-animation="left"
                         />
                         <span onClick={handleEyeIcon}>
                             <img 

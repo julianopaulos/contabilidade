@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Carousel} from 'react-responsive-carousel';
 
 import Header from '../Header/Header';
@@ -11,23 +11,27 @@ const img2 = require("../assets/images/img2.jpg");
 const img3 = require("../assets/images/img3.jpg");
 
 
-
 export default function Home()
 {
+    useEffect(()=>{
+        document.querySelector("div.presentation").classList.add("presentation","animating");
+        document.querySelector("div.title").classList.add("title","animating");
+        document.querySelector("div.subtitle").classList.add("subtitle","animating");
+    },[]);
     document.title = "Home";
     return(
         <div className="todo-home">
             <Header/>
-            <div className="home-container">
-                <div className="presentation">
-                    <div className="title">
-                        Quando gerenciar seus  <br/>
-                        gastos for um problema, <br/>
+            <div className="home-container" >
+                <div className="presentation" data-animation="top">
+                    <div className="title" data-animation="left">
+                        Quando gerenciar seus 
+                        gastos for um problema, 
                         conte conosco.
                     </div>
-                    <div className="subtitle">
-                        Estamos  aqui para te ajudar a ter um controle <br/>
-                        maior sobre os seus gastos do dia a dia, sem <br/>
+                    <div className="subtitle" data-animation="left"> 
+                        Estamos  aqui para te ajudar a ter um controle 
+                        maior sobre os seus gastos do dia a dia, sem
                         ter surpresas ao final do mês.
                     </div>
                 </div>
@@ -58,4 +62,5 @@ export default function Home()
             <Footer/>
         </div>
     );
+    
 }

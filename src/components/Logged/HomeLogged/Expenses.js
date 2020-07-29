@@ -50,7 +50,6 @@ export default function Expenses(props)
             .catch(e=>console.log(e));
         })
         .catch(e=>console.log(e))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[history]);
 
     useEffect(()=>{

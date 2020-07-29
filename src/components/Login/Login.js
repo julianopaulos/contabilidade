@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom';
 
 import mailIcon from '../assets/icons/mail.png';
@@ -11,9 +11,10 @@ import api from '../../services/api';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-
 import './style.css';
+
 export default function Login() {
+    
     document.title="Login";
     const history = useHistory();
     const[email, setEmail] = useState("");
@@ -22,6 +23,14 @@ export default function Login() {
     const [displayButton, setDisplayButton] = useState({display:''});
     const [eyeIcon, setEyeIcon] = useState(closedEyeIcon);
     
+    useEffect(()=>{
+        let div = document.querySelector("div.login-container");
+        div.classList.add("login-container","animating");
+        document.querySelectorAll("input").forEach(function(element){
+            element.classList.add("animating");
+        });
+    },[history]);
+
     async function redirect()
     {
         await history.push("/Register");
@@ -94,7 +103,7 @@ export default function Login() {
     return (
         <div className="todo-login">
             <Header/>
-            <div className="login-container">
+            <div className="login-container" data-animation="top">
                 <div>
                     <div className="login-header">
                         Bem-vindo de volta!
@@ -112,6 +121,7 @@ export default function Login() {
                                     background: `url(${mailIcon})no-repeat 10px 8px`,
                                     backgroundColor: '#ffffff'
                                 }}
+                                data-animation="left"
                             />
                         </label>
                         <label style={{display:"flex",alignItems:"center"}}>
@@ -126,6 +136,7 @@ export default function Login() {
                                     background: `url(${passwordIcon})no-repeat 10px 8px`,
                                     backgroundColor: '#ffffff'
                                 }}
+                                data-animation="left"
                             />
                             <span onClick={handleEyeIcon}>
                                 <img 

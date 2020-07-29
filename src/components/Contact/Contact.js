@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import {useHistory} from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
@@ -12,12 +13,22 @@ import api from '../../services/api.js';
 
 export default function Contact() {
     document.title = "Contato";
+    const history = useHistory();
     const [display, setDisplay] = useState({display:''});
     const [disableButton, setDisableButton] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [bodyMessage, setBodyMessage] = useState("");
     const [statusMessage, setStatusMessage] = useState("");
+
+    useEffect(()=>{
+        
+        document.querySelector("textarea").classList.add("animating");
+        document.querySelector("div.contact-container").classList.add("contact-container","animating");
+        document.querySelectorAll("input").forEach(function(element){
+            element.classList.add("animating");
+        });
+    },[history]);
 
     async function handleSubmit(e)
     {
@@ -85,7 +96,7 @@ export default function Contact() {
     return (
         <div className="todo-contact">
             <Header/>
-            <div className="contact-container">
+            <div className="contact-container" data-animation="top">
                 <div>
                     <div className="contact-header">
                         Entre em contato para esclarecer suas dúvidas!
@@ -101,6 +112,7 @@ export default function Contact() {
                                     background: `url(${userIcon})no-repeat 10px 8px`,
                                     backgroundColor: '#ffffff'
                                 }}
+                                data-animation="left"
                             />
                         </label>
                         <label>
@@ -113,6 +125,7 @@ export default function Contact() {
                                     background: `url(${mailIcon})no-repeat 10px 8px`,
                                     backgroundColor: '#ffffff'
                                 }}
+                                data-animation="left"
                             />
                         </label>
                         
@@ -122,6 +135,7 @@ export default function Contact() {
                                 rows="4" 
                                 placeholder="Sua Mensagem..."
                                 onKeyUp={(e)=>setBodyMessage(e.target.value)} 
+                                data-animation="left"
                             />
                         </label>
                         <button type="submit" disabled={disableButton} style={display}>Enviar E-mail</button>
