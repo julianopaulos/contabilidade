@@ -333,7 +333,7 @@
         font-size: 1.6em;
     }
 }
-@media screen and (max-width:425px)
+@media screen and (max-width:650px)
 {
     .profile-container
     {
@@ -352,7 +352,7 @@
         height: 35px;
     }
 }
-@media screen and (max-width:375px)
+@media screen and (max-width:390px)
 {
     .profile-container
     {
@@ -380,7 +380,7 @@
     }
     
 }
-@media screen and (max-width:320px)
+@media screen and (max-width:350px)
 {
     .profile-container
     {

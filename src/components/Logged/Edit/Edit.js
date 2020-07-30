@@ -61,6 +61,17 @@ export default function Edit()
             console.log(e);
         }
     },[history]);
+    useEffect(()=>{
+        document.querySelector("div.update_expense").classList.add("update_expense","animating");
+        const label = document.querySelector("div.update_expense").getElementsByTagName("label");
+        const input = document.querySelector("div.update_expense").querySelectorAll("input");
+        for(let i=0;i<label.length;i++)
+        {
+            label[i].classList.add("animating");
+            if(input[i]!==undefined)input[i].classList.add("animating");
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[[],history]); 
 
     async function handleSubmit(e)
     {
@@ -104,35 +115,41 @@ export default function Edit()
     return (
         <div className="todo-edit">
             <Header/>
-            <div className="update_expense">            
+            <div className="update_expense" data-animation="top">            
                 <form onSubmit={(e)=>handleSubmit(e)}>
-                    <label htmlFor="date">Data</label>
+                    <label data-animation="left"  htmlFor="date">Data</label>
                     <input 
                         type="date" 
                         defaultValue={dateExpense} 
                         name="date"
                         onKeyUp={(e)=>setDateExpense(e.target.value)} 
                         onChange={(e)=>{setDateExpense(e.target.value)}}
+                        data-animation="left"
+                        
                     />                       
                     <br/>
-                    <label htmlFor="description">Descrição</label>
+                    <label data-animation="left" htmlFor="description">Descrição</label>
                     <input 
                         name="description"
                         type="text" 
                         defaultValue={description} 
                         onKeyUp={(e)=>setDescription(e.target.value)} 
+                        data-animation="left"
                     />
                     <br/>
-                    <label htmlFor="value">Valor</label>
+                    <label data-animation="left" htmlFor="value">Valor</label>
                     <input 
                         name="value"
                         type="text" 
                         defaultValue={value} 
                         onKeyUp={(e)=>setValue(e.target.value)}
+                        data-animation="left"
                     />
                     <br/>
+                    <label data-animation="left"  style={{display:"flex", flexDirection:"row", margin:"0"}}>
                     <button type="submit">Alterar</button>
                     <button type="button" onClick={()=>history.push("/Logged")}>Cancelar</button>
+                    </label>
                     <br/><h4 id="message">{statusMessage}</h4>
                 </form>
             </div>

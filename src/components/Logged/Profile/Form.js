@@ -148,6 +148,7 @@ export default function Form()
                     value={name}
                     onChange={(e)=>setName(e.target.value)}
                     required
+                    data-animation="left"
                 />
             </label>
 
@@ -161,7 +162,7 @@ export default function Form()
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}
                     required
-          
+                    data-animation="left"
                 />
             </label>
             <label>
@@ -173,7 +174,7 @@ export default function Form()
                     value={phone}
                     onChange={(e)=>setPhone(e.target.value)}
                     required
-                   
+                    data-animation="left"
                 />
             </label>
             <label style={{display:"flex",alignItems:"center"}}>
@@ -184,6 +185,7 @@ export default function Form()
                     placeholder="Insira Sua Nova Senha"
                     autoComplete="current-password"
                     onChange={(e)=>setPassword(e.target.value)}
+                    data-animation="left"
                 />
                 <span toggle="#password" onClick={handleEyeIcon}>
                     <img 

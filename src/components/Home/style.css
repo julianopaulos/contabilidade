@@ -88,7 +88,7 @@
     }
 }
 
-@media screen and (max-width:768px)
+@media screen and (max-width:870px)
 {
     .presentation
     {   
@@ -113,7 +113,7 @@
 }
 
 
-@media screen and (max-width:425px)
+@media screen and (max-width:650px)
 {
     .presentation
     {
@@ -148,7 +148,7 @@
         height: 10px;
     }
 }
-@media screen and (max-width:375px)
+@media screen and (max-width:390px)
 {
     .presentation
     {
@@ -165,7 +165,7 @@
         margin: 0 20px;
     }
 }
-@media screen and (max-width:320px)
+@media screen and (max-width:360px)
 {
     .presentation
     {

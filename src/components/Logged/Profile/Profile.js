@@ -80,7 +80,16 @@ export default function Profile()
         
     },[history]);
 
-
+    useEffect(()=>{
+        document.querySelector("div.profile-container").classList.add("profile-container","animating");
+        
+        const input = document.querySelector("div.profile-container").getElementsByTagName("input");
+        for(let i=0;i<input.length;i++)
+        {
+            input[i].classList.add("animating");
+        } 
+        
+    },[]); 
     
 
     async function handleAddImg(e)
@@ -263,7 +272,7 @@ export default function Profile()
     <div className="todo-profile">
         <Header/>
             {modalContainer()}
-            <div className="profile-container">
+            <div className="profile-container" data-animation="top">
                 {containerImg()}
                 <Form/>
             </div>           

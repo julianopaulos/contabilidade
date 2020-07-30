@@ -81,7 +81,17 @@ export default function HomeLogged() {
     },[history]);
 
 
-    
+    useEffect(()=>{
+        document.querySelector("div.user_details").classList.add("user_details","animating");
+        document.querySelector("div.account_details").classList.add("account_details","animating");
+        
+        const input = document.querySelector("div.user_details").getElementsByTagName("input");
+        for(let i=0;i<input.length;i++)
+        {
+            input[i].classList.add("animating");
+        }
+    },[]);    
+
     function nameFormat(name)
     {
         if(name && (name.indexOf(" ")!==-1))
@@ -198,6 +208,7 @@ export default function HomeLogged() {
                                             required 
                                             value={total_income}
                                             onChange={(e)=>{setTotalIncome(e.target.value)}}
+                                            data-animation="left"
                                         />
                                     </label>
                                     <label>Sua meta mensal de gastos:<br/>
@@ -207,6 +218,7 @@ export default function HomeLogged() {
                                             required 
                                             value={metaSpending}
                                             onChange={(e)=>setMeta(e.target.value)}
+                                            data-animation="left"
                                         />
                                     </label>
                                     <button style={displayButton}  type="submit" title="Cadastrar renda e meta mensais de gasto" >
@@ -227,10 +239,10 @@ export default function HomeLogged() {
         <div className="todo-logged">
             <Header/>
             <div className="logged-container">
-                <div className="user_details">
+                <div className="user_details" data-animation="top">
                         {getAccount()}       
                 </div>
-                <div className="account_details">
+                <div className="account_details" data-animation="top">
                     <Expenses
                         account={accountUser}
                     />
