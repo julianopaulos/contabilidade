@@ -58,10 +58,10 @@ export default function Contact() {
                 message:bodyMessage
             }
             await api.post("/email",data)
-            .then((res)=>{
-                if(res.data.message)
+            .then((response)=>{
+                if(response.data.message)
                 {
-                    setStatusMessage(res.data.message);
+                    setStatusMessage(response.data.message);
                     setTimeout(()=>{
                         setStatusMessage("");
                         setDisplay({display: ''});
@@ -79,9 +79,9 @@ export default function Contact() {
                     },2500);
                 }
             })
-            .catch((e)=>
+            .catch((error)=>
             {
-                console.log(e);
+                console.error(error);
                 setStatusMessage("Ops, Algo deu errado! Verifique seus dados e tente novamente!");
                 setTimeout(()=>{
                     setStatusMessage("");

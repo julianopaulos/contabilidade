@@ -73,14 +73,14 @@ export default function Login() {
                     auth: {username:email, password: password},
                     signal: signal
                 })
-                .then((request)=>{
-                    setStatusMessage(request.data.message); 
-                    if(request.data.router)
+                .then((response)=>{
+                    setStatusMessage(response.data.message); 
+                    if(response.data.router)
                     {
                         setDisplayButton({display:''});
                         setTimeout(()=>{
-                            sessionStorage.setItem("token",request.data.token);
-                            history.push(`/${request.data.router}`);
+                            sessionStorage.setItem("token",response.data.token);
+                            history.push(`/${response.data.router}`);
                         },300);
                         return function cleanup()
                         {
@@ -89,15 +89,15 @@ export default function Login() {
                     }  
                     setTimeout(()=>setStatusMessage(""),2000);
                 })
-                .catch((e)=>
+                .catch((error)=>
                 {
-                    console.log(e);
+                    console.error(error);
                     setDisplayButton({display:''}); 
                     setStatusMessage("Ops! Algo deu errado!");
                     setTimeout(()=>setStatusMessage(""),2000);
                 });
             }
-            catch(e){console.log(e);}
+            catch(error){console.error(error);}
         }
     }
     return (

@@ -96,13 +96,13 @@ export default function Register() {
                     setTimeout(()=>setStatusMessage(""),2000);
                 }
             })
-            .catch((e)=>{
+            .catch((error)=>{
                 setDisplayButton({display:''});
-                console.log(e);
-                if(e.router)
+                console.error(error);
+                if(error.router)
                 {
-                    setStatusMessage(e.message);
-                    history.push(`/${e.router}`);
+                    setStatusMessage(error.message);
+                    history.push(`/${error.router}`);
                 }
                 else
                 {
