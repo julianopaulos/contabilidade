@@ -330,13 +330,21 @@
         margin: 20px auto;
         font-size: .8em;
     }
+    .date-filter label:first-of-type
+    {
+        margin-top: 20px;
+    }
     .date-filter label
     {
-        margin: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
     }
     .date-filter label input
     {
-        margin: 15px auto;
+        margin: 10px;
         background: #ffffff;
     }
 }
@@ -352,10 +360,6 @@
         width: 330px;
         margin: 10px auto;
         margin-bottom: 80px;
-    }
-    .date-filter label
-    {
-        margin: 30px;
     }
     .date-filter #value
     {
@@ -384,10 +388,6 @@
         width: 280px;
         margin: 10px auto;
         margin-bottom: 80px;
-    }
-    .date-filter label
-    {
-        margin: 15cdpx;
     }
 }
 ::-webkit-scrollbar {
