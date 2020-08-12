@@ -87,6 +87,8 @@
 {
     margin: 20px auto;
     font-size: 1em;
+    max-width: 250px;
+    text-align: center;
 }
 .form-login span u
 {
@@ -109,7 +111,7 @@
     .login-container
     {
         margin:60px auto;
-    }
+    }    
 }
 @media screen and (max-width:1024px)
 {
