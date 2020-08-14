@@ -33,23 +33,23 @@ export default function Expenses(props)
                 authorization: "Bearer "+sessionStorage.getItem("token")
             }
         })
-        .then((req)=>{
-            if(req.data.router)
+        .then((response)=>{
+            if(response.data.router)
             {
                 sessionStorage.clear();
-                history.push(`/${req.data.router}`);
+                history.push(`/${response.data.router}`);
             }
             api.get("/expense",{
                 headers:{
                     authorization: sessionStorage.getItem("token")
                 }
             })
-            .then((req)=>{            
-                if(Array.isArray(req.data))setExpenses(req.data);
+            .then((response)=>{            
+                if(Array.isArray(response.data))setExpenses(response.data);
             })
-            .catch(e=>console.log(e));
+            .catch(error=>console.error(error));
         })
-        .catch(e=>console.log(e))
+        .catch(error=>console.error(error))
     },[history]);
 
     useEffect(()=>{
@@ -79,7 +79,7 @@ export default function Expenses(props)
                 setCurrentExpenses(currentExpenses.concat(expenses.slice(count.prev + 5, count.next + 5)));
                 getCurrentExpenseValues(currentExpenses);
             }
-            catch(e){console.log(e);}
+            catch(error){console.error(error);}
         }, 1000);
         setCount((prevState) => ({ prev: prevState.prev + 5, next: prevState.next + 5 }));
     }
@@ -108,26 +108,26 @@ export default function Expenses(props)
                     authorization: sessionStorage.getItem("token")
                 }
             })
-            .then((req)=>{
+            .then((response)=>{
                 api.get("/expense",{
                     headers:{
                         authorization: sessionStorage.getItem("token")
                     }
                 })
-                .then((req)=>{
+                .then((response)=>{
                     setDisplayButton({display:''});
                     setStatusMessage("");
-                    if(req.data)
+                    if(response.data)
                     {
                         setCount(() => ({ prev: 0, next: 5 }));
-                        setExpenses(req.data);
-                        getExpenseValues(req.data);
+                        setExpenses(response.data);
+                        getExpenseValues(response.data);
                         setDescription("");
                         setValue("");
                     }
                 })
-                .catch((e)=>{
-                    console.log(e);
+                .catch((error)=>{
+                    console.error(error);
                     setStatusMessage("Ops, algo deu errado! Tente novamente mais tarde.");
                     setTimeout(()=>{
                         setDisplayButton({display:''});
@@ -135,7 +135,7 @@ export default function Expenses(props)
                     },2000);
                 });
             })
-            .catch(e=>console.log(e))
+            .catch(error=>console.error(error))
         }
     }
 
@@ -154,10 +154,10 @@ export default function Expenses(props)
                     id_expense: expense_id
                 }
             })
-            .then((req)=>{
-                if(req.data.router)
+            .then((response)=>{
+                if(response.data.router)
                 {
-                    history.push(`/${req.data.router}`);
+                    history.push(`/${response.data.router}`);
                 }
                 if(expenses.length>0)
                 {
@@ -167,7 +167,7 @@ export default function Expenses(props)
                 }
                     
             })
-            .catch(e=>console.log(e));
+            .catch(error=>console.error(error));
         }
     }
 
@@ -186,18 +186,18 @@ export default function Expenses(props)
                     initDate:initDate,
                     finalDate:finalDate
                 }
-            }).then((res)=>{
-                if(!res.data.message)
+            }).then((response)=>{
+                if(!response.data.message)
                 {
                     setCount(() => ({ prev: 0, next: 5 }));
-                    setExpenses(res.data);
-                    if(res.data.length===1)
+                    setExpenses(response.data);
+                    if(response.data.length===1)
                     {
-                        setCurrentExpenses(res.data);
-                        getCurrentExpenseValues(res.data);
+                        setCurrentExpenses(response.data);
+                        getCurrentExpenseValues(response.data);
                     }
                 }
-            }).catch(e=>console.log(e));
+            }).catch(error=>console.error(error));
         }
     }
 

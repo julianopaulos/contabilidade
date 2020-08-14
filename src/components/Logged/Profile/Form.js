@@ -28,22 +28,22 @@ export default function Form()
                 headers:{
                     authorization:"Bearer "+sessionStorage.getItem("token")
                 }
-            }).then((req)=>{
-                if(req.data.router)
+            }).then((response)=>{
+                if(response.data.router)
                 {
                     sessionStorage.clear();
-                    history.push(`/${req.data.router}`);
+                    history.push(`/${response.data.router}`);
                 }
                 else
                 {
-                    setName(req.data.name);
-                    setEmail(req.data.email);
-                    setPhone(req.data.phone);
+                    setName(response.data.name);
+                    setEmail(response.data.email);
+                    setPhone(response.data.phone);
                 }
             })
-            .catch((error)=>{console.log(error)});
+            .catch((error)=>{console.error(error)});
         }
-        catch(e){console.log(e);}
+        catch(error){console.error(error);}
     },[history]);
 
     function handleEyeIcon()
@@ -109,11 +109,11 @@ export default function Form()
                     authorization: sessionStorage.getItem("token")
                 }
             })
-            .then((res)=>{
-                if(res.data)
+            .then((response)=>{
+                if(response.data)
                 {
                     setDisplay({display:''});
-                    setStatusMessage(res.data);
+                    setStatusMessage(response.data);
                     setTimeout(()=>setStatusMessage(""),3000);
                 }
                 else
@@ -123,8 +123,8 @@ export default function Form()
                     setTimeout(()=>setStatusMessage(""),2000);
                 }
             })
-            .catch((e)=>{
-                console.log(e);
+            .catch((error)=>{
+                console.error(error);
                 setStatusMessage("Ops! Algo deu errado!");
                 setTimeout(()=>{
                     setDisplay({display:''});

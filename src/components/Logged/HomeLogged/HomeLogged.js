@@ -46,27 +46,27 @@ export default function HomeLogged() {
                 authorization: "Bearer "+sessionStorage.getItem("token")
             }
         })
-        .then((req)=>{
-            if(req.data.router)
+        .then((response)=>{
+            if(response.data.router)
             {
                 sessionStorage.clear();
-                history.push(`/${req.data.router}`);
+                history.push(`/${response.data.router}`);
             }
-            if(req.data)
+            if(response.data)
             {
-                if(req.data.total_income)setAccountUser(req.data);
-                setName(req.data.name);
+                if(response.data.total_income)setAccountUser(response.data);
+                setName(response.data.name);
             }
             api.get("/img",{
                 headers:{
                     Authorization: sessionStorage.getItem("token")
                 }
             })
-            .then((res)=>{
+            .then((response)=>{
                 
-                if(res.data.url)
+                if(response.data.url)
                 {
-                    setUserImg(res.data.url);
+                    setUserImg(response.data.url);
                     setImgTitle("Foto de perfil");
                 }
                 else
@@ -75,9 +75,9 @@ export default function HomeLogged() {
                     setImgTitle("Adicione uma foto de perfil");
                 }
             })
-            .catch(e=>console.log(e))
+            .catch(error=>console.error(error))
         })
-        .catch(e=>console.log(e));
+        .catch(error=>console.error(error));
     },[history]);
 
 
@@ -126,13 +126,13 @@ export default function HomeLogged() {
                     authorization: sessionStorage.getItem("token")
                 }
             })
-            .then((req)=>{
+            .then((response)=>{
                 setDisplayButton({display:''});
                 setStatusMessage("");
-                setAccountUser(req.data);
+                setAccountUser(response.data);
             })
-            .catch((e)=>{
-                console.log(e);
+            .catch((error)=>{
+                console.error(error);
                 setStatusMessage("Ops, algo deu errado! Tente novamente mais tarde.");
                 setTimeout(()=>{
                     setDisplayButton({display:''});

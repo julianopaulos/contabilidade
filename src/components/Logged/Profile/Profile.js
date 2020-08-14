@@ -48,18 +48,18 @@ export default function Profile()
                     authorization:"Bearer "+sessionStorage.getItem("token")
                 },
                 signal:signal
-            }).then((req)=>{
-                if(typeof(req.data) !== "object")history.push("/Home");
+            }).then((response)=>{
+                if(typeof(response.data) !== "object")history.push("/Home");
                 else
                 {
-                    setUserData(req.data);
+                    setUserData(response.data);
                     api.get("/img",{
                         headers:{
                             Authorization: sessionStorage.getItem("token")
                         }
                     })
-                    .then((res)=>{if(res.data.url)setUserImg(res.data.url)})
-                    .catch(e=>console.log(e));
+                    .then((response)=>{if(response.data.url)setUserImg(response.data.url)})
+                    .catch(error=>console.error(error));
                     return function cleanup()
                     {
                         abortController.abort();
@@ -72,7 +72,7 @@ export default function Profile()
                 abortController.abort();
             }
         }
-        catch(e){console.log(e);}
+        catch(error){console.error(error);}
         return function cleanup()
         {
             abortController.abort();
@@ -112,30 +112,31 @@ export default function Profile()
                     setStatusMessage(`Progresso: ${progress}%`) : setStatusMessage("Aguarde...");
                 }
             })
-            .then((res)=>{
+            .then((response)=>{
                 api.get("/img",{
                     headers:{
                         Authorization: sessionStorage.getItem("token"),
                     }
                 })
-                .then((res)=>{
-                    if(res.data.url)
+                .then((response)=>{
+                    if(response.data.url)
                     {
                         setStatusMessage("Foto cadastrada!");
                         setTimeout(()=>setStatusMessage(""),2500);
-                        setUserImg(res.data.url);
+                        setUserImg(response.data.url);
                         handleModal();
                     }
                 })
-                .catch((e)=>{
-                    console.log(e);
+                .catch((error)=>{
+                    console.log(error);
                     setStatusMessage("Ops! Algo deu errado!")
                     setTimeout(()=>setStatusMessage(""),2000);
                     setDisableButton("");
                 })
             })
-            .catch(e=>{
-                console.log(e);setStatusMessage("Ops! Algo deu errado!")
+            .catch(error=>{
+                console.error(error);
+                setStatusMessage("Ops! Algo deu errado!")
                 setTimeout(()=>setStatusMessage(""),2000);
                 setDisableButton("");
             });

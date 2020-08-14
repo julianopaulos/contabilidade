@@ -30,8 +30,8 @@ export default function Edit()
                     authorization: "Bearer "+sessionStorage.getItem("token")
                 }
             })
-            .then((res)=>{
-                if(res.data.router)history.push(`/${res.data.router}`);
+            .then((response)=>{
+                if(response.data.router)history.push(`/${response.data.router}`);
                 let get_string_url = window.location.href; 
                 let url = new URL(get_string_url);
                 let id_expense = Number(url.searchParams.get("id"));
@@ -42,23 +42,23 @@ export default function Edit()
                             authorization: sessionStorage.getItem("token")
                         }
                     })
-                    .then((res)=>{
-                        if(typeof(res.data) === "object")
+                    .then((response)=>{
+                        if(typeof(response.data) === "object")
                         {
-                            setDescription(res.data.description);
-                            setDateExpense(res.data.date_expense.replace(/\//g,"-"));
-                            setValue(res.data.value);
+                            setDescription(response.data.description);
+                            setDateExpense(response.data.date_expense.replace(/\//g,"-"));
+                            setValue(response.data.value);
                         }
                         else history.push("/Logged");                     
                     })
-                    .catch(e=>console.log(e))
+                    .catch(error=>console.log(error))
                 }
             })
-            .catch(e=>console.log(e))
+            .catch(error=>console.error(error))
         }
-        catch(e)
+        catch(error)
         {
-            console.log(e);
+            console.error(error);
         }
     },[history]);
     useEffect(()=>{
@@ -97,15 +97,15 @@ export default function Edit()
                     id_expense: expense_id
                 }
             })
-            .then((res)=>{
-                if(res.data.message)
+            .then((response)=>{
+                if(response.data.message)
                 {
-                    setStatusMessage(res.data.message);
+                    setStatusMessage(response.data.message);
                     setTimeout(()=>history.push("/Logged"),1000);
                 }
             })
-            .catch(e=>{
-                console.log(e);
+            .catch(error=>{
+                console.error(error);
                 setStatusMessage("Ops, algo deu errado! Recarregue e tente novamente.");
                 setTimeout(()=>setStatusMessage(""),2000);
             });
