@@ -31,7 +31,10 @@ export default function Edit()
                 }
             })
             .then((response)=>{
-                if(response.data.router)history.push(`/${response.data.router}`);
+                if(response.status !== 200){
+                    history.push("/");
+                    sessionStorage.clear();
+                }
                 let get_string_url = window.location.href; 
                 let url = new URL(get_string_url);
                 let id_expense = Number(url.searchParams.get("id"));
@@ -54,7 +57,11 @@ export default function Edit()
                     .catch(error=>console.log(error))
                 }
             })
-            .catch(error=>console.error(error))
+            .catch(error=>{
+                console.error(error);
+                history.push("/");
+                sessionStorage.clear();
+            })
         }
         catch(error)
         {

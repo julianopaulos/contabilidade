@@ -57,7 +57,7 @@ export default function Login() {
         {
             e.preventDefault();
             setStatusMessage("Digite todos os campos necessários!");
-            setTimeout(()=>setStatusMessage(""),2000);
+            setTimeout(()=>setStatusMessage(""),3000);
         }
         else
         {
@@ -75,9 +75,9 @@ export default function Login() {
                 })
                 .then((response)=>{
                     setStatusMessage(response.data.message); 
-                    if(response.data.router)
+                    setDisplayButton({display:''});
+                    if(response.data.router && response.data.token)
                     {
-                        setDisplayButton({display:''});
                         setTimeout(()=>{
                             sessionStorage.setItem("token",response.data.token);
                             history.push(`/${response.data.router}`);
@@ -87,14 +87,14 @@ export default function Login() {
                             abortController.abort();
                         }
                     }  
-                    setTimeout(()=>setStatusMessage(""),2000);
+                    setTimeout(()=>setStatusMessage(""),3000);
                 })
                 .catch((error)=>
                 {
                     console.error(error);
                     setDisplayButton({display:''}); 
                     setStatusMessage("Ops! Algo deu errado!");
-                    setTimeout(()=>setStatusMessage(""),2000);
+                    setTimeout(()=>setStatusMessage(""),3000);
                 });
             }
             catch(error){console.error(error);}

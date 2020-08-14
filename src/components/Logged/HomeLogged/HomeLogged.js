@@ -47,10 +47,10 @@ export default function HomeLogged() {
             }
         })
         .then((response)=>{
-            if(response.data.router)
+            if(response.status!==200)
             {
                 sessionStorage.clear();
-                history.push(`/${response.data.router}`);
+                history.push("/");
             }
             if(response.data)
             {
@@ -77,7 +77,11 @@ export default function HomeLogged() {
             })
             .catch(error=>console.error(error))
         })
-        .catch(error=>console.error(error));
+        .catch(error=>{
+            console.error(error);
+            sessionStorage.clear();
+            history.push("/");
+        });
     },[history]);
 
 

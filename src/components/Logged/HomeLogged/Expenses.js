@@ -34,10 +34,10 @@ export default function Expenses(props)
             }
         })
         .then((response)=>{
-            if(response.data.router)
+            if(response.status !== 200)
             {
                 sessionStorage.clear();
-                history.push(`/${response.data.router}`);
+                history.push("/");
             }
             api.get("/expense",{
                 headers:{
@@ -49,7 +49,11 @@ export default function Expenses(props)
             })
             .catch(error=>console.error(error));
         })
-        .catch(error=>console.error(error))
+        .catch(error=>{
+            console.error(error);
+            history.push("/");
+            sessionStorage.clear();
+        });
     },[history]);
 
     useEffect(()=>{

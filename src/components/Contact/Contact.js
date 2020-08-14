@@ -45,7 +45,7 @@ export default function Contact() {
             setTimeout(()=>{
                 setStatusMessage("");
                 setDisableButton("");
-            },1500);
+            },3000);
         }
         else
         {
@@ -66,7 +66,7 @@ export default function Contact() {
                         setStatusMessage("");
                         setDisplay({display: ''});
                         setDisableButton("");
-                    },2500);
+                    },3000);
                 }
                 else
                 {
@@ -76,7 +76,7 @@ export default function Contact() {
                         setDisplay({display: ''});
                         setStatusMessage("");
                         setDisableButton("");
-                    },2500);
+                    },3000);
                 }
             })
             .catch((error)=>
@@ -88,7 +88,7 @@ export default function Contact() {
                     setDisplay({display: ''});
                     setStatusMessage("");
                     setDisableButton("");
-                },2500);
+                },3000);
             });
         }
     }

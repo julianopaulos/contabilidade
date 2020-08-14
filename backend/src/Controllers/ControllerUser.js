@@ -2,8 +2,6 @@ const jwt = require('./jwt');
 const connection = require("../database/connection");
 const cryptographe = require("../services/crypt");
 
-
-
 module.exports={
     
     async index(req,res)
@@ -16,26 +14,22 @@ module.exports={
             const credentials = Buffer.from(hash,"base64").toString();
             const [email,password] = credentials.split(':');
             const data = await connection('user').select("*")
-                .where("email",email).where("pass",cryptographe.cript(password)).limit(1).first();
-                
+                .where("email",email)
+                .where("pass",cryptographe.cript(password))
+                .limit(1).first();
             if(!data)
             {
                 message = "Usuário ou senha incorretos!";
-                router = "Login";
-                return res.json({message,router});
+                return res.status(203).json({message});
             }
-            
             data.pass = undefined;
             const token = jwt.sign({user_id : data.id});
-            
             return res.status(200).json({data,token,message,router});
-            
         }
-        catch(e)
+        catch(error)
         {
-            return res.status(400).send(e);
+            return res.status(400).send(error);
         }
-        
     },
 
     async create(req,res)
@@ -46,7 +40,6 @@ module.exports={
         {   
             let id = 0;
             let message="E-mail já cadastrado!";
-            let router = "Login";
             const data = await connection('user').select("*").where("email",email).where("pass",pass);
             if(data.length===0)
             {
@@ -59,19 +52,17 @@ module.exports={
             }
             else
             {
-                router = "Login";
-                return res.send({message,router});
+                return res.status(203).send({message});
             }
             const token = jwt.sign({user_id : id});
-            return res.status(201).json({id,token,router});
+            return res.status(201).json({id,token});
         }
-        catch(e){
-            return res.status(400).send(e);
+        catch(error){
+            return res.status(400).send(error);
         }
     },
     async find(req,res)
     {
-        const router = "Home";
         try
         {
             const [,token] = req.headers.authorization.split(" ");      
@@ -88,7 +79,7 @@ module.exports={
                     if(data)
                     {
                         data.pass = undefined;
-                        return res.json(data);
+                        return res.status(200).json(data);
                     }
                     
                     const data_user = await connection("user")
@@ -100,18 +91,14 @@ module.exports={
                         data_user.pass = undefined;
                         return res.status(200).json(data_user);    
                     }
-                    return res.send("Usuário não encontrado!");
-                    
+                    return res.status(204).send("Usuário não encontrado!");
                 }
-                
-                return res.send(router);
-                
+                return res.status(401);
             }
             catch(e)
             {
-                return res.send({e,router});
+                return res.status(400).send(e);
             }
-
         }
         catch(e)
         {
@@ -144,7 +131,7 @@ module.exports={
                     .where("id",payload.user_id);
                     return res.status(200).json("Dados alterados com sucesso!"); 
                 }
-                return res.json("E-mail já utilizado!");
+                return res.status(203).json("E-mail já utilizado!");
             }
             return res.status(401).send(payload);
         }

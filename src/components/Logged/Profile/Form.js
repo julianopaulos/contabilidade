@@ -29,10 +29,10 @@ export default function Form()
                     authorization:"Bearer "+sessionStorage.getItem("token")
                 }
             }).then((response)=>{
-                if(response.data.router)
+                if(response.status !== 200)
                 {
                     sessionStorage.clear();
-                    history.push(`/${response.data.router}`);
+                    history.push("/");
                 }
                 else
                 {
@@ -41,7 +41,11 @@ export default function Form()
                     setPhone(response.data.phone);
                 }
             })
-            .catch((error)=>{console.error(error)});
+            .catch((error)=>{
+                console.error(error);
+                sessionStorage.clear();
+                history.push("/");
+            });
         }
         catch(error){console.error(error);}
     },[history]);

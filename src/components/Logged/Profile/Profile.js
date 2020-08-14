@@ -49,7 +49,10 @@ export default function Profile()
                 },
                 signal:signal
             }).then((response)=>{
-                if(typeof(response.data) !== "object")history.push("/Home");
+                if(typeof(response.data) !== "object" || response.status !== 200){
+                    history.push("/");
+                    sessionStorage.clear();
+                }
                 else
                 {
                     setUserData(response.data);
@@ -66,7 +69,11 @@ export default function Profile()
                     }
                 }
             })
-            .catch((error)=>{console.log(error);});
+            .catch((error)=>{
+                console.log(error);
+                history.push("/");
+                sessionStorage.clear();
+            });
             return function cleanup()
             {
                 abortController.abort();
