@@ -39,7 +39,6 @@ module.exports={
         try
         {   
             let id = 0;
-            let message="E-mail já cadastrado!";
             const data = await connection('user').select("*").where("email",email).where("pass",pass);
             if(data.length===0)
             {
@@ -52,7 +51,7 @@ module.exports={
             }
             else
             {
-                return res.status(203).send({message});
+                return res.status(203).json({message:"E-mail já cadastrado!"});
             }
             const token = jwt.sign({user_id : id});
             return res.status(201).json({id,token});
@@ -93,18 +92,17 @@ module.exports={
                     }
                     return res.status(204).send("Usuário não encontrado!");
                 }
-                return res.status(401);
+                return res.status(401).send(payload);
             }
-            catch(e)
+            catch(error)
             {
-                return res.status(400).send(e);
+                return res.status(400).send(error);
             }
         }
-        catch(e)
+        catch(error)
         {
-            return res.status(400).send(e);
+            return res.status(400).send(error);
         }
-        
     },
 
 
@@ -135,11 +133,9 @@ module.exports={
             }
             return res.status(401).send(payload);
         }
-        catch(e)
+        catch(error)
         {
-            return res.status(400).send(e);
+            return res.status(400).send(error);
         }
     }
-
-
 };

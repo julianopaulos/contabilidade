@@ -26,13 +26,13 @@ module.exports = {
                     data.id_user_account = undefined;
                     return res.status(200).send(data);
                 }
-                return res.send("Sem despesas encontradas!"); 
+                return res.status(204).send("Despesa não encontrada!"); 
             }
             return res.status(401).send(payload); 
         }
-        catch(e)
+        catch(error)
         {
-            res.status(400).send(e);
+            res.status(400).send(error);
         }
     },
     async findByDate(req,res)
@@ -60,15 +60,15 @@ module.exports = {
                     {
                         return res.status(200).json(data);
                     }
-                    return res.json({"message":"Nenhuma despesa encontrada!"});
+                    return res.status(204).json({message:"Nenhuma despesa encontrada!"});
                 }
-                return res.json({"message":"Conta não encontrada!"});
+                return res.status(203).json({message:"Conta não encontrada!"});
             }
             return res.status(401).send(payload); 
         }
-        catch(e)
+        catch(error)
         {
-            return res.status(400).send(e);
+            return res.status(400).send(error);
         }
     }
 }
