@@ -159,9 +159,10 @@ export default function Expenses(props)
                 }
             })
             .then((response)=>{
-                if(response.data.router)
+                if(response.status>400)
                 {
-                    history.push(`/${response.data.router}`);
+                    sessionStorage.clear();
+                    history.push("/");
                 }
                 if(expenses.length>0)
                 {
@@ -169,7 +170,6 @@ export default function Expenses(props)
                     getExpenseValues(expenses.filter((expense)=>expense.id!==expense_id));
                     getCurrentExpenseValues(currentExpenses.filter((expense)=>expense.id!==expense_id));
                 }
-                    
             })
             .catch(error=>console.error(error));
         }
