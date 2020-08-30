@@ -2,12 +2,12 @@ const crypto = require("crypto");
 
 
 const cript = (pass) =>{
-    return  crypto.createHash("md5").update(pass).digest('hex')    
+    return  crypto.createHash("ssl3-md5").update(pass).digest('hex')    
 }
 
 
 const descript = (pass)=>{
-    const decipher = crypto.createDecipher("md5","24759383");
+    const decipher = crypto.createDecipher("ssl3-md5","f4QqXJD1RAsuUK0Gr6SR");
     decipher.update(pass,"hex","utf8");
     return decipher.final("utf8"); 
 }
